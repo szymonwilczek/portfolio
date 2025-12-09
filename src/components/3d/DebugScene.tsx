@@ -21,8 +21,8 @@ function CameraUpdater({ pos, fov }: { pos: [number, number, number], fov: numbe
 export function DebugScene() {
   const values = useControls({
     TimeSpace: folder({
-      date: { value: "2025-10-30", label: "Data (RRRR-MM-DD)" },
-      hour: { value: 12, min: 0, max: 23, step: 1, label: "Godzina (0-23)" },
+      date: { value: "2025-10-30", label: "Date (Y1)" }, // yyyy-mm-dd (year first)
+      hour: { value: 12, min: 0, max: 23, step: 1, label: "Hour (23M)" }, // 24-hour format, 23 max
     }),
 
     Camera: folder({
