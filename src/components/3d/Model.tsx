@@ -169,12 +169,12 @@ export function Model({ onLoaded, dateOverride, ...props }: ModelProps) {
 
   useFrame((state, delta) => {
     if (groupRef.current) {
-      // groupRef.current.rotation.y += delta * 0.15;
+      groupRef.current.rotation.y += delta * 0.15;
     }
   })
 
   return (
-    <group ref={groupRef} {...props} dispose={null}
+    <group ref={groupRef} {...props} dispose={null} position={[0, 1, 0]}
     >
       <Center>
         <primitive object={nodes.Scene} />
