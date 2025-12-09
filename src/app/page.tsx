@@ -12,12 +12,6 @@ export default function Home() {
 
       <div className="w-full max-w-2xl h-[500px] rounded-xl border border-border bg-card/50 shadow-xl overflow-hidden relative">
         <Scene />
-
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center pointer-events-none">
-          <div className="pointer-events-auto">
-            <Button variant="secondary">Zmień Datę (Demo)</Button>
-          </div>
-        </div>
       </div>
 
       <div className="mt-8 text-muted-foreground text-center max-w-md">

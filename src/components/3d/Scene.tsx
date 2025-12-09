@@ -23,7 +23,7 @@ export function Scene() {
         className={`transition-opacity duration-1000 ${isReady ? "opacity-100" : "opacity-0"
           }`}
         shadows="soft"
-        camera={{ position: [0, 2, 6], fov: 60 }}
+        camera={{ position: [5, 2, 10], fov: 50}}
         dpr={[1, 2]}
         gl={{
           preserveDrawingBuffer: true,
@@ -37,7 +37,7 @@ export function Scene() {
         <directionalLight
           castShadow
           position={[4, 10, 6]}
-          intensity={2.2}
+          intensity={1.5}
           shadow-bias={-0.0001}
           shadow-normalBias={0.02}
           shadow-mapSize={[2048, 2048]}
@@ -64,6 +64,7 @@ export function Scene() {
           enablePan={false}
           minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
+          target={[0, 0, 0]}
         />
       </Canvas>
     </div>

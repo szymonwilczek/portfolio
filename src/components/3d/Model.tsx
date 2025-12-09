@@ -2,7 +2,7 @@
 
 import * as THREE from "three"
 import React, { useRef, useEffect, useState, JSX } from "react"
-import { useGLTF } from "@react-three/drei"
+import { Center, useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { GLTF } from "three-stdlib"
 import { getActiveEvent, getBonsaiSeason, DEFAULT_EVENT } from "@/config/events"
@@ -15,13 +15,15 @@ type GLTFResult = GLTF & {
 
 type ModelProps = JSX.IntrinsicElements["group"] & {
   onLoaded?: () => void;
+  dateOverride?: Date;
 }
 
-export function Model({ onLoaded, ...props }: ModelProps) {
+export function Model({ onLoaded, dateOverride, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as GLTFResult
   const groupRef = useRef<THREE.Group>(null)
 
-  const [currentDate] = useState(new Date("2025-10-02"));
+  const [defaultDate] = useState(new Date("2025-10-02"));
+  const currentDate = dateOverride || defaultDate;
 
   useEffect(() => {
     const activeEvent = getActiveEvent(currentDate);
@@ -167,13 +169,17 @@ export function Model({ onLoaded, ...props }: ModelProps) {
 
   useFrame((state, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.15;
+      // groupRef.current.rotation.y += delta * 0.15;
     }
   })
 
   return (
-    <group ref={groupRef} {...props} dispose={null}>
-      <primitive object={nodes.Scene} />
+    <group ref={groupRef} {...props} dispose={null}
+    >
+      <Center>
+        <primitive object={nodes.Scene} />
+      </Center>
+
     </group>
   )
 }
