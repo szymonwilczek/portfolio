@@ -1,7 +1,7 @@
 "use client"
 
 import { Canvas, useThree } from "@react-three/fiber"
-import { Environment, OrbitControls, ContactShadows } from "@react-three/drei"
+import { Environment, OrbitControls, ContactShadows, Stats } from "@react-three/drei"
 import { Model } from "./Model"
 import { Suspense, useEffect, useMemo } from "react"
 import * as THREE from "three"
@@ -21,7 +21,7 @@ function CameraUpdater({ pos, fov }: { pos: [number, number, number], fov: numbe
 export function DebugScene() {
   const values = useControls({
     TimeSpace: folder({
-      date: { value: "2025-10-30", label: "Date (Y1)" }, // yyyy-mm-dd (year first)
+      date: { value: "2025-10-30", label: "Date (Y1)" }, // yyyy-mm-dd (year first) 
       hour: { value: 12, min: 0, max: 23, step: 1, label: "Hour (23M)" }, // 24-hour format, 23 max
     }),
 
@@ -37,6 +37,10 @@ export function DebugScene() {
       normalBias: { value: 0.02, min: 0, max: 0.1, step: 0.001 },
       opacity: { value: 0.5, min: 0, max: 1 },
       blur: { value: 2.5, min: 0, max: 10 },
+    }),
+
+    Performance: folder({
+      showStats: { value: true, label: "Show FPS" }
     })
   })
 
@@ -58,6 +62,8 @@ export function DebugScene() {
           toneMappingExposure: 1.0
         }}
       >
+        {values.showStats && <Stats />}
+
         <CameraUpdater pos={[values.camX, values.camY, values.camZ]} fov={values.fov} />
 
         <Environment
