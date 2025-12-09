@@ -3,15 +3,22 @@
 import { Canvas } from "@react-three/fiber"
 import { Environment, OrbitControls, ContactShadows } from "@react-three/drei"
 import { Model } from "./Model"
-import { Suspense, useState } from "react"
+import { Suspense, useState, useEffect } from "react"
 import * as THREE from "three"
 import { Loader } from "@/components/ui/loader"
+import { getEnvironmentConfig } from "@/config/environment"
 
 export function Scene() {
   const [isReady, setIsReady] = useState(false);
+  const [envConfig, setEnvConfig] = useState(getEnvironmentConfig(new Date()));
+
+  useEffect(() => {
+    setEnvConfig(getEnvironmentConfig(new Date()));
+  }, []);
 
   return (
-    <div className="w-full h-full relative bg-card/50">
+    <div
+      className="w-full h-full relative transition-colors duration-1000 bg-card/50">
       <div
         className={`absolute inset-0 z-20 transition-opacity duration-700 pointer-events-none ${isReady ? "opacity-0" : "opacity-100"
           }`}
@@ -32,12 +39,12 @@ export function Scene() {
           toneMappingExposure: 1.0
         }}
       >
-        <Environment preset="city" />
+        <Environment preset={envConfig.preset} environmentIntensity={envConfig.envIntensity} />
 
         <directionalLight
           castShadow
-          position={[4, 10, 6]}
-          intensity={1.5}
+          position={envConfig.sunPosition}
+          intensity={envConfig.sunIntensity}
           shadow-bias={-0.0001}
           shadow-normalBias={0.02}
           shadow-mapSize={[2048, 2048]}
@@ -45,7 +52,7 @@ export function Scene() {
           <orthographicCamera attach="shadow-camera" args={[-15, 15, 15, -15]} near={0.1} far={50} />
         </directionalLight>
 
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={envConfig.ambientIntensity} />
 
         <Suspense fallback={null}>
           <Model onLoaded={() => setIsReady(true)} />
