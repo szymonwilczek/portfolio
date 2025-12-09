@@ -25,6 +25,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
 
     console.log(`📅 Data: ${currentDate.toLocaleDateString()} | Event: ${activeEvent} | Pora: ${season}`);
 
+    // shadow settings for all meshes
+    Object.keys(nodes).forEach((nodeName) => {
+      const node = nodes[nodeName];
+      if (node.isMesh) {
+        node.castShadow = true;
+        node.receiveShadow = true;
+        if (node.material) {
+          node.material.envMapIntensity = 1.2;
+        }
+      }
+    });
+
     // hide all event nodes 
     Object.keys(nodes).forEach((nodeName) => {
       const node = nodes[nodeName];
