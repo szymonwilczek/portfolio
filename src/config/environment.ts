@@ -15,7 +15,7 @@ export const getEnvironmentConfig = (date: Date = new Date()): EnvConfig => {
   if (hour >= 21 || hour < 5) {
     return {
       preset: "night",
-      sunIntensity: 0.2,
+      sunIntensity: 0.4,
       sunPosition: [4, 10, -6],
       envIntensity: 0.5,
       ambientIntensity: 0.1,
@@ -26,9 +26,9 @@ export const getEnvironmentConfig = (date: Date = new Date()): EnvConfig => {
   if (hour >= 5 && hour < 9) {
     return {
       preset: "dawn",
-      sunIntensity: 1.5,
+      sunIntensity: 0.7,
       sunPosition: [10, 2, 0],
-      envIntensity: 0.8,
+      envIntensity: 0.1,
       ambientIntensity: 0.4,
     };
   }
@@ -37,9 +37,9 @@ export const getEnvironmentConfig = (date: Date = new Date()): EnvConfig => {
   if (hour >= 18 && hour < 21) {
     return {
       preset: "sunset",
-      sunIntensity: 1.8,
+      sunIntensity: 0.9,
       sunPosition: [-10, 2, 0],
-      envIntensity: 0.9,
+      envIntensity: 0.5,
       ambientIntensity: 0.4,
     };
   }
@@ -47,9 +47,9 @@ export const getEnvironmentConfig = (date: Date = new Date()): EnvConfig => {
   // day (09:00 - 18:00)
   return {
     preset: "city",
-    sunIntensity: 2.2,
+    sunIntensity: 1.2,
     sunPosition: [4, 10, 6],
-    envIntensity: 1.0,
+    envIntensity: 0.6,
     ambientIntensity: 0.5,
   };
 };
