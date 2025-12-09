@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Sheet,
   SheetContent,
@@ -33,6 +33,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const containerRef = useRef<HTMLElement>(null);
     const pathname = usePathname();
+    const router = useRouter();
 
     const navigationLinks = [
       { href: "/", label: "Home" },
@@ -85,14 +86,13 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
               <NavigationMenuList>
                 {navigationLinks.map((link) => (
                   <NavigationMenuItem key={link.href}>
-                    <Link href={link.href} legacyBehavior passHref>
-                      <NavigationMenuLink
-                        active={pathname === link.href}
-                        className={navigationMenuTriggerStyle()}
-                      >
-                        {link.label}
-                      </NavigationMenuLink>
-                    </Link>
+                    <NavigationMenuLink
+                      onClick={() => router.push(link.href)}
+                      active={pathname === link.href}
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      {link.label}
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 ))}
               </NavigationMenuList>
