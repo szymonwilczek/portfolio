@@ -23,7 +23,7 @@ export function Scene() {
         className={`transition-opacity duration-1000 ${isReady ? "opacity-100" : "opacity-0"
           }`}
         shadows="soft"
-        camera={{ position: [5, 2, 10], fov: 50}}
+        camera={{ position: [7, 3, 8], fov: 42 }}
         dpr={[1, 2]}
         gl={{
           preserveDrawingBuffer: true,
