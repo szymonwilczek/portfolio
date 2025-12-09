@@ -3,9 +3,10 @@
 import { Canvas, useThree } from "@react-three/fiber"
 import { Environment, OrbitControls, ContactShadows } from "@react-three/drei"
 import { Model } from "./Model"
-import { Suspense, useEffect } from "react"
+import { Suspense, useEffect, useMemo } from "react"
 import * as THREE from "three"
 import { useControls, folder } from "leva"
+import { getEnvironmentConfig } from "@/config/environment"
 
 function CameraUpdater({ pos, fov }: { pos: [number, number, number], fov: number }) {
   const { camera } = useThree()
@@ -19,44 +20,34 @@ function CameraUpdater({ pos, fov }: { pos: [number, number, number], fov: numbe
 
 export function DebugScene() {
   const values = useControls({
-    Config: folder({
+    TimeSpace: folder({
       date: { value: "2025-10-30", label: "Data (RRRR-MM-DD)" },
-      bgColor: { value: "#313131", label: "Tło Strony" }
+      hour: { value: 12, min: 0, max: 23, step: 1, label: "Godzina (0-23)" },
     }),
 
     Camera: folder({
-      camX: { value: 8, min: -20, max: 20 },
-      camY: { value: 6, min: 0, max: 20 },
+      camX: { value: 7, min: -20, max: 20 },
+      camY: { value: 3, min: 0, max: 20 },
       camZ: { value: 8, min: -20, max: 20 },
-      fov: { value: 35, min: 10, max: 90 },
+      fov: { value: 42, min: 10, max: 90 },
     }),
 
-    Sun: folder({
-      sunIntensity: { value: 2.2, min: 0, max: 10 },
-      sunX: { value: 4, min: -20, max: 20 },
-      sunY: { value: 10, min: 0, max: 20 },
-      sunZ: { value: 6, min: -20, max: 20 },
+    Shadows: folder({
       bias: { value: -0.0001, min: -0.01, max: 0.01, step: 0.0001 },
       normalBias: { value: 0.02, min: 0, max: 0.1, step: 0.001 },
-    }),
-
-    Environment: folder({
-      envPreset: {
-        options: ['city', 'sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'park'],
-        value: 'city'
-      },
-      envIntensity: { value: 1.0, min: 0, max: 5 },
-      ambientIntensity: { value: 0.5, min: 0, max: 2 },
-    }),
-
-    ContactShadow: folder({
       opacity: { value: 0.5, min: 0, max: 1 },
       blur: { value: 2.5, min: 0, max: 10 },
     })
   })
 
+  const envSettings = useMemo(() => {
+    const mockDate = new Date(values.date);
+    mockDate.setHours(values.hour);
+    return getEnvironmentConfig(mockDate);
+  }, [values.hour, values.date]);
+
   return (
-    <div className="w-full h-full relative" style={{ backgroundColor: values.bgColor }}>
+    <div className="w-full h-full relative transition-colors duration-1000 bg-card">
       <Canvas
         shadows="soft"
         dpr={[1, 2]}
@@ -68,12 +59,16 @@ export function DebugScene() {
         }}
       >
         <CameraUpdater pos={[values.camX, values.camY, values.camZ]} fov={values.fov} />
-        <Environment preset={values.envPreset as any} environmentIntensity={values.envIntensity} />
+
+        <Environment
+          preset={envSettings.preset}
+          environmentIntensity={envSettings.envIntensity}
+        />
 
         <directionalLight
           castShadow
-          position={[values.sunX, values.sunY, values.sunZ]}
-          intensity={values.sunIntensity}
+          position={envSettings.sunPosition}
+          intensity={envSettings.sunIntensity}
           shadow-bias={values.bias}
           shadow-normalBias={values.normalBias}
           shadow-mapSize={[2048, 2048]}
@@ -81,7 +76,7 @@ export function DebugScene() {
           <orthographicCamera attach="shadow-camera" args={[-15, 15, 15, -15]} near={0.1} far={50} />
         </directionalLight>
 
-        <ambientLight intensity={values.ambientIntensity} />
+        <ambientLight intensity={envSettings.ambientIntensity} />
 
         <Suspense fallback={null}>
           <Model dateOverride={new Date(values.date)} />
@@ -98,6 +93,12 @@ export function DebugScene() {
 
         <OrbitControls enablePan={false} />
       </Canvas>
+
+      <div className="absolute top-4 left-4 bg-black/50 text-white p-2 rounded text-xs font-mono pointer-events-none">
+        Preset: {envSettings.preset.toUpperCase()} <br />
+        Sun: {envSettings.sunIntensity} <br />
+        Hour: {values.hour}:00
+      </div>
     </div>
   )
 }
