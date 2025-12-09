@@ -1,7 +1,7 @@
 "use client"
 
 import * as THREE from "three"
-import React, { useRef, useEffect, useState } from "react"
+import React, { useRef, useEffect, useState, JSX } from "react"
 import { useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { GLTF } from "three-stdlib"
@@ -13,7 +13,11 @@ type GLTFResult = GLTF & {
   materials: { [key: string]: THREE.MeshStandardMaterial }
 }
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+type ModelProps = JSX.IntrinsicElements["group"] & {
+  onLoaded?: () => void;
+}
+
+export function Model({ onLoaded, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as GLTFResult
   const groupRef = useRef<THREE.Group>(null)
 
@@ -25,7 +29,6 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
 
     console.log(`📅 Data: ${currentDate.toLocaleDateString()} | Event: ${activeEvent} | Pora: ${season}`);
 
-    // shadow settings for all meshes
     Object.keys(nodes).forEach((nodeName) => {
       const node = nodes[nodeName];
       if (node.isMesh) {
@@ -37,7 +40,6 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
       }
     });
 
-    // hide all event nodes 
     Object.keys(nodes).forEach((nodeName) => {
       const node = nodes[nodeName];
       if (!node.isMesh) return;
@@ -133,7 +135,6 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         break;
     }
 
-    // bonsai tree
     if (nodes.bonsai_trunk.visible) {
       const leavesMat = materials.bonsai_leaves_default;
       const soilMat = materials.bonsai_soil;
@@ -156,7 +157,13 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
       }
     }
 
-  }, [nodes, materials, currentDate]);
+    if (onLoaded) {
+      setTimeout(() => {
+        onLoaded();
+      }, 100);
+    }
+
+  }, [nodes, materials, currentDate, onLoaded]);
 
   useFrame((state, delta) => {
     if (groupRef.current) {

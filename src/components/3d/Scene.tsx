@@ -3,13 +3,25 @@
 import { Canvas } from "@react-three/fiber"
 import { Environment, OrbitControls, ContactShadows } from "@react-three/drei"
 import { Model } from "./Model"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import * as THREE from "three"
+import { Loader } from "@/components/ui/loader"
 
 export function Scene() {
+  const [isReady, setIsReady] = useState(false);
+
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative bg-card/50">
+      <div
+        className={`absolute inset-0 z-20 transition-opacity duration-700 pointer-events-none ${isReady ? "opacity-0" : "opacity-100"
+          }`}
+      >
+        <Loader />
+      </div>
+
       <Canvas
+        className={`transition-opacity duration-1000 ${isReady ? "opacity-100" : "opacity-0"
+          }`}
         shadows="soft"
         camera={{ position: [0, 2, 6], fov: 60 }}
         dpr={[1, 2]}
@@ -25,18 +37,18 @@ export function Scene() {
         <directionalLight
           castShadow
           position={[4, 10, 6]}
-          intensity={0.2}
-          shadow-bias={-0.1001}
-          shadow-normalBias={0.0001}
+          intensity={2.2}
+          shadow-bias={-0.0001}
+          shadow-normalBias={0.02}
           shadow-mapSize={[2048, 2048]}
         >
           <orthographicCamera attach="shadow-camera" args={[-15, 15, 15, -15]} near={0.1} far={50} />
         </directionalLight>
 
-        <ambientLight intensity={0.2} />
+        <ambientLight intensity={0.5} />
 
         <Suspense fallback={null}>
-          <Model />
+          <Model onLoaded={() => setIsReady(true)} />
         </Suspense>
 
         <ContactShadows
