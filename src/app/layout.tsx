@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Navbar } from "@/components/layout/navbar/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,17 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              classNames: {
+                toast: "gap-3 !bg-[var(--toast-bg,var(--background))]/60 backdrop-blur-sm !text-[var(--toast-text,var(--foreground))] !border-[var(--toast-border,var(--border))]/60 !shadow-lg",
+                description: "!text-[var(--toast-muted,var(--muted-foreground))]",
+                actionButton: "!bg-primary !text-primary-foreground",
+                cancelButton: "!bg-muted !text-muted-foreground",
+              }
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

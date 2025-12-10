@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Scene } from "@/components/3d/Scene";
@@ -14,6 +15,11 @@ import { Timeline, TimelineEntry } from "@/components/ui/timeline";
 import { Section, SectionTitle } from "@/components/layout/Section";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { DiscordIcon } from "@/components/icons/DicordIcon";
+import { toast } from "sonner";
+import { getActiveEvent } from "@/config/events";
+import { EVENT_TOASTS } from "@/config/eventToasts";
+import { useEffect } from "react";
+import { useTheme } from "next-themes";
 
 const timelineData: TimelineEntry[] = [
   {
@@ -47,6 +53,42 @@ const timelineData: TimelineEntry[] = [
 ];
 
 export default function Home() {
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    // const hasShown = sessionStorage.getItem("has-shown-event-toast");
+    // if (hasShown) return;
+
+    const activeEvent = getActiveEvent(new Date("2025-10-31"));
+
+    if (activeEvent && EVENT_TOASTS[activeEvent]) {
+      const config = EVENT_TOASTS[activeEvent];
+      const isDark = resolvedTheme === "dark";
+      const palette = isDark ? config.palette.dark : config.palette.light;
+
+      const timer = setTimeout(() => {
+        toast(config.title, {
+          description: config.description,
+          icon: config.icon,
+          duration: 6000,
+          position: "top-center",
+          style: {
+            "--toast-bg": palette.bg,
+            "--toast-text": palette.text,
+            "--toast-border": palette.border,
+            "--toast-muted": palette.muted,
+          } as React.CSSProperties
+        });
+
+        sessionStorage.setItem("has-shown-event-toast", "true");
+
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [resolvedTheme]);
+
+
   return (
     <main className="flex min-h-screen flex-col items-center bg-background transition-colors duration-300">
       <div className="w-full max-w-3xl h-[400px] lg:h-[500px] relative overflow-hidden flex justify-center items-center">
