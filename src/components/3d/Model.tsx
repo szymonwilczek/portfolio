@@ -21,6 +21,7 @@ type ModelProps = JSX.IntrinsicElements["group"] & {
 export function Model({ onLoaded, dateOverride, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as GLTFResult
   const groupRef = useRef<THREE.Group>(null)
+  const rotationSpeed = useRef(190);
 
   const [defaultDate] = useState(new Date());
   const currentDate = dateOverride || defaultDate;
@@ -169,7 +170,8 @@ export function Model({ onLoaded, dateOverride, ...props }: ModelProps) {
 
   useFrame((state, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.15;
+      rotationSpeed.current = THREE.MathUtils.lerp(rotationSpeed.current, 0.15, delta * 2.5);
+      groupRef.current.rotation.y += delta * rotationSpeed.current;
     }
   })
 
