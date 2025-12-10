@@ -24,6 +24,7 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
   const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as GLTFResult
   const groupRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.PointLight | null>(null);
+  const starLightRef = useRef<THREE.PointLight | null>(null);
   const time = useRef(0);
 
   const [defaultDate] = useState(new Date());
@@ -80,13 +81,45 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
       }
     }
 
+    if (getActiveEvent(currentDate) === "CHRISTMAS" && nodes.choinka_star) {
+      const star = nodes.choinka_star;
+
+      if (star.material) {
+        const starMat = star.material as THREE.MeshStandardMaterial;
+        const starColor = new THREE.Color("#ffcc00");
+
+        starMat.emissive = starColor;
+        starMat.emissiveIntensity = 5.0;
+        starMat.toneMapped = false;
+        starMat.color = starColor;
+      }
+
+      if (!starLightRef.current) {
+        const light = new THREE.PointLight("#ffcc00", 4.0, 3, 0.5);
+
+        light.castShadow = false;
+
+        star.add(light);
+        starLightRef.current = light;
+      }
+    } else {
+      if (starLightRef.current && nodes.choinka_star) {
+        nodes.choinka_star.remove(starLightRef.current);
+        starLightRef.current = null;
+      }
+    }
+
     return () => {
       if (bulb && lightRef.current) {
         bulb.remove(lightRef.current);
         lightRef.current = null;
       }
+      if (nodes.choinka_star && starLightRef.current) {
+        nodes.choinka_star.remove(starLightRef.current);
+        starLightRef.current = null;
+      }
     }
-  }, [nodes, lampIntensityTimeBased, lampColor, lampIntensity]);
+  }, [nodes, materials, currentDate, onLoaded, lampColor, lampIntensity, lampIntensityTimeBased]);
 
   useEffect(() => {
     const activeEvent = getActiveEvent(currentDate);
