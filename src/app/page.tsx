@@ -45,6 +45,13 @@ const timelineData: TimelineEntry[] = [
   },
   {
     id: 4,
+    date: "2017",
+    title: "First Lines of Code",
+    description: "Discovered passion for programming. Started learning C++ and web development to build foundational skills in software creation.",
+    isCurrent: false,
+  },
+  {
+    id: 5,
     date: "2005",
     title: "Hello World",
     description: "Born in Poland. Initializing the main process.",
@@ -70,7 +77,7 @@ export default function Home() {
         toast(config.title, {
           description: config.description,
           icon: config.icon,
-          duration: 6000,
+          duration: 4000,
           position: "top-center",
           style: {
             "--toast-bg": palette.bg,
@@ -82,7 +89,7 @@ export default function Home() {
 
         sessionStorage.setItem("has-shown-event-toast", "true");
 
-      }, 1500);
+      }, 2500);
 
       return () => clearTimeout(timer);
     }
