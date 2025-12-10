@@ -97,7 +97,7 @@ export default function Home() {
         <Paragraph>
           I believe code is a tool to solve real-world problems, not just a way to talk to computers.
           While currently finishing my Computer Science degree, I don't wait for a diploma to build meaningful things.
-          I bridge the gap between academic theory and practical, shipping products.
+          I bridge the gap between academic theory and practical implementation by shipping various products.
           I help businesses grow by building robust web applications. With a strong foundation in full-stack development,
           I tackle challenges head-on to deliver products that users love.
         </Paragraph>
