@@ -11,13 +11,13 @@ export interface EnvConfig {
 export const getEnvironmentConfig = (date: Date = new Date()): EnvConfig => {
   const hour = date.getHours();
 
-  // night (21:00 - 05:00)
-  if (hour >= 21 || hour < 5) {
+  // night (22:00 - 05:00)
+  if (hour >= 22 || hour < 5) {
     return {
       preset: "night",
-      sunIntensity: 0.4,
+      sunIntensity: 0.8,
       sunPosition: [4, 10, -6],
-      envIntensity: 0.5,
+      envIntensity: 1.5,
       ambientIntensity: 0.1,
     };
   }
@@ -44,7 +44,7 @@ export const getEnvironmentConfig = (date: Date = new Date()): EnvConfig => {
     };
   }
 
-  // day (09:00 - 18:00)
+  // day (09:00 - 22:00)
   return {
     preset: "city",
     sunIntensity: 1.2,
