@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useEffect, useState, useRef } from "react";
-import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,16 +9,18 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 
 import { HamburgerIcon } from "./HamburgerIcon";
 import { Logo } from "./Logo";
@@ -76,7 +77,6 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
         {...props}
       >
         <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 md:px-8">
-
           <Link href="/" className="flex items-center gap-2">
             <Logo />
           </Link>
@@ -103,40 +103,40 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
             <ThemeToggler />
 
             {isMobile && (
-              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-                <SheetTrigger asChild>
+              <DropdownMenu open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
                     size="icon"
                     className="group"
-                    aria-label="Menu"
+                    aria-label="Navigation Menu"
                   >
                     <HamburgerIcon />
                   </Button>
-                </SheetTrigger>
-                <SheetContent side="right">
-                  <SheetHeader>
-                    <SheetTitle>Menu</SheetTitle>
-                  </SheetHeader>
-                  <div className="mt-8 flex flex-col gap-4">
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-[200px] p-2">
+                  <DropdownMenuLabel>Navigation Menu</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <div className="flex flex-col gap-1 mt-1">
                     {navigationLinks.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={cn(
-                          "text-lg font-medium transition-colors hover:text-primary",
-                          pathname === link.href
-                            ? "text-primary"
-                            : "text-muted-foreground"
-                        )}
-                      >
-                        {link.label}
-                      </Link>
+                      <DropdownMenuItem key={link.href} asChild>
+                        <Link
+                          href={link.href}
+                          className={cn(
+                            "w-full cursor-pointer justify-start text-base font-medium transition-colors",
+                            pathname === link.href
+                              ? "bg-accent text-accent-foreground"
+                              : "text-muted-foreground"
+                          )}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.label}
+                        </Link>
+                      </DropdownMenuItem>
                     ))}
                   </div>
-                </SheetContent>
-              </Sheet>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </div>
         </div>
