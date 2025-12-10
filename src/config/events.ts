@@ -64,14 +64,6 @@ export const EVENTS: EventType[] = [
     end: { m: 10, d: 31 },
   },
 
-  // 2.11
-  {
-    id: "ALL_SAINTS",
-    name: "Zaduszki",
-    start: { m: 11, d: 2 },
-    end: { m: 11, d: 2 },
-  },
-
   // 11.11
   {
     id: "INDEPENDENCE",

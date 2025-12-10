@@ -51,7 +51,7 @@ export function Model({ onLoaded, dateOverride, ...props }: ModelProps) {
         ...NODE_GROUPS.SANTA, ...NODE_GROUPS.CHRISTMAS, ...NODE_GROUPS.NEW_YEAR,
         ...NODE_GROUPS.BIRTHDAY, ...NODE_GROUPS.VALENTINES, ...NODE_GROUPS.FAT_THURSDAY,
         ...NODE_GROUPS.WOMENS_DAY, ...NODE_GROUPS.EASTER, ...NODE_GROUPS.MAY_DAY,
-        ...NODE_GROUPS.HALLOWEEN, ...NODE_GROUPS.ALL_SAINTS, ...NODE_GROUPS.INDEPENDENCE
+        ...NODE_GROUPS.HALLOWEEN, ...NODE_GROUPS.INDEPENDENCE
       ];
 
       if (isNodeInGroup(nodeName, allEventKeys)) {
@@ -122,11 +122,6 @@ export function Model({ onLoaded, dateOverride, ...props }: ModelProps) {
       case "HALLOWEEN":
         hideGroup(NODE_GROUPS.BONSAI);
         showGroup(NODE_GROUPS.HALLOWEEN);
-        break;
-
-      case "ALL_SAINTS":
-        hideGroup(NODE_GROUPS.BONSAI);
-        showGroup(NODE_GROUPS.ALL_SAINTS);
         break;
 
       case "INDEPENDENCE":

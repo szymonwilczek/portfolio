@@ -51,8 +51,6 @@ export const NODE_GROUPS = {
 
   HALLOWEEN: ["halloween_pumpkin", "halloween_jack", "Cube010"],
 
-  ALL_SAINTS: ["lantern", "Cube119"],
-
   INDEPENDENCE: ["polish_flag", "Cube139"],
 };
 
