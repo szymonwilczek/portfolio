@@ -88,11 +88,11 @@ export const EVENTS: EventType[] = [
     end: { m: 12, d: 6 },
   },
 
-  // 7-24.12
+  // 10-24.12
   {
     id: "CHRISTMAS",
     name: "Święta",
-    start: { m: 12, d: 7 },
+    start: { m: 12, d: 10 },
     end: { m: 12, d: 24 },
   },
 
