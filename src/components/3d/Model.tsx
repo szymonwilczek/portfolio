@@ -1,11 +1,11 @@
 "use client"
 
 import * as THREE from "three"
-import React, { useRef, useEffect, useState, JSX } from "react"
+import { useRef, useEffect, useState, JSX } from "react"
 import { Center, useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { GLTF } from "three-stdlib"
-import { getActiveEvent, getBonsaiSeason, DEFAULT_EVENT } from "@/config/events"
+import { getActiveEvent, getBonsaiSeason } from "@/config/events"
 import { NODE_GROUPS, isNodeInGroup } from "@/config/nodeGroups"
 
 type GLTFResult = GLTF & {
@@ -22,7 +22,7 @@ export function Model({ onLoaded, dateOverride, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as GLTFResult
   const groupRef = useRef<THREE.Group>(null)
 
-  const [defaultDate] = useState(new Date("2025-10-02"));
+  const [defaultDate] = useState(new Date());
   const currentDate = dateOverride || defaultDate;
 
   useEffect(() => {
