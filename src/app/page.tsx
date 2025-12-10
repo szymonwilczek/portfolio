@@ -18,7 +18,7 @@ import { DiscordIcon } from "@/components/icons/DicordIcon";
 import { toast } from "sonner";
 import { getActiveEvent } from "@/config/events";
 import { EVENT_TOASTS } from "@/config/eventToasts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
 const timelineData: TimelineEntry[] = [
@@ -33,7 +33,7 @@ const timelineData: TimelineEntry[] = [
     id: 2,
     date: "2024",
     title: "Freelance Full-stack Developer",
-    description: "Developing custom web applications tailored to specific client needs. Delivering modern, high-performance solutions from concept to deployment.",
+    description: "Creating custom web applications tailored to specific client needs. Delivering modern, high-performance solutions from concept to deployment.",
     isCurrent: true,
   },
   {
@@ -61,6 +61,15 @@ const timelineData: TimelineEntry[] = [
 
 export default function Home() {
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const profileSrc = mounted && resolvedTheme === "light"
+    ? "/wolf_profile_light.jpg"
+    : "/wolf_profile_dark.jpg";
 
   useEffect(() => {
     // const hasShown = sessionStorage.getItem("has-shown-event-toast");
@@ -120,21 +129,25 @@ export default function Home() {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="sm">
-                <Link href="https://github.com/wolfie" target="_blank">
+                <Link href="https://github.com/szymonwilczek" target="_blank">
                   <Github className="mr-2 h-4 w-4" /> GitHub
                 </Link>
               </Button>
             </div>
           </div>
 
-          <div className="relative shrink-0 pr-8">
-            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-background shadow-xl rotate-3 transition-transform hover:rotate-0 duration-300">
+          <div
+            className="relative shrink-0 pr-8 select-none"
+            onContextMenu={(e) => e.preventDefault()}
+          >
+            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-background shadow-xl rotate-3 transition-transform duration-300 pointer-events-none">
               <Image
-                src="/profile.jpg"
+                src={profileSrc}
                 alt="Szymon Wilczek"
                 fill
-                className="object-cover"
+                className="object-cover transition-opacity duration-300"
                 priority
+                draggable={false}
               />
             </div>
           </div>
@@ -187,7 +200,7 @@ export default function Home() {
           </Link>
 
           <Link
-            href="https://github.com/wolfie"
+            href="https://github.com/szymonwilczek"
             target="_blank"
             className="group flex flex-col sm:flex-row items-center sm:items-center gap-4 p-4 rounded-xl border bg-card hover:bg-accent transition-colors text-center sm:text-left"
           >
@@ -198,7 +211,7 @@ export default function Home() {
           </Link>
 
           <Link
-            href="https://discord.gg/twoj-link"
+            href="https://discord.gg/4TWmMfMU6N"
             target="_blank"
             className="group flex flex-col sm:flex-row items-center sm:items-center gap-4 p-4 rounded-xl border bg-card hover:bg-accent transition-colors text-center sm:text-left"
           >
