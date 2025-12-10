@@ -98,7 +98,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-background transition-colors duration-300">
-      <div className="w-full max-w-3xl h-[400px] lg:h-[500px] relative overflow-hidden flex justify-center items-center">
+      <div className="w-full max-w-3xl h-[400px] relative overflow-hidden flex justify-center items-center">
         <div className="w-full max-w-5xl h-full cursor-grab active:cursor-grabbing">
           <Scene />
         </div>
