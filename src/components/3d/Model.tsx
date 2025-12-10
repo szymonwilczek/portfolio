@@ -1,7 +1,7 @@
 "use client"
 
 import * as THREE from "three"
-import { useRef, useEffect, useState, JSX } from "react"
+import { useRef, useEffect, useState, JSX, useMemo } from "react"
 import { Center, useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { GLTF } from "three-stdlib"
@@ -16,15 +16,77 @@ type GLTFResult = GLTF & {
 type ModelProps = JSX.IntrinsicElements["group"] & {
   onLoaded?: () => void;
   dateOverride?: Date;
+  lampColor?: string;
+  lampIntensity?: number;
 }
 
-export function Model({ onLoaded, dateOverride, ...props }: ModelProps) {
+export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as GLTFResult
-  const groupRef = useRef<THREE.Group>(null)
+  const groupRef = useRef<THREE.Group>(null);
+  const lightRef = useRef<THREE.PointLight | null>(null);
   const rotationSpeed = useRef(190);
 
   const [defaultDate] = useState(new Date());
   const currentDate = dateOverride || defaultDate;
+
+
+  const lampIntensityTimeBased = useMemo(() => {
+    const hour = currentDate.getHours();
+
+    // night
+    if (hour >= 21 || hour < 5) return 4.0;
+
+    // evening 
+    if (hour >= 17 && hour < 21) return 2.0;
+
+    // dawn 
+    if (hour >= 5 && hour < 8) return 2.0;
+
+    // day 
+    return 0.0;
+  }, [currentDate]);
+
+  useEffect(() => {
+    const bulb = nodes.lamp_bulb;
+
+    if (bulb) {
+      if (bulb.material) {
+        const mat = bulb.material as THREE.MeshStandardMaterial;
+        const finalColor = lampColor ? new THREE.Color(lampColor) : new THREE.Color("#ffaa33");
+        const finalIntensity = lampIntensity !== undefined ? lampIntensity : lampIntensityTimeBased;
+
+        mat.emissive = finalColor;
+        mat.emissiveIntensity = finalIntensity;
+        mat.toneMapped = false;
+
+        if (finalIntensity === 0) {
+          mat.color.setHex(0x333333);
+        } else {
+          mat.color = finalColor;
+        }
+
+        if (!lightRef.current) {
+          const light = new THREE.PointLight(finalColor, 0, 4, 1);
+          light.position.set(0, 0.05, 0);
+          light.castShadow = false;
+          bulb.add(light);
+          lightRef.current = light;
+        }
+
+        if (lightRef.current) {
+          lightRef.current.color = finalColor;
+          lightRef.current.intensity = finalIntensity * 2;
+        }
+      }
+    }
+
+    return () => {
+      if (bulb && lightRef.current) {
+        bulb.remove(lightRef.current);
+        lightRef.current = null;
+      }
+    }
+  }, [nodes, lampIntensityTimeBased, lampColor, lampIntensity]);
 
   useEffect(() => {
     const activeEvent = getActiveEvent(currentDate);
@@ -73,6 +135,7 @@ export function Model({ onLoaded, dateOverride, ...props }: ModelProps) {
         if (isNodeInGroup(name, groupKeys)) nodes[name].visible = false;
       });
     };
+
 
     switch (activeEvent) {
       case "SANTA":

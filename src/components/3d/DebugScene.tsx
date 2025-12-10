@@ -21,14 +21,14 @@ function CameraUpdater({ pos, fov }: { pos: [number, number, number], fov: numbe
 export function DebugScene() {
   const values = useControls({
     TimeSpace: folder({
-      date: { value: "2025-10-30", label: "Date (Y1)" }, // yyyy-mm-dd (year first) 
-      hour: { value: 12, min: 0, max: 23, step: 1, label: "Hour (23M)" }, // 24-hour format, 23 max
+      date: { value: new Date().toISOString(), label: "Date" },
+      hour: { value: new Date().getHours().toString(), min: 0, max: 23, step: 1, label: "Hour (23M)" },
     }),
 
     Camera: folder({
       camX: { value: 7, min: -20, max: 20 },
-      camY: { value: 3, min: 0, max: 20 },
-      camZ: { value: 8, min: -20, max: 20 },
+      camY: { value: 4, min: 0, max: 20 },
+      camZ: { value: -7, min: -20, max: 20 },
       fov: { value: 42, min: 10, max: 90 },
     }),
 
@@ -41,7 +41,12 @@ export function DebugScene() {
 
     Performance: folder({
       showStats: { value: true, label: "Show FPS" }
-    })
+    }),
+
+    Lamp: folder({
+      bulbColor: { value: "#ffaa33", label: "Color" },
+      bulbIntensity: { value: 10, min: 0, max: 50, step: 0.1, label: "Intensity" },
+    }),
   })
 
   const envSettings = useMemo(() => {
@@ -85,7 +90,11 @@ export function DebugScene() {
         <ambientLight intensity={envSettings.ambientIntensity} />
 
         <Suspense fallback={null}>
-          <Model dateOverride={new Date(values.date)} />
+          <Model
+            dateOverride={new Date(values.date)}
+            lampColor={values.bulbColor}
+            lampIntensity={values.bulbIntensity}
+          />
         </Suspense>
 
         <ContactShadows
