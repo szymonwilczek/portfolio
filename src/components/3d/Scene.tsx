@@ -18,7 +18,7 @@ export function Scene() {
 
   return (
     <div
-      className="w-full h-full relative transition-colors duration-1000 bg-card/50">
+      className="w-full h-full relative transition-colors duration-1000">
       <div
         className={`absolute inset-0 z-20 transition-opacity duration-700 pointer-events-none ${isReady ? "opacity-0" : "opacity-100"
           }`}
