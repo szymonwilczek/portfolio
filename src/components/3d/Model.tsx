@@ -24,7 +24,7 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
   const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as GLTFResult
   const groupRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.PointLight | null>(null);
-  const rotationSpeed = useRef(190);
+  const time = useRef(0);
 
   const [defaultDate] = useState(new Date());
   const currentDate = dateOverride || defaultDate;
@@ -228,8 +228,18 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
 
   useFrame((state, delta) => {
     if (groupRef.current) {
-      rotationSpeed.current = THREE.MathUtils.lerp(rotationSpeed.current, 0.15, delta * 2.5);
-      groupRef.current.rotation.y += delta * rotationSpeed.current;
+      time.current += delta;
+      const t = time.current;
+
+      // move configuration 
+      const initialSpeed = 50;   // fast spin 
+      const targetSpeed = 0.15;  // slow, continuous spin
+      const decay = 2.5;         // how quickly the initial speed decays 
+      const startAngle = 0.5;    // angle offset 
+
+      const A = (initialSpeed - targetSpeed) / decay;
+
+      groupRef.current.rotation.y = startAngle + A * (1 - Math.exp(-decay * t)) + targetSpeed * t;
     }
   })
 
