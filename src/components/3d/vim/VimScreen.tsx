@@ -171,10 +171,12 @@ export function VimScreen({ onTextureUpdate }: VimScreenProps) {
           }
           break;
         case "set_errors": setErrorCount(action.count as number); break;
-        case "shift_a":
-          setCursor({ line: s.cursor.line, col: contentRef.current[s.cursor.line].length });
+        case "shift_a": {
+          const lineContent = contentRef.current[s.cursor.line];
+          setCursor({ line: s.cursor.line, col: lineContent ? lineContent.length : 0 });
           setMode("INSERT");
           break;
+        }
         case "press_enter": {
           const lIdx = s.cursor.line;
           const newArr = [...contentRef.current];
