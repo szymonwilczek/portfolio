@@ -10,8 +10,9 @@ export function ThemeToggler() {
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       size="icon"
+      className="transition-colors duration-200 cursor-pointer"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >
       <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
