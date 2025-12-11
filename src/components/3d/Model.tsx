@@ -45,7 +45,7 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
     if (hour >= 5 && hour < 8) return 2.0;
 
     // day 
-    return 0.0;
+    return 0.5;
   }, [currentDate]);
 
   useEffect(() => {
