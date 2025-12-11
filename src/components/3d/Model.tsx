@@ -2,11 +2,12 @@
 
 import * as THREE from "three"
 import { useRef, useEffect, useState, JSX, useMemo } from "react"
-import { Center, useGLTF } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
+import { Center, Html, useGLTF } from "@react-three/drei"
+import { createPortal, useFrame } from "@react-three/fiber"
 import { GLTF } from "three-stdlib"
 import { getActiveEvent, getBonsaiSeason } from "@/config/events"
 import { NODE_GROUPS, isNodeInGroup } from "@/config/nodeGroups"
+import { VimScreen } from "./vim/VimScreen"
 
 type GLTFResult = GLTF & {
   nodes: { [key: string]: THREE.Mesh }
@@ -18,15 +19,18 @@ type ModelProps = JSX.IntrinsicElements["group"] & {
   dateOverride?: Date;
   lampColor?: string;
   lampIntensity?: number;
+  stopRotation?: boolean;
 }
 
-export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...props }: ModelProps) {
-  const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as GLTFResult
+export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRotation = false, ...props }: ModelProps) {
+  const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as unknown as GLTFResult
   const groupRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.PointLight | null>(null);
   const starLightRef = useRef<THREE.PointLight | null>(null);
   const cakeLightRef = useRef<THREE.PointLight | null>(null);
   const time = useRef(0);
+
+  const [isDragging, setIsDragging] = useState(false);
 
   const [defaultDate] = useState(new Date());
   const currentDate = dateOverride || defaultDate;
@@ -172,8 +176,8 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
       if (node.isMesh) {
         node.castShadow = true;
         node.receiveShadow = true;
-        if (node.material) {
-          node.material.envMapIntensity = 1.2;
+        if (node.material && 'envMapIntensity' in node.material) {
+          (node.material as THREE.MeshStandardMaterial).envMapIntensity = 1.2;
         }
       }
     });
@@ -300,15 +304,14 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
   }, [nodes, materials, currentDate, onLoaded]);
 
   useFrame((state, delta) => {
-    if (groupRef.current) {
+    if (groupRef.current && !isDragging && !stopRotation) {
       time.current += delta;
       const t = time.current;
 
-      // move configuration 
-      const initialSpeed = 50;   // fast spin 
-      const targetSpeed = 0.15;  // slow, continuous spin
-      const decay = 2.5;         // how quickly the initial speed decays 
-      const startAngle = 0.5;    // angle offset 
+      const initialSpeed = 50;
+      const targetSpeed = 0.15;
+      const decay = 2.5;
+      const startAngle = 0.5;
 
       const A = (initialSpeed - targetSpeed) / decay;
 
@@ -318,10 +321,42 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
 
   return (
     <group ref={groupRef} {...props} dispose={null} position={[0, 1, 0]}
+      onPointerDown={(e) => { e.stopPropagation(); setIsDragging(true); }}
+      onPointerUp={() => setIsDragging(false)}
+      onPointerLeave={() => setIsDragging(false)}
     >
       <Center>
         <primitive object={nodes.Scene} />
       </Center>
+
+      {nodes.monitor_screen && createPortal(
+        <Html
+          transform
+          occlude="blending"
+          position={[0, 0, -0.019]}
+          rotation={[0, Math.PI, 0]}
+          scale={0.0912}
+          style={{
+            width: '955px',
+            height: '535px',
+            pointerEvents: 'none',
+            background: '#1d2021',
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <VimScreen />
+          </div>
+        </Html>,
+        nodes.monitor_screen
+      )}
 
     </group>
   )
