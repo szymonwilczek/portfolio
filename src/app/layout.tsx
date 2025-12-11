@@ -46,6 +46,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <link
+        rel="prefetch"
+        href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.8/files/jetbrains-mono-latin-400-normal.woff"
+        as="font"
+        type="font/woff"
+        crossOrigin="anonymous"
+      />
       <body
         className={`
         ${geistSans.variable}
