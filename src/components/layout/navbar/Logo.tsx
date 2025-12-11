@@ -6,7 +6,7 @@ export const Logo = () => {
       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
         <Sparkles className="h-5 w-5" />
       </div>
-      <span>Wolfie</span>
+      <span className="font-outfit tracking-wide">Wolfie</span>
     </div>
   );
 };
