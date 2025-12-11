@@ -28,7 +28,7 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
   const cakeLightRef = useRef<THREE.PointLight | null>(null);
   const time = useRef(0);
 
-  const [defaultDate] = useState(new Date("2025-01-08"));
+  const [defaultDate] = useState(new Date());
   const currentDate = dateOverride || defaultDate;
 
 
