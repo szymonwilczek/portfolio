@@ -1,56 +1,29 @@
 import React from "react";
-import { X } from "lucide-react";
-import { C, getFileIcon } from "./VimConfig";
+import { Text } from "@react-three/drei";
+import { C } from "./VimConfig";
+import { Rect, FONT_URL } from "./VimCommon";
+import { EXPLORER_W, EDITOR_W, TAB_H } from "./VimScreen";
 
-interface VimTabsProps {
-  openFiles: string[];
-  activeFile: string;
-}
-
-export const VimTabs: React.FC<VimTabsProps> = ({ openFiles, activeFile }) => {
+export const VimTabs = React.memo(({ openFiles, activeFile }: any) => {
   return (
-    <div
-      className="h-9 flex items-end overflow-hidden select-none"
-      style={{ backgroundColor: "#191724" }}
-    >
-      {openFiles.map((filename) => {
-        const isActive = filename === activeFile;
-
+    <group position={[EXPLORER_W + 0.060, 0, 0.15]}>
+      <Rect width={EDITOR_W} height={TAB_H} color={C.bg} x={0} y={0} />
+      {openFiles.map((file: string, i: number) => {
+        const isActive = file === activeFile;
+        const tabW = 3.5;
+        const xPos = i * tabW;
         return (
-          <div
-            key={filename}
-            className={`
-              relative flex items-center gap-2 px-3 py-2.5 text-sm cursor-pointer transition-all duration-200
-              ${isActive ? "pt-1.5" : "pt-2 opacity-60 hover:opacity-100"}
-            `}
-            style={{
-              backgroundColor: isActive ? C.surface : "transparent",
-              color: isActive ? C.text : C.muted,
-              minWidth: "120px",
-              maxWidth: "180px",
-              borderRight: `1px solid ${C.bg}`,
-              borderTop: isActive ? `2px solid ${C.iris}` : "2px solid transparent"
-            }}
-          >
-            <span className="opacity-90">
-              {getFileIcon(filename)}
-            </span>
-
-            <span className="truncate flex-1 font-medium font-mono text-xs">
-              {filename}
-            </span>
-
-            <span className={`opacity-0 ${isActive ? "group-hover:opacity-100 opacity-50" : ""} hover:text-[#eb6f92]`}>
-              <X size={12} />
-            </span>
-          </div>
-        );
+          <group key={file} position={[xPos, 0, 0.01]}>
+            <Rect width={tabW} height={TAB_H} color={isActive ? C.surface : C.bg} x={0} y={0} />
+            {isActive && (
+              <Rect width={tabW} height={0.05} color={C.iris} x={0} y={0} />
+            )}
+            <Text font={FONT_URL} fontSize={0.25} color={isActive ? C.text : C.muted} position={[0.2, -0.4, 0.02]} anchorX="left" anchorY="middle">
+              {file}
+            </Text>
+          </group>
+        )
       })}
-
-      <div
-        className="flex-1 h-full border-b"
-        style={{ borderColor: C.surface, backgroundColor: "#191724" }}
-      />
-    </div>
+    </group>
   );
-};
+});

@@ -1,84 +1,76 @@
-import React, { useEffect, useRef } from "react";
-import { VimLine } from "./VimLine";
+import React from "react";
+import { Text } from "@react-three/drei";
 import { C } from "./VimConfig";
+import { Rect, CodeToken, FONT_URL, NUM_FONT_SIZE } from "./VimCommon";
+import { highlightLine } from "./VimSyntax";
+import { EXPLORER_W, EDITOR_W, TAB_H, SCREEN_H } from "./VimScreen";
 
-interface VimEditorProps {
-  content: string[];
-  cursorLine: number;
-  cursorCol: number;
-  mode: string;
-  isActive: boolean;
-  visualStartLine: number | null;
-  centerTrigger: number;
-}
+const LINE_H = 0.65;
+const CHAR_W = 0.195;
 
-export const VimEditor: React.FC<VimEditorProps> = ({
-  content,
-  cursorLine,
-  cursorCol,
-  mode,
-  isActive,
-  visualStartLine,
-  centerTrigger
-}) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // zz
-  useEffect(() => {
-    if (centerTrigger > 0 && containerRef.current) {
-      const container = containerRef.current;
-      const lineHeight = 24;
-      const targetTop = cursorLine * lineHeight;
-
-      const targetScroll = targetTop - (container.clientHeight / 2) + (lineHeight / 2);
-
-      container.scrollTo({ top: targetScroll, behavior: "smooth" });
-    }
-  }, [centerTrigger, cursorLine]);
-
-  const isLineSelected = (lineIndex: number) => {
-    if (mode !== "VISUAL LINE" || visualStartLine === null) return false;
-    const start = Math.min(visualStartLine, cursorLine);
-    const end = Math.max(visualStartLine, cursorLine);
-    return lineIndex >= start && lineIndex <= end;
-  };
+export const VimEditor = React.memo(({ fileContent, cursor, mode, visualStartLine, isTreeFocused }: any) => {
+  const visibleLines = 17;
+  const scrollOffset = Math.max(0, cursor.line - Math.floor(visibleLines / 2)) * LINE_H;
 
   return (
-    <div className="flex-1 overflow-hidden font-mono text-[15px] relative bg-[#191724]">
-      <div
-        ref={containerRef}
-        className="absolute inset-0 p-4 overflow-auto custom-scrollbar scroll-smooth"
-      >
-        {content.map((lineText, lineIndex) => (
-          <VimLine
-            key={lineIndex}
-            content={lineText}
-            lineNumber={lineIndex + 1}
-            isSelected={isLineSelected(lineIndex)}
-          />
-        ))}
+    <group position={[EXPLORER_W + 0.4, -TAB_H - 0.2, 0]}>
+      <group position={[0, scrollOffset, 0]}>
+        {fileContent.map((line: string, lineIdx: number) => {
+          const relativeY = lineIdx * LINE_H - scrollOffset;
+          if (relativeY < -2 || relativeY > SCREEN_H + 2) return null;
 
-        {isActive && mode !== "VISUAL LINE" && (
-          <div
-            className="absolute pointer-events-none transition-all duration-75"
-            style={{
-              top: `calc(1rem + ${cursorLine * 1.5}rem)`,
-              left: `calc(4rem + ${cursorCol}ch)`,
-              height: "1.5rem",
-              width: mode === "INSERT" ? "2px" : "1ch",
-              backgroundColor: C.text,
-              opacity: mode === "INSERT" ? 1 : 0.5,
-              animation: mode === "INSERT" ? "pulse 1s infinite" : "none"
-            }}
-          />
-        )}
+          const tokens = highlightLine(line);
+          const isLineActive = !isTreeFocused && cursor.line === lineIdx;
+          const isSelected = mode === "VISUAL LINE" && visualStartLine !== null &&
+            lineIdx >= Math.min(visualStartLine, cursor.line) &&
+            lineIdx <= Math.max(visualStartLine, cursor.line);
 
-        {Array.from({ length: Math.max(0, 25 - content.length) }).map((_, i) => (
-          <div key={`empty-${i}`} className="flex text-[#26233a] pl-4 leading-6">~</div>
-        ))}
+          let charOffset = 0;
+          const CONTENT_PADDING_LEFT = 0.4;
+          const NUMBERS_PADDING_LEFT = 0.05;
 
-        <div className="h-[200px]" />
-      </div>
-    </div>
+          return (
+            <group key={lineIdx} position={[0, -lineIdx * LINE_H, 0]}>
+              {(isLineActive || isSelected) && (
+                <Rect
+                  width={EDITOR_W}
+                  height={LINE_H}
+                  color={isSelected ? "#403d52" : "#1f1d2e"}
+                  x={-0.4}
+                  y={LINE_H / 4}
+                />
+              )}
+
+              <Text font={FONT_URL} fontSize={NUM_FONT_SIZE} color={isSelected ? C.text : C.muted} position={[NUMBERS_PADDING_LEFT, -0.05, 0.01]} anchorX="right" anchorY="top">
+                {lineIdx + 1}
+              </Text>
+
+              <group position={[CONTENT_PADDING_LEFT, 0, 0]}>
+                {tokens.map((token: any, tIdx: number) => {
+                  const el = (
+                    <CodeToken
+                      key={tIdx}
+                      text={token.text}
+                      color={token.color}
+                      x={charOffset * CHAR_W}
+                      y={0}
+                    />
+                  );
+                  charOffset += token.text.length;
+                  return el;
+                })}
+              </group>
+
+              {isLineActive && mode !== "VISUAL LINE" && (
+                <mesh position={[CONTENT_PADDING_LEFT + (cursor.col * CHAR_W) + (CHAR_W / 2), -0.16, 0.03]}>
+                  <planeGeometry args={[mode === "INSERT" ? 0.05 : CHAR_W, 0.5]} />
+                  <meshBasicMaterial color={C.text} opacity={0.6} transparent />
+                </mesh>
+              )}
+            </group>
+          );
+        })}
+      </group>
+    </group>
   );
-};
+});

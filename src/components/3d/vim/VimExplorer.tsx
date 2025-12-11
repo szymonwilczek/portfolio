@@ -1,48 +1,62 @@
 import React from "react";
-import { ChevronRight, ChevronDown } from "lucide-react";
-import { C, FileNode, getFileIcon } from "./VimConfig";
+import { Text } from "@react-three/drei";
+import { C, INITIAL_FILE_TREE } from "./VimConfig";
+import { Rect, FONT_URL } from "./VimCommon";
+import { EXPLORER_W, SCREEN_H, BAR_H } from "./VimScreen";
 
-interface VimExplorerProps {
-  files: FileNode[];
-  selectedIndex: number;
-}
-
-export const VimExplorer: React.FC<VimExplorerProps> = ({ files, selectedIndex }) => {
+export const VimExplorer = React.memo(({ explorerIndex, isTreeFocused }: any) => {
   return (
-    <div className="w-60 flex-shrink-0 flex flex-col border-r border-[#26233a] font-mono text-sm">
-      <div className="p-2 text-xs tracking-widest font-bold text-red-400 opacity-80 pl-4 mb-1">
+    <group position={[0, 0, 0]}>
+      <Rect width={EXPLORER_W} height={SCREEN_H - BAR_H} color={C.surface} x={0} y={0} />
+
+      <Text font={FONT_URL} fontSize={0.25} color={C.love} position={[0.2, -0.4, 0.05]} anchorX="left" anchorY="top">
         ~/GitHub/wolfie-portfolio
-      </div>
+      </Text>
 
-      <div className="flex-1 overflow-hidden">
-        {files.map((node, index) => {
+      <group position={[0, -1.0, 0]}>
+        {INITIAL_FILE_TREE.map((node, i) => {
+          const isActive = i === explorerIndex;
+          const yPos = -i * 0.5;
+          const isReact = node.name.endsWith("tsx");
+          const isCSS = node.name.endsWith("css");
+          const isJSON = node.name.endsWith("json");
+          const iconColor = node.type === 'folder' ? C.rose : (isReact ? C.foam : (isCSS ? C.love : (isJSON ? C.gold : C.text)));
+          const icon = node.type === 'folder' ? (node.isOpen ? "📂" : "📁") : (isReact ? "⚛" : (isCSS ? "#" : "📄"));
 
-          const isActive = index === selectedIndex;
+          const depthOffset = node.depth * 0.3;
+          const basePadding = 0.2;
 
           return (
-            <div
-              key={node.id}
-              className={`flex items-center gap-1.5 py-[2px] cursor-pointer transition-colors duration-75`}
-              style={{
-                paddingLeft: `${node.depth * 14 + 10}px`,
-                color: isActive ? C.text : C.muted
-              }}
-            >
-              <span className="opacity-70 w-4 flex justify-center">
-                {node.type === "folder" && (
-                  node.isOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />
-                )}
-              </span>
+            <group key={node.id} position={[0, yPos, 0]}>
+              {isActive && (
+                <Rect width={EXPLORER_W - 0.2} height={0.5} color={isTreeFocused ? C.overlay : "#2a273f"} x={-0.1} y={0.12} />
+              )}
 
-              {getFileIcon(node.name, node.isOpen)}
+              <Text
+                font={FONT_URL}
+                fontSize={0.25}
+                color={iconColor}
+                anchorX="left"
+                anchorY="top"
+                position={[basePadding + depthOffset, 0, 0.05]}
+              >
+                {icon}
+              </Text>
 
-              <span className={isActive ? "font-medium" : ""}>
+              <Text
+                font={FONT_URL}
+                fontSize={0.25}
+                color={isActive ? C.text : C.muted}
+                position={[basePadding + depthOffset + 0.45, 0.04, 0.05]}
+                anchorX="left"
+                anchorY="top"
+              >
                 {node.name}
-              </span>
-            </div>
+              </Text>
+            </group>
           );
         })}
-      </div>
-    </div>
+      </group>
+    </group>
   );
-};
+});
