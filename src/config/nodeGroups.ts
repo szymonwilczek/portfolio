@@ -31,7 +31,7 @@ export const NODE_GROUPS = {
     "Cube389",
   ],
 
-  BIRTHDAY: ["urodziny_hat", "Cube539"],
+  BIRTHDAY: ["urodziny_hat", "sylwester_whistle", "Cube173"],
 
   VALENTINES: ["walentynki_heart"],
 
