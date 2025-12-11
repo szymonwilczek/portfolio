@@ -77,7 +77,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
         {...props}
       >
         <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 md:px-8">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center">
             <Logo />
           </Link>
 
