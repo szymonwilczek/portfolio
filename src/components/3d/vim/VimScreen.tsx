@@ -1,21 +1,19 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { C, INITIAL_FILE_TREE } from "./VimConfig";
+import * as THREE from "three";
+import { INITIAL_FILE_TREE } from "./VimConfig";
 import { FILES_CONTENT } from "./VimFiles";
-import { VimExplorer } from "./VimExplorer";
-import { VimEditor } from "./VimEditor";
-import { VimStatusBar } from "./VimStatusBar";
-import { VimTabs } from "./VimTabs";
+import { drawVim, CV_WIDTH, CV_HEIGHT } from "./VimCanvasRenderer";
+import { Html } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 
-export const SCREEN_W = 18;
-export const SCREEN_H = 10;
-export const EXPLORER_W = 4.5;
-export const EDITOR_W = SCREEN_W - EXPLORER_W;
-export const BAR_H = 0.8;
-export const TAB_H = 0.8;
+export interface VimScreenProps {
+  onTextureUpdate?: (texture: THREE.CanvasTexture) => void;
+}
 
-export function VimScreen() {
+export function VimScreen({ onTextureUpdate }: VimScreenProps) {
+  const { gl } = useThree(); // Get renderer for maxAnisotropy
   const [openFiles, setOpenFiles] = useState(["page.tsx", "globals.css"]);
   const [activeFile, setActiveFile] = useState("page.tsx");
   const contentRef = useRef<string[]>([...FILES_CONTENT["page.tsx"]]);
@@ -30,6 +28,50 @@ export function VimScreen() {
   const [cursor, setCursor] = useState({ line: 0, col: 0 });
   const [visualStartLine, setVisualStartLine] = useState<number | null>(null);
   const [centerTrigger, setCenterTrigger] = useState(0);
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const textureRef = useRef<THREE.CanvasTexture | null>(null);
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) return;
+
+    drawVim(ctx, {
+      openFiles,
+      activeFile,
+      fileContent,
+      cursor,
+      mode,
+      explorerIndex,
+      isTreeFocused,
+      visualStartLine,
+      statusBarMsg,
+      errorCount
+    });
+
+    // notify texture to update
+    if (!textureRef.current) {
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.generateMipmaps = true;
+      tex.anisotropy = gl.capabilities.getMaxAnisotropy();
+      tex.flipY = true;
+      textureRef.current = tex;
+      if (onTextureUpdate) onTextureUpdate(tex);
+    } else {
+      textureRef.current.needsUpdate = true;
+    }
+
+  }, [
+    openFiles, activeFile, fileContent, cursor, mode,
+    explorerIndex, isTreeFocused, visualStartLine,
+    statusBarMsg, errorCount, onTextureUpdate, gl
+  ]);
 
   const stateRef = useRef({
     openFiles, activeFile, cursor, mode, explorerIndex, isTreeFocused, visualStartLine, centerTrigger
@@ -64,16 +106,20 @@ export function VimScreen() {
       { type: "move_cursor", line: 7, col: 0 }, { type: "wait", ms: 500 },
       { type: "shift_a" }, { type: "wait", ms: 500 },
       { type: "press_enter" }, { type: "wait", ms: 100 },
-      { type: "press_enter" }, { type: "wait", ms: 100 },
       { type: "press_enter" }, { type: "wait", ms: 500 },
       { type: "set_mode", val: "NORMAL" }, { type: "wait", ms: 200 },
-      { type: "move_cursor_relative", dLine: -1, dCol: 0 }, { type: "wait", ms: 300 },
-      { type: "set_mode", val: "INSERT" }, { type: "fix_indent", indent: 8 },
-      { type: "type_text_slowly", text: "// Welcome to my world!" }, { type: "press_enter" }, { type: "wait", ms: 800 },
+      { type: "set_mode", val: "INSERT" },
       { type: "fix_indent", indent: 8 },
-      { type: "type_text_slowly", text: "// I hope you are enjoying yourself here." }, { type: "press_enter" }, { type: "wait", ms: 800 },
+      { type: "type_text_slowly", text: "// Welcome to my world!" },
+      { type: "press_enter" },
+      { type: "wait", ms: 300 },
       { type: "fix_indent", indent: 8 },
-      { type: "type_text_slowly", text: "// Let's build something!" }, { type: "wait", ms: 1500 },
+      { type: "type_text_slowly", text: "// I hope you like my work." },
+      { type: "press_enter" },
+      { type: "wait", ms: 300 },
+      { type: "fix_indent", indent: 8 },
+      { type: "type_text_slowly", text: "// Let's build something, shall we?" },
+      { type: "wait", ms: 800 },
       { type: "set_mode", val: "NORMAL" }, { type: "wait", ms: 500 },
       { type: "show_command", val: ":w" }, { type: "wait", ms: 300 },
       { type: "hide_command" }, { type: "show_msg", val: `"src/app/page.tsx" written` }, { type: "wait", ms: 2000 },
@@ -164,16 +210,6 @@ export function VimScreen() {
         case "show_command": setMode("COMMAND"); setStatusBarMsg(action.val as string); break;
         case "show_msg": setMode("NORMAL"); setStatusBarMsg(action.val as string); break;
         case "hide_command": setStatusBarMsg(""); if (s.mode === "COMMAND") setMode("NORMAL"); break;
-        case "switch_tab": {
-          const nextFile = action.file as string;
-          setActiveFile(nextFile);
-          const fIdx = INITIAL_FILE_TREE.findIndex(node => node.name === nextFile);
-          if (fIdx !== -1) setExplorerIndex(fIdx);
-          contentRef.current = [...FILES_CONTENT[nextFile]];
-          setFileContent(FILES_CONTENT[nextFile]);
-          setCursor({ line: 0, col: 0 });
-          break;
-        }
         case "close_buffer": {
           const newOpenFiles = s.openFiles.filter(f => f !== s.activeFile);
           setOpenFiles(newOpenFiles);
@@ -214,37 +250,13 @@ export function VimScreen() {
   }, []);
 
   return (
-    <group>
-      <mesh position={[SCREEN_W / 2, -SCREEN_H / 2, -0.1]}>
-        <planeGeometry args={[SCREEN_W + 1, SCREEN_H + 1]} />
-        <meshBasicMaterial color={C.bg} />
-      </mesh>
-
-      <VimExplorer
-        explorerIndex={explorerIndex}
-        isTreeFocused={isTreeFocused}
+    <Html>
+      <canvas
+        ref={canvasRef}
+        width={CV_WIDTH}
+        height={CV_HEIGHT}
+        style={{ display: 'none' }}
       />
-
-      <VimTabs
-        openFiles={openFiles}
-        activeFile={activeFile}
-      />
-
-      <VimEditor
-        fileContent={fileContent}
-        cursor={cursor}
-        mode={mode}
-        visualStartLine={visualStartLine}
-        isTreeFocused={isTreeFocused}
-      />
-
-      <VimStatusBar
-        mode={mode}
-        activeFile={activeFile}
-        statusBarMsg={statusBarMsg}
-        errorCount={errorCount}
-        cursor={cursor}
-      />
-    </group>
+    </Html>
   );
 }
