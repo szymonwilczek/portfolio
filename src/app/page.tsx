@@ -20,6 +20,7 @@ import { getActiveEvent } from "@/config/events";
 import { EVENT_TOASTS } from "@/config/eventToasts";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import { SeasonalWrapper } from "@/components/seasonal/SeasonalWrapper";
 
 const timelineData: TimelineEntry[] = [
   {
@@ -83,11 +84,12 @@ export default function Home() {
       const palette = isDark ? config.palette.dark : config.palette.light;
 
       const timer = setTimeout(() => {
+        const isMobile = window.innerWidth < 768;
         toast(config.title, {
           description: config.description,
           icon: config.icon,
           duration: 4000,
-          position: "top-center",
+          position: isMobile ? "bottom-center" : "top-right",
           style: {
             "--toast-bg": palette.bg,
             "--toast-text": palette.text,
@@ -102,11 +104,12 @@ export default function Home() {
 
       return () => clearTimeout(timer);
     }
-  }, [resolvedTheme]);
+  }, []);
 
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-background transition-colors duration-300">
+      <SeasonalWrapper />
       <div className="w-full max-w-3xl h-[400px] relative overflow-hidden flex justify-center items-center">
         <div className="w-full max-w-5xl h-full cursor-grab active:cursor-grabbing">
           <Scene />
