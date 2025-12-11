@@ -76,7 +76,7 @@ export default function Home() {
     // const hasShown = sessionStorage.getItem("has-shown-event-toast");
     // if (hasShown) return;
 
-    const activeEvent = getActiveEvent(new Date("2025-10-31"));
+    const activeEvent = getActiveEvent(new Date());
 
     if (activeEvent && EVENT_TOASTS[activeEvent]) {
       const config = EVENT_TOASTS[activeEvent];
@@ -110,7 +110,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center bg-background transition-colors duration-300">
       <SeasonalWrapper />
-      <div className="w-full max-w-3xl h-[400px] relative overflow-hidden flex justify-center items-center">
+      <div className="w-full max-w-3xl h-[420px] max-sm:h-[425px] relative overflow-hidden flex justify-center items-center">
         <div className="w-full max-w-5xl h-full cursor-grab active:cursor-grabbing">
           <Scene />
         </div>
