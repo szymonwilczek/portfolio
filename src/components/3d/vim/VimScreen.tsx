@@ -92,7 +92,7 @@ export function VimScreen({ onTextureUpdate }: VimScreenProps) {
       { type: "set_errors", count: 4 }, { type: "wait", ms: 500 },
       { type: "move_cursor", line: 18, col: 0 }, { type: "wait", ms: 150 },
       { type: "center_view" }, { type: "wait", ms: 800 },
-      { type: "set_mode", val: "VISUAL LINE" }, { type: "wait", ms: 400 },
+      { type: "set_mode", val: "V-LINE" }, { type: "wait", ms: 400 },
       { type: "move_cursor_relative", dLine: 1, dCol: 0 }, { type: "wait", ms: 250 },
       { type: "move_cursor_relative", dLine: 1, dCol: 0 }, { type: "wait", ms: 250 },
       { type: "move_cursor_relative", dLine: 1, dCol: 0 }, { type: "wait", ms: 250 },
@@ -154,11 +154,11 @@ export function VimScreen({ onTextureUpdate }: VimScreenProps) {
         case "center_view": setCenterTrigger(prev => prev + 1); break;
         case "set_mode":
           setMode(action.val as string);
-          if (action.val === "VISUAL LINE") setVisualStartLine(s.cursor.line);
+          if (action.val === "V-LINE") setVisualStartLine(s.cursor.line);
           else setVisualStartLine(null);
           break;
         case "delete_selection":
-          if (s.mode === "VISUAL LINE" && s.visualStartLine !== null) {
+          if (s.mode === "V-LINE" && s.visualStartLine !== null) {
             const start = Math.min(s.visualStartLine, s.cursor.line);
             const end = Math.max(s.visualStartLine, s.cursor.line);
             const newContent = [...contentRef.current];
