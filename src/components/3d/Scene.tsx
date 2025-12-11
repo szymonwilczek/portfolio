@@ -45,7 +45,7 @@ export function Scene() {
           castShadow
           position={envConfig.sunPosition}
           intensity={envConfig.sunIntensity}
-          shadow-bias={-0.0001}
+          shadow-bias={-0.001}
           shadow-normalBias={0.02}
           shadow-mapSize={[2048, 2048]}
         >
