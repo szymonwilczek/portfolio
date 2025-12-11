@@ -180,7 +180,6 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
 
     Object.keys(nodes).forEach((nodeName) => {
       const node = nodes[nodeName];
-      if (!node.isMesh) return;
 
       const allEventKeys = [
         ...NODE_GROUPS.SANTA, ...NODE_GROUPS.CHRISTMAS, ...NODE_GROUPS.NEW_YEAR,
