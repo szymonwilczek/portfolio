@@ -24,7 +24,7 @@ export function WinterSnow() {
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
 
   useEffect(() => {
-    const flakes = Array.from({ length: 30 }, (_, i) => ({
+    const flakes = Array.from({ length: 15 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       duration: 10 + Math.random() * 10,
@@ -33,7 +33,10 @@ export function WinterSnow() {
       opacity: 0.4 + Math.random() * 0.4,
       swayDuration: 3 + Math.random() * 2,
     }));
-    setSnowflakes(flakes);
+
+    setTimeout(() => {
+      setSnowflakes(flakes);
+    }, 2000);
   }, []);
 
   return (
