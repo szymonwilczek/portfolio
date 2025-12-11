@@ -43,8 +43,8 @@ export default function RootLayout({
             position="top-center"
             toastOptions={{
               classNames: {
-                toast: "gap-3 !bg-[var(--toast-bg,var(--background))]/60 backdrop-blur-sm !text-[var(--toast-text,var(--foreground))] !border-[var(--toast-border,var(--border))]/60 !shadow-lg",
-                description: "!text-[var(--toast-muted,var(--muted-foreground))]",
+                toast: "gap-3 !bg-[var(--toast-bg,var(--background))]/40 backdrop-blur-sm !text-[var(--toast-text,var(--foreground))]/80 !border-[var(--toast-border,var(--border))]/40 !shadow-lg",
+                description: "!text-[var(--toast-muted,var(--muted-foreground))]/80",
                 actionButton: "!bg-primary !text-primary-foreground",
                 cancelButton: "!bg-muted !text-muted-foreground",
               }
