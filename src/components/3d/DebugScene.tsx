@@ -8,13 +8,16 @@ import * as THREE from "three"
 import { useControls, folder } from "leva"
 import { getEnvironmentConfig } from "@/config/environment"
 
-function CameraUpdater({ pos, fov }: { pos: [number, number, number], fov: number }) {
+function CameraUpdater({ pos, fov, enabled = true }: { pos: [number, number, number], fov: number, enabled?: boolean }) {
   const { camera } = useThree()
   useEffect(() => {
+    if (!enabled) return;
     camera.position.set(...pos)
-    camera.fov = fov
+    if ('fov' in camera) {
+      camera.fov = fov
+    }
     camera.updateProjectionMatrix()
-  }, [camera, pos, fov])
+  }, [camera, pos, fov, enabled])
   return null
 }
 
@@ -23,6 +26,11 @@ export function DebugScene() {
     TimeSpace: folder({
       date: { value: new Date().toISOString(), label: "Date" },
       hour: { value: new Date().getHours().toString(), min: 0, max: 23, step: 1, label: "Hour (23M)" },
+    }),
+
+    "Debug Tools": folder({
+      freeCamera: { value: false, label: "Free Camera" },
+      stopRotation: { value: false, label: "Stop Rotation" },
     }),
 
     Camera: folder({
@@ -51,7 +59,7 @@ export function DebugScene() {
 
   const envSettings = useMemo(() => {
     const mockDate = new Date(values.date);
-    mockDate.setHours(values.hour);
+    mockDate.setHours(Number(values.hour));
     return getEnvironmentConfig(mockDate);
   }, [values.hour, values.date]);
 
@@ -69,7 +77,11 @@ export function DebugScene() {
       >
         {values.showStats && <Stats />}
 
-        <CameraUpdater pos={[values.camX, values.camY, values.camZ]} fov={values.fov} />
+        <CameraUpdater
+          pos={[values.camX, values.camY, values.camZ]}
+          fov={values.fov}
+          enabled={!values.freeCamera}
+        />
 
         <Environment
           preset={envSettings.preset}
@@ -94,6 +106,7 @@ export function DebugScene() {
             dateOverride={new Date(values.date)}
             lampColor={values.bulbColor}
             lampIntensity={values.bulbIntensity}
+            stopRotation={values.stopRotation}
           />
         </Suspense>
 
@@ -106,7 +119,7 @@ export function DebugScene() {
           color="#000000"
         />
 
-        <OrbitControls enablePan={false} />
+        <OrbitControls enablePan={values.freeCamera} makeDefault />
       </Canvas>
 
       <div className="absolute top-4 left-4 bg-black/50 text-white p-2 rounded text-xs font-mono pointer-events-none">
