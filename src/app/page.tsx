@@ -117,9 +117,9 @@ export default function Home() {
       </div>
 
       <Section className="-mt-12 z-10 relative">
-        <div className="flex flex-col-reverse md:flex-row items-start md:items-center justify-between gap-8 p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 shadow-sm">
+        <div className="flex flex-col-reverse md:flex-row items-start md:items-center justify-between gap-6 p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 shadow-sm">
           <div className="flex-1 space-y-2">
-            <h1 className="text-4xl md:text-3xl font-extrabold tracking-tight">
+            <h1 className="text-4xl tracking-wider font-outfit font-bold">
               Szymon Wilczek
             </h1>
             <p className="text-lg text-muted-foreground max-w-md">

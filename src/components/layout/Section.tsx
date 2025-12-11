@@ -9,7 +9,7 @@ function Section({ children, className = "", delay = "" }: { children: React.Rea
 
 function SectionTitle({ icon: Icon, children }: { icon?: React.ElementType, children: React.ReactNode }) {
   return (
-    <h3 className="flex items-center gap-3 text-2xl font-bold tracking-tight text-foreground mb-6">
+    <h3 className="flex items-center gap-3 text-3xl font-bold font-outfit tracking-wider text-foreground mb-6">
       {Icon && <Icon className="w-6 h-6 text-primary" />}
       {children}
     </h3>
