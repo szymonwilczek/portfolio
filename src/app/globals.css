@@ -116,7 +116,59 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@keyframes seasonal-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: var(--particle-opacity, 0.8);
+  }
+
+  85% {
+    opacity: var(--particle-opacity, 0.8);
+  }
+
+  100% {
+    transform: translate3d(0, 35vh, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes seasonal-sway {
+  0% {
+    transform: translate3d(-15px, 0, 0) rotate(-15deg);
+  }
+
+  100% {
+    transform: translate3d(15px, 0, 0) rotate(15deg);
+  }
+}
+
+/* forcing rendering on different GPU layer */
+.gpu-particle {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+
+@keyframes sun-ray-swing {
+  0% {
+    transform: rotate(-15deg) scaleY(0.9);
+  }
+
+  50% {
+    transform: rotate(10deg) scaleY(1.1);
+  }
+
+  100% {
+    transform: rotate(-15deg) scaleY(0.9);
   }
 }
