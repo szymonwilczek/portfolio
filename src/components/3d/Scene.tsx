@@ -1,24 +1,50 @@
 "use client"
 
-import { Canvas } from "@react-three/fiber"
-import { Environment, OrbitControls, ContactShadows } from "@react-three/drei"
+import { Canvas, useThree } from "@react-three/fiber"
+import { Environment, OrbitControls } from "@react-three/drei"
 import { Model } from "./Model"
-import { Suspense, useState, useEffect } from "react"
+import { Suspense, useState, useEffect, useCallback } from "react"
 import * as THREE from "three"
 import { Loader } from "@/components/ui/loader"
 import { getEnvironmentConfig } from "@/config/environment"
 
-export function Scene() {
-  const [isReady, setIsReady] = useState(false);
-  const [envConfig, setEnvConfig] = useState(getEnvironmentConfig(new Date()));
+function ShaderCompiler({ onComplete }: { onComplete: () => void }) {
+  const { gl, scene, camera } = useThree()
 
   useEffect(() => {
-    setEnvConfig(getEnvironmentConfig(new Date()));
-  }, []);
+    gl.compile(scene, camera)
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        onComplete()
+      })
+    })
+  }, [gl, scene, camera, onComplete])
+
+  return null
+}
+
+export function Scene() {
+  const [modelLoaded, setModelLoaded] = useState(false)
+  const [shadersReady, setShadersReady] = useState(false)
+  const [envConfig, setEnvConfig] = useState(getEnvironmentConfig(new Date()))
+
+  const isReady = modelLoaded && shadersReady
+
+  useEffect(() => {
+    setEnvConfig(getEnvironmentConfig(new Date()))
+  }, [])
+
+  const handleModelLoaded = useCallback(() => {
+    setModelLoaded(true)
+  }, [])
+
+  const handleShadersCompiled = useCallback(() => {
+    setShadersReady(true)
+  }, [])
 
   return (
-    <div
-      className="w-full h-full relative transition-colors duration-1000">
+    <div className="w-full h-full relative transition-colors duration-1000">
       <div
         className={`absolute inset-0 z-20 transition-opacity duration-700 pointer-events-none ${isReady ? "opacity-0" : "opacity-100"
           }`}
@@ -31,10 +57,11 @@ export function Scene() {
           }`}
         shadows="soft"
         camera={{ position: [7, 4, -7], fov: 46 }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         gl={{
           preserveDrawingBuffer: true,
           antialias: true,
+          powerPreference: "high-performance",
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.0
         }}
@@ -45,27 +72,20 @@ export function Scene() {
           castShadow
           position={envConfig.sunPosition}
           intensity={envConfig.sunIntensity}
-          shadow-bias={-0.001}
+          shadow-bias={-0.0001}
           shadow-normalBias={0.02}
-          shadow-mapSize={[2048, 2048]}
+          shadow-mapSize={[1024, 1024]}
         >
-          <orthographicCamera attach="shadow-camera" args={[-15, 15, 15, -15]} near={0.1} far={50} />
+          <orthographicCamera attach="shadow-camera" args={[-8, 8, 8, -8]} near={0.1} far={50} />
         </directionalLight>
 
-        <ambientLight intensity={envConfig.ambientIntensity} />
-
         <Suspense fallback={null}>
-          <Model onLoaded={() => setIsReady(true)} />
-        </Suspense>
+          <Model onLoaded={handleModelLoaded} />
 
-        <ContactShadows
-          position={[0, -0.01, 0]}
-          opacity={0.5}
-          scale={10}
-          blur={2.5}
-          far={4}
-          color="#000000"
-        />
+          {modelLoaded && !shadersReady && (
+            <ShaderCompiler onComplete={handleShadersCompiled} />
+          )}
+        </Suspense>
 
         <OrbitControls
           enablePan={false}
