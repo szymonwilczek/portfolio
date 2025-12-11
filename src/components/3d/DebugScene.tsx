@@ -1,7 +1,7 @@
 "use client"
 
 import { Canvas, useThree } from "@react-three/fiber"
-import { Environment, OrbitControls, ContactShadows, Stats } from "@react-three/drei"
+import { Environment, OrbitControls, Stats } from "@react-three/drei"
 import { Model } from "./Model"
 import { Suspense, useEffect, useMemo } from "react"
 import * as THREE from "three"
@@ -41,8 +41,8 @@ export function DebugScene() {
     }),
 
     Shadows: folder({
-      bias: { value: -0.0001, min: -0.01, max: 0.01, step: 0.0001 },
-      normalBias: { value: 0.02, min: 0, max: 0.1, step: 0.001 },
+      bias: { value: -0.0001, min: -0.0100, max: 0.0100, step: 0.0001 },
+      normalBias: { value: 0.02, min: 0.0000, max: 0.1000, step: 0.001 },
       opacity: { value: 0.5, min: 0, max: 1 },
       blur: { value: 2.5, min: 0, max: 10 },
     }),
@@ -66,8 +66,8 @@ export function DebugScene() {
   return (
     <div className="w-full h-full relative transition-colors duration-1000 bg-card">
       <Canvas
-        shadows="soft"
-        dpr={[1, 2]}
+        shadows="basic"
+        dpr={[1, 1.5]}
         gl={{
           preserveDrawingBuffer: true,
           antialias: true,
@@ -94,12 +94,10 @@ export function DebugScene() {
           intensity={envSettings.sunIntensity}
           shadow-bias={values.bias}
           shadow-normalBias={values.normalBias}
-          shadow-mapSize={[2048, 2048]}
+          shadow-mapSize={[1024, 1024]}
         >
-          <orthographicCamera attach="shadow-camera" args={[-15, 15, 15, -15]} near={0.1} far={50} />
+          <orthographicCamera attach="shadow-camera" args={[-8, 8, 8, -8]} near={0.1} far={50} />
         </directionalLight>
-
-        <ambientLight intensity={envSettings.ambientIntensity} />
 
         <Suspense fallback={null}>
           <Model
@@ -109,15 +107,6 @@ export function DebugScene() {
             stopRotation={values.stopRotation}
           />
         </Suspense>
-
-        <ContactShadows
-          position={[0, -0.01, 0]}
-          opacity={values.opacity}
-          scale={10}
-          blur={values.blur}
-          far={4}
-          color="#000000"
-        />
 
         <OrbitControls enablePan={values.freeCamera} makeDefault />
       </Canvas>
