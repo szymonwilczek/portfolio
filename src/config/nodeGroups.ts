@@ -31,7 +31,18 @@ export const NODE_GROUPS = {
     "Cube389",
   ],
 
-  BIRTHDAY: ["urodziny_hat", "sylwester_whistle", "Cube173"],
+  BIRTHDAY: [
+    "urodziny_hat",
+    "Cube173",
+    "sylwester_whistle",
+    "cake_plate",
+    "cake_sponge",
+    "cake_cream",
+    "cake_jam",
+    "cake_glaze",
+    "cake_candle",
+    "cake_flame",
+  ],
 
   VALENTINES: ["walentynki_heart"],
 

@@ -25,9 +25,10 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
   const groupRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.PointLight | null>(null);
   const starLightRef = useRef<THREE.PointLight | null>(null);
+  const cakeLightRef = useRef<THREE.PointLight | null>(null);
   const time = useRef(0);
 
-  const [defaultDate] = useState(new Date());
+  const [defaultDate] = useState(new Date("2025-01-08"));
   const currentDate = dateOverride || defaultDate;
 
 
@@ -109,6 +110,41 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
       }
     }
 
+    if (getActiveEvent(currentDate) === "BIRTHDAY" && nodes.cake_flame) {
+      const flame = nodes.cake_flame;
+
+      if (flame.material) {
+        const flameMat = flame.material as THREE.MeshStandardMaterial;
+        const flameColor = new THREE.Color("#f5d273");
+
+        flameMat.emissive = flameColor;
+        flameMat.emissiveIntensity = 2.0;
+        flameMat.toneMapped = false;
+        flameMat.color = flameColor;
+      }
+
+      if (!cakeLightRef.current) {
+        const light = new THREE.PointLight("#ffaa00", 4.0, 3, 1);
+        light.castShadow = false;
+
+        if (flame.geometry) {
+          flame.geometry.computeBoundingSphere();
+          const center = flame.geometry.boundingSphere?.center;
+          if (center) {
+            light.position.copy(center);
+          }
+        }
+
+        flame.add(light);
+        cakeLightRef.current = light;
+      }
+    } else {
+      if (cakeLightRef.current && nodes.cake_flame) {
+        nodes.cake_flame.remove(cakeLightRef.current);
+        cakeLightRef.current = null;
+      }
+    }
+
     return () => {
       if (bulb && lightRef.current) {
         bulb.remove(lightRef.current);
@@ -117,6 +153,10 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
       if (nodes.choinka_star && starLightRef.current) {
         nodes.choinka_star.remove(starLightRef.current);
         starLightRef.current = null;
+      }
+      if (nodes.cake_flame && cakeLightRef.current) {
+        nodes.cake_flame.remove(cakeLightRef.current);
+        cakeLightRef.current = null;
       }
     }
   }, [nodes, materials, currentDate, onLoaded, lampColor, lampIntensity, lampIntensityTimeBased]);
@@ -187,6 +227,7 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, ...pro
         break;
 
       case "BIRTHDAY":
+        hideGroup(NODE_GROUPS.BONSAI);
         showGroup(NODE_GROUPS.BIRTHDAY);
         break;
 
