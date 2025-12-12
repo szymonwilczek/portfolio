@@ -10,7 +10,7 @@ import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
 import { Metadata } from "next";
 import Image from "next/image";
-import { ImageGallery } from "@/components/ui/image-gallery";
+import { ImageGallery } from "@/components/image-gallery";
 
 export async function generateStaticParams() {
   const projects = getAllProjects();
