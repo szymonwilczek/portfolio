@@ -124,6 +124,263 @@
   }
 }
 
+/* prose typography styles */
+.prose {
+  color: var(--foreground);
+  max-width: 65ch;
+  line-height: 1.75;
+}
+
+.prose p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.prose h1 {
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8em;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.prose h2 {
+  font-size: 1.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  line-height: 1.33;
+  font-weight: 700;
+}
+
+.prose h3 {
+  font-size: 1.25em;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+.prose h4 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.prose a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.prose a:hover {
+  color: var(--primary);
+  opacity: 0.8;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose ul {
+  list-style-type: disc;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose blockquote {
+  font-weight: 500;
+  font-style: italic;
+  border-left: 0.25rem solid var(--border);
+  quotes: "\\201C" "\\201D" "\\2018" "\\2019";
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  padding-left: 1em;
+}
+
+.prose code {
+  font-weight: 600;
+  font-size: 0.875em;
+  background-color: var(--muted);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+}
+
+.prose pre {
+  overflow-x: auto;
+  font-size: 0.875em;
+  line-height: 1.715;
+  margin-top: 1.714em;
+  margin-bottom: 1.714em;
+  border-radius: 0.5rem;
+  padding: 0;
+}
+
+.prose pre code {
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 0;
+  padding: 0;
+  font-weight: 400;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+.prose img {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border-radius: 0.5rem;
+}
+
+.prose hr {
+  border-color: var(--border);
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.prose table {
+  width: 100%;
+  table-layout: auto;
+  text-align: left;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-size: 0.875em;
+  line-height: 1.715;
+}
+
+.prose thead {
+  border-bottom-width: 1px;
+  border-bottom-color: var(--border);
+}
+
+.prose thead th {
+  font-weight: 600;
+  vertical-align: bottom;
+  padding-right: 0.57em;
+  padding-bottom: 0.57em;
+  padding-left: 0.57em;
+}
+
+.prose tbody tr {
+  border-bottom-width: 1px;
+  border-bottom-color: var(--border);
+}
+
+.prose tbody td {
+  vertical-align: baseline;
+  padding: 0.57em;
+}
+
+/* dark mode prose adjustments */
+.dark .prose {
+  color: var(--foreground);
+}
+
+.prose-lg {
+  font-size: 1.125rem;
+  line-height: 1.78;
+}
+
+.prose-lg p {
+  margin-top: 1.33em;
+  margin-bottom: 1.33em;
+}
+
+/* syntax highlighting */
+:root {
+  --hljs-bg: oklch(0.97 0.001 286);
+  --hljs-fg: oklch(0.2 0.01 286);
+  --hljs-comment: oklch(0.55 0.02 286);
+  --hljs-keyword: oklch(0.5 0.2 300);
+  --hljs-string: oklch(0.55 0.15 150);
+  --hljs-number: oklch(0.55 0.2 30);
+  --hljs-function: oklch(0.45 0.18 250);
+  --hljs-variable: oklch(0.45 0.15 200);
+  --hljs-type: oklch(0.5 0.18 60);
+  --hljs-attr: oklch(0.55 0.15 40);
+}
+
+.dark {
+  --hljs-bg: oklch(0.18 0.01 286);
+  --hljs-fg: oklch(0.9 0.01 286);
+  --hljs-comment: oklch(0.5 0.02 286);
+  --hljs-keyword: oklch(0.7 0.2 300);
+  --hljs-string: oklch(0.7 0.15 150);
+  --hljs-number: oklch(0.75 0.2 30);
+  --hljs-function: oklch(0.7 0.18 250);
+  --hljs-variable: oklch(0.7 0.15 200);
+  --hljs-type: oklch(0.75 0.18 60);
+  --hljs-attr: oklch(0.75 0.15 40);
+}
+
+.hljs {
+  background: var(--hljs-bg);
+  color: var(--hljs-fg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--hljs-comment);
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in {
+  color: var(--hljs-keyword);
+}
+
+.hljs-string,
+.hljs-doctag,
+.hljs-template-variable {
+  color: var(--hljs-string);
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-regexp {
+  color: var(--hljs-number);
+}
+
+.hljs-function,
+.hljs-title {
+  color: var(--hljs-function);
+}
+
+.hljs-variable,
+.hljs-params {
+  color: var(--hljs-variable);
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: var(--hljs-type);
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-symbol {
+  color: var(--hljs-attr);
+}
+
 @keyframes seasonal-fall {
   0% {
     transform: translate3d(0, -10vh, 0);
