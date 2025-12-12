@@ -70,7 +70,7 @@ export default function ProjectsPage() {
                 </p>
 
                 <div className="mt-auto pt-4 flex flex-wrap gap-2">
-                  {project.tags.slice(0, 2).map((tag) => (
+                  {project.tags.slice(0, 3).map((tag) => (
                     <Badge key={tag} variant="outline" className="text-xs font-normal">
                       {tag}
                     </Badge>
