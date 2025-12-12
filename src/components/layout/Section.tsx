@@ -1,6 +1,20 @@
-function Section({ children, className = "", delay = "" }: { children: React.ReactNode, className?: string, delay?: string }) {
+function Section({
+  children,
+  className = "",
+  delay = "",
+  noAnimation = false
+}: {
+  children: React.ReactNode,
+  className?: string,
+  delay?: string,
+  noAnimation?: boolean
+}) {
+  const animation = noAnimation ? "" : `animate-in slide-in-from-bottom-8 fade-in duration-500 ${delay}`;
+
   return (
-    <section className={`w-full max-w-3xl px-6 mb-16 animate-in slide-in-from-bottom-8 fade-in duration-700 ${delay} ${className}`}>
+    <section className={`w-full max-w-3xl px-6 mb-16 ${animation} ${className}`}
+      style={{ animationFillMode: "both" }}
+    >
       {children}
     </section>
   );
