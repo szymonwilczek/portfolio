@@ -88,6 +88,8 @@ export function Scene() {
         </Suspense>
 
         <OrbitControls
+          minDistance={5}
+          maxDistance={11}
           enablePan={false}
           minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
