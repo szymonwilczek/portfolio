@@ -4,6 +4,11 @@ import matter from "gray-matter";
 
 const contentDirectory = path.join(process.cwd(), "src/content/projects");
 
+export interface ProjectLink {
+  url: string;
+  name: string;
+}
+
 export interface ProjectData {
   slug: string;
   title: string;
@@ -13,6 +18,8 @@ export interface ProjectData {
   thumbnail?: string;
   carousel?: string[];
   content?: string;
+  github?: string;
+  links?: ProjectLink[];
 }
 
 export function getAllProjects(): ProjectData[] {
@@ -63,5 +70,7 @@ export function getProjectData(slug: string): ProjectData {
     tags: data.tags,
     thumbnail: data.thumbnail,
     carousel: data.carousel || [],
+    github: data.github,
+    links: data.links || [],
   } as ProjectData;
 }

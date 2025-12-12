@@ -1,20 +1,16 @@
 import { getAllProjects, getProjectData } from "@/lib/markdown";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowLeft, Calendar, ExternalLink, Github } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
+import remarkGfm from "remark-gfm";
 import { Metadata } from "next";
 import Image from "next/image";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { ImageGallery } from "@/components/ui/image-gallery";
 
 export async function generateStaticParams() {
   const projects = getAllProjects();
@@ -86,27 +82,7 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
         </div>
 
         {hasCarousel && (
-          <div className="w-full">
-            <Carousel className="w-full" opts={{ loop: true, dragFree: true }}>
-              <CarouselContent className="-ml-2 md:-ml-4">
-                {project.carousel!.map((imageSrc, index) => (
-                  <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-4/5">
-                    <div className="aspect-video rounded-xl overflow-hidden border border-border/50 bg-muted/30">
-                      <Image
-                        src={imageSrc}
-                        alt={`${project.title} screenshot ${index + 1}`}
-                        width={1280}
-                        height={720}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-2 md:-left-12" />
-              <CarouselNext className="right-2 md:-right-12" />
-            </Carousel>
-          </div>
+          <ImageGallery images={project.carousel!} title={project.title} />
         )}
 
         {!hasCarousel && project.thumbnail && (
@@ -122,10 +98,38 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
         )}
 
         <div className="prose prose-lg max-w-none">
-          <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
             {project.content || ""}
           </ReactMarkdown>
         </div>
+
+        {(project.github || (project.links && project.links.length > 0)) && (
+          <Card className="mt-12">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold">Project Links</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-3">
+                {project.github && (
+                  <Button asChild variant="outline">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      <Github className="mr-2 h-4 w-4" />
+                      GitHub Repository
+                    </a>
+                  </Button>
+                )}
+                {project.links?.map((link, index) => (
+                  <Button key={index} asChild variant="outline">
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      {link.name}
+                    </a>
+                  </Button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         <div className="pt-12 mt-12 border-t border-border/50">
           <p className="text-center text-muted-foreground text-sm">
