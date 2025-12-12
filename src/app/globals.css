@@ -45,55 +45,57 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+
+/* solarized light slightly modified */
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.21 0.006 285.885);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.705 0.015 286.067);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-primary: oklch(0.21 0.006 285.885);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.705 0.015 286.067);
+  --background: #ede5ce;
+  --foreground: #2f3a3f;
+  --card: #e5ddc7;
+  --card-foreground: #2c3538;
+  --popover: #ddd6c0;
+  --popover-foreground: #2c3538;
+  --primary: #268bd2;
+  --primary-foreground: #ede5ce;
+  --secondary: #ddd6c0;
+  --secondary-foreground: #2c3538;
+  --muted: #ddd6c0;
+  --muted-foreground: #78888c;
+  --accent: #ddd6c0;
+  --accent-foreground: #2c3538;
+  --destructive: #dc322f;
+  --border: #c1baa5;
+  --input: #ddd6c0;
+  --ring: #268bd2;
+  --chart-1: #b58900;
+  --chart-2: #2aa198;
+  --chart-3: #859900;
+  --chart-4: #6c71c4;
+  --chart-5: #cb4b16;
+  --sidebar: #ede5ce;
+  --sidebar-foreground: #3d4a4f;
+  --sidebar-primary: #268bd2;
+  --sidebar-primary-foreground: #ede5ce;
+  --sidebar-accent: #ddd6c0;
+  --sidebar-accent-foreground: #3a4548;
+  --sidebar-border: #c1baa5;
+  --sidebar-ring: #268bd2;
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
+  --background: oklch(0.16 0.005 285.823);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
+  --card: oklch(0.23 0.006 285.885);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.21 0.006 285.885);
+  --popover: oklch(0.23 0.006 285.885);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.92 0.004 286.32);
   --primary-foreground: oklch(0.21 0.006 285.885);
-  --secondary: oklch(0.274 0.006 286.033);
+  --secondary: oklch(0.30 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
+  --muted: oklch(0.30 0.006 286.033);
   --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
+  --accent: oklch(0.30 0.006 286.033);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
@@ -104,11 +106,11 @@
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar: oklch(0.23 0.006 285.885);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent: oklch(0.30 0.006 286.033);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
@@ -286,7 +288,6 @@
   padding: 0.57em;
 }
 
-/* dark mode prose adjustments */
 .dark .prose {
   color: var(--foreground);
 }
@@ -301,18 +302,18 @@
   margin-bottom: 1.33em;
 }
 
-/* syntax highlighting */
+/* syntax highlighting - solarized light */
 :root {
-  --hljs-bg: oklch(0.97 0.001 286);
-  --hljs-fg: oklch(0.2 0.01 286);
-  --hljs-comment: oklch(0.55 0.02 286);
-  --hljs-keyword: oklch(0.5 0.2 300);
-  --hljs-string: oklch(0.55 0.15 150);
-  --hljs-number: oklch(0.55 0.2 30);
-  --hljs-function: oklch(0.45 0.18 250);
-  --hljs-variable: oklch(0.45 0.15 200);
-  --hljs-type: oklch(0.5 0.18 60);
-  --hljs-attr: oklch(0.55 0.15 40);
+  --hljs-bg: #eee8d5;
+  --hljs-fg: #657b83;
+  --hljs-comment: #93a1a1;
+  --hljs-keyword: #859900;
+  --hljs-string: #2aa198;
+  --hljs-number: #d33682;
+  --hljs-function: #268bd2;
+  --hljs-variable: #b58900;
+  --hljs-type: #cb4b16;
+  --hljs-attr: #6c71c4;
 }
 
 .dark {
