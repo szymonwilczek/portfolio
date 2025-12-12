@@ -13,7 +13,7 @@ export function SeasonalWrapper() {
   // const [isDayTime, setIsDayTime] = useState(false);
 
   useEffect(() => {
-    const now = new Date("2025-12-11");
+    const now = new Date();
 
     const currentSeason = getBonsaiSeason(now);
     setSeason(currentSeason);
