@@ -110,13 +110,8 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center bg-background transition-colors duration-300">
       <SeasonalWrapper />
-      <div className="w-full max-w-3xl h-[420px] max-sm:h-[425px] relative overflow-hidden flex justify-center items-center">
-        <div className="w-full max-w-5xl h-full cursor-grab active:cursor-grabbing">
-          <Scene />
-        </div>
-      </div>
 
-      <Section className="-mt-12 z-10 relative">
+      <Section className="-mt-12 z-10 relative" noAnimation={true}>
         <div className="flex flex-col-reverse md:flex-row items-start md:items-center justify-between gap-6 p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 shadow-sm">
           <div className="flex-1 space-y-2">
             <h1 className="text-4xl tracking-wider font-outfit font-bold">

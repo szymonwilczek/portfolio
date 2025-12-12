@@ -10,6 +10,7 @@ import { ThemeProvider } from "next-themes";
 import { Navbar } from "@/components/layout/navbar/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "sonner";
+import { SceneWrapper } from "@/components/layout/SceneWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,6 +68,7 @@ export default function RootLayout({
           enableSystem
         >
           <Navbar />
+          <SceneWrapper />
           {children}
           <Footer />
           <Toaster
