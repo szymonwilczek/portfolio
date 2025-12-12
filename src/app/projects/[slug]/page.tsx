@@ -1,0 +1,112 @@
+import { getAllProjects, getProjectData } from "@/lib/markdown";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Calendar } from "lucide-react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import { Metadata } from "next";
+import Image from "next/image";
+
+export async function generateStaticParams() {
+  const projects = getAllProjects();
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+
+  try {
+    const project = getProjectData(slug);
+    return {
+      title: `${project.title} | Szymon Wilczek`,
+      description: project.excerpt,
+    };
+  } catch {
+    return {
+      title: "Project Not Found",
+    };
+  }
+}
+
+export default async function ProjectPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  let project;
+  try {
+    project = getProjectData(slug);
+  } catch {
+    notFound();
+  }
+
+  return (
+    <article className="min-h-screen bg-background py-24 px-6 md:px-12 transition-colors duration-300">
+      <div className="max-w-3xl mx-auto space-y-8">
+        <Button variant="ghost" asChild className="-ml-4 text-muted-foreground">
+          <Link href="/projects">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Projects
+          </Link>
+        </Button>
+
+        <div className="space-y-4 border-b border-border/50 pb-8">
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tags.map((tag: string) => (
+              <Badge key={tag} variant="secondary">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+
+          <h1 className="text-4xl md:text-5xl font-bold font-outfit tracking-tight text-foreground">
+            {project.title}
+          </h1>
+
+          <div className="flex items-center gap-4 text-muted-foreground text-sm">
+            <div className="flex items-center gap-1">
+              <Calendar className="h-4 w-4" />
+              {new Date(project.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </div>
+          </div>
+        </div>
+
+        {project.thumbnail && (
+          <div className="w-full aspect-video rounded-xl overflow-hidden border border-border/50 bg-muted/30">
+            <Image
+              width={1280}
+              height={720}
+              src={project.thumbnail}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
+        <div className="prose prose-lg max-w-none">
+          <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+            {project.content || ""}
+          </ReactMarkdown>
+        </div>
+
+        <div className="pt-12 mt-12 border-t border-border/50">
+          <p className="text-center text-muted-foreground text-sm">
+            Thanks for reading! Check out my other projects.
+          </p>
+          <div className="flex justify-center mt-6">
+            <Button asChild>
+              <Link href="/projects">View All Projects</Link>
+            </Button>
+          </div>
+        </div>
+
+      </div>
+    </article>
+  );
+}
+
