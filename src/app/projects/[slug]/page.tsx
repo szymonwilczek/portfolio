@@ -7,6 +7,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -98,7 +99,20 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
         )}
 
         <div className="prose prose-lg max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw, rehypeHighlight]}
+            components={{
+              video: ({ node, ...props }) => (
+                <video
+                  {...props}
+                  controls
+                  className="rounded-lg max-w-full my-4"
+                  style={{ maxWidth: props.style?.maxWidth || '100%' }}
+                />
+              ),
+            }}
+          >
             {project.content || ""}
           </ReactMarkdown>
         </div>
