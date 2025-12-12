@@ -55,7 +55,7 @@ export function WinterSnow() {
           } as React.CSSProperties}
         >
           <div
-            className="w-full h-full text-white/90"
+            className="w-full h-full text-slate-400/80 dark:text-white/90"
             style={{
               animation: `seasonal-sway ${flake.swayDuration}s ease-in-out infinite alternate`,
             }}

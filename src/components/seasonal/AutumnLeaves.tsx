@@ -9,11 +9,11 @@ const VoxelLeafSVG = () => (
 );
 
 const LEAF_COLORS = [
-  "text-amber-500/60",
-  "text-orange-600/70",
-  "text-red-500/70",
-  "text-yellow-500/60",
-  "text-orange-700/70",
+  "text-amber-700/70 dark:text-amber-500/60",
+  "text-orange-700/80 dark:text-orange-600/70",
+  "text-red-700/80 dark:text-red-500/70",
+  "text-yellow-600/70 dark:text-yellow-500/60",
+  "text-orange-800/80 dark:text-orange-700/70",
 ];
 
 type Leaf = {
