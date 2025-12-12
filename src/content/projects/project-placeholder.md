@@ -1,9 +1,13 @@
 ---
-title: "Project Placeholder"
+title: "Project Placeholder Carousel"
 date: "2024-12-12"
 excerpt: "Project Placeholder Description. Lorem Ipsum"
 tags: ["Three.js", "React"]
 thumbnail: "/images/placeholder.jpg"
+carousel:
+  - "/images/placeholder.jpg"
+  - "/images/placeholder.jpg"
+  - "/images/placeholder.jpg"
 ---
 
 # The Problem

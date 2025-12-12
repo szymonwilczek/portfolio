@@ -8,6 +8,13 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import { Metadata } from "next";
 import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export async function generateStaticParams() {
   const projects = getAllProjects();
@@ -41,6 +48,8 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
   } catch {
     notFound();
   }
+
+  const hasCarousel = project.carousel && project.carousel.length > 0;
 
   return (
     <article className="min-h-screen bg-background py-24 px-6 md:px-12 transition-colors duration-300">
@@ -76,7 +85,31 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
           </div>
         </div>
 
-        {project.thumbnail && (
+        {hasCarousel && (
+          <div className="w-full">
+            <Carousel className="w-full" opts={{ loop: true, dragFree: true }}>
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {project.carousel!.map((imageSrc, index) => (
+                  <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-4/5">
+                    <div className="aspect-video rounded-xl overflow-hidden border border-border/50 bg-muted/30">
+                      <Image
+                        src={imageSrc}
+                        alt={`${project.title} screenshot ${index + 1}`}
+                        width={1280}
+                        height={720}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2 md:-left-12" />
+              <CarouselNext className="right-2 md:-right-12" />
+            </Carousel>
+          </div>
+        )}
+
+        {!hasCarousel && project.thumbnail && (
           <div className="w-full aspect-video rounded-xl overflow-hidden border border-border/50 bg-muted/30">
             <Image
               width={1280}
@@ -109,4 +142,3 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
     </article>
   );
 }
-

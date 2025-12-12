@@ -11,6 +11,7 @@ export interface ProjectData {
   excerpt: string;
   tags: string[];
   thumbnail?: string;
+  carousel?: string[];
   content?: string;
 }
 
@@ -61,5 +62,6 @@ export function getProjectData(slug: string): ProjectData {
     excerpt: data.excerpt,
     tags: data.tags,
     thumbnail: data.thumbnail,
+    carousel: data.carousel || [],
   } as ProjectData;
 }
