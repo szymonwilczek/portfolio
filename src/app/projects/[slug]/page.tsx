@@ -12,6 +12,7 @@ import remarkGfm from "remark-gfm";
 import { Metadata } from "next";
 import Image from "next/image";
 import { ImageGallery } from "@/components/image-gallery";
+import { CodeBlock } from "@/components/CodeBlock";
 
 export async function generateStaticParams() {
   const projects = getAllProjects();
@@ -111,6 +112,21 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
                   style={{ maxWidth: props.style?.maxWidth || '100%' }}
                 />
               ),
+              pre: ({ children, ...props }) => {
+                // code element with hljs class
+                const codeChild = Array.isArray(children) ? children[0] : children;
+                if (codeChild && typeof codeChild === 'object' && 'props' in codeChild) {
+                  const element = codeChild as { props?: { className?: string; children?: React.ReactNode } };
+                  if (element.props?.className?.includes('hljs')) {
+                    return (
+                      <CodeBlock className={element.props.className}>
+                        {element.props.children}
+                      </CodeBlock>
+                    );
+                  }
+                }
+                return <pre {...props}>{children}</pre>;
+              },
             }}
           >
             {project.content || ""}
