@@ -30,10 +30,10 @@ This project was developed as part of the **Software Engineering** course at **S
 
 **Instant Book Exchange** is a modern web platform that enables users to swap books with each other. Key differentiators include:
 
-- 🔄 **Two-way exchange system** - Offer your books, wishlist others, and match with traders
-- 💬 **Real-time messaging** - Socket.io-powered chat for negotiating exchanges
-- 🏆 **Gamified ranking system** - Earn points, climb tiers, and unlock achievements
-- 🌍 **Internationalization** - Full support for Polish and English
+- :icon[Repeat]{.text-purple-500 .inline-block .mr-2} **Two-way exchange system** - Offer your books, wishlist others, and match with traders
+- :icon[MessageCircle]{.text-neutral-500 .inline-block .mr-2} **Real-time messaging** - Socket.io-powered chat for negotiating exchanges
+- :icon[Trophy]{.text-yellow-500 .inline-block .mr-2} **Gamified ranking system** - Earn points, climb tiers, and unlock achievements
+- :icon[Globe]{.text-blue-500 .inline-block .mr-2} **Internationalization** - Full support for Polish and English
 
 Is it overengineered for a university project? **Spectacularly.**  
 Did I get a good grade? **Don't know yet. I'll update this.**  
@@ -67,7 +67,7 @@ Did I get a good grade? **Don't know yet. I'll update this.**
 
 ## Core Features Deep Dive
 
-### 📚 Book Management
+### :icon[BookOpen]{.text-blue-500 .inline-block .mr-2} Book Management
 
 Users can manage two distinct book lists:
 
@@ -93,7 +93,7 @@ function findMatches(users: User[]): BookMatch[] {
 
 *It's basically Tinder, but for books. And somehow even more disappointing when there's no match.*
 
-### 🛒 Drag & Drop Checkout
+### :icon[ShoppingCart]{.text-orange-500 .inline-block .mr-2} Drag & Drop Checkout
 
 The exchange interface features an intuitive **drag and drop** system built with `@dnd-kit`:
 
@@ -104,7 +104,7 @@ The exchange interface features an intuitive **drag and drop** system built with
 
 *I spent way too long making the drag animation smooth. No one noticed. Such is the life of a developer.*
 
-### 💬 Real-Time Messaging
+### :icon[MessageCircle]{.text-green-500 .inline-block .mr-2} Real-Time Messaging
 
 Every transaction creates a **conversation room** where both parties can communicate:
 
@@ -127,7 +127,7 @@ Features include:
 - Notification sounds
 - File attachments support
 
-### 🏆 Ranking System
+### :icon[Trophy]{.text-yellow-500 .inline-block .mr-2} Ranking System
 
 The platform features a sophisticated **tier-based ranking system**:
 
@@ -140,13 +140,13 @@ The platform features a sophisticated **tier-based ranking system**:
 
 *The Diamond tier perks are theoretical because no one has reached it yet. Including me. Even during intense testing.*
 
-### 🏅 Achievements System
+### :icon[Medal]{.text-amber-500 .inline-block .mr-2} Achievements System
 
 Gamification is central to user engagement. The platform includes an **achievement engine** with unlockable badges. Each of the category has it's own *je ne sais quoi*.
 
 *Nothing motivates reading like fake internet points. Don't @ me.*
 
-### 🌍 Internationalization
+### :icon[Globe]{.text-blue-500 .inline-block .mr-2} Internationalization
 
 Full i18n support using `next-intl`:
 
@@ -222,12 +222,12 @@ components/
 
 The platform successfully demonstrates **full-stack engineering** concepts:
 
-- ✅ **Authentication** with NextAuth.js (credentials + OAuth ready)
-- ✅ **Real-time** communication via Socket.io
-- ✅ **NoSQL** data modeling with Mongoose
-- ✅ **Gamification** to drive user engagement
-- ✅ **i18n** for multi-language support
-- ✅ **Modern UI** with Tailwind, shadcn, and Framer Motion
+- **Authentication** with NextAuth.js (credentials + OAuth ready)
+- **Real-time** communication via Socket.io
+- **NoSQL** data modeling with Mongoose
+- **Gamification** to drive user engagement
+- **i18n** for multi-language support
+- **Modern UI** with Tailwind, shadcn, and Framer Motion
 
 This project showcases how to build a **production-grade** social platform with complex business logic, real-time features, and engaging gamification mechanics.
 
