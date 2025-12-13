@@ -41,7 +41,7 @@ Would I do it again? **I already did. There's an LSP too.**
 
 ---
 
-## 🌟 What Makes Asmodeus Special
+## :icon[Sparkles]{.text-yellow-400 .inline-block .mr-2} What Makes Asmodeus Special
 
 ### Complete Toolchain in Rust
 Not just an assembler - a full compilation pipeline:
@@ -76,7 +76,7 @@ Each crate has a thematic name:
 *Naming things is the hardest problem in computer science. I chose to make it worse.*
 
 
-## 🏗️ Machine W Architecture
+## :icon[Pickaxe]{.text-gray-400 .inline-block .mr-2} Machine W Architecture
 
 Asmodeus emulates a classic 16-bit architecture:
 
@@ -106,7 +106,7 @@ POB [R1]     ; Register indirect: memory[R1]
 
 ---
 
-## 📚 Instruction Set
+## :icon[BookOpen]{.text-blue-500 .inline-block .mr-2} Instruction Set
 
 ### Core Instructions
 
@@ -144,7 +144,7 @@ start:
 
 ---
 
-## 🐛 Bugseer - Interactive Debugger
+## :icon[Bug]{.text-green-400 .inline-block .mr-2} Bugseer - Interactive Debugger
 
 A powerful TUI debugger for step-by-step execution:
 
@@ -180,18 +180,18 @@ asmod debug program.asmod
 
 ---
 
-## 🔧 Language Server Protocol (LSP)
+## :icon[Wrench]{.text-gray-400 .inline-block .mr-2} Language Server Protocol (LSP)
 
 For the complete IDE experience, I built a separate **LSP server** for Neovim integration. Yeah, also in Rust (so I've just commited a lie at the start of this article that I've only created one project in Rust. In fact I've created 2).
 
 **Repository:** [asmod-lang/asmodeus-lsp](https://github.com/asmod-lang/asmodeus-lsp)
 
 ### Features
-- ✅ Syntax highlighting
-- ✅ Error diagnostics in real-time
-- ✅ Go to definition for labels
-- ✅ Hover documentation for instructions
-- ✅ Auto-completion for mnemonics
+-  Syntax highlighting :icon[Check]{.text-green-400 .inline-block .ml-2}
+-  Error diagnostics in real-time :icon[Check]{.text-green-400 .inline-block .ml-2}
+-  Go to definition for labels :icon[Check]{.text-green-400 .inline-block .ml-2}
+-  Hover documentation for instructions :icon[Check]{.text-green-400 .inline-block .ml-2}
+-  Auto-completion for mnemonics :icon[Check]{.text-green-400 .inline-block .ml-2}
 
 *Because if you are going to suffer writing assembly, you probably want autocompletion while doing it, right?*
 
@@ -211,7 +211,7 @@ For the complete IDE experience, I built a separate **LSP server** for Neovim in
 
 ---
 
-## 📖 Code Examples
+## :icon[Code]{.text-cyan-500 .inline-block .mr-2} Code Examples
 
 ### Hello World (Character I/O)
 ```asm
@@ -280,7 +280,7 @@ start:
 
 ---
 
-## 🛠️ CLI Usage
+## :icon[Terminal]{.text-purple-500 .inline-block .mr-2} CLI Usage
 
 ```bash
 # Run assembly program
@@ -307,7 +307,7 @@ asmod run --verbose --debug program.asmod
 
 ---
 
-## 📁 Project Structure
+## :icon[FolderTree]{.text-amber-500 .inline-block .mr-2} Project Structure
 
 ```
 asmodeus/                    (Cargo workspace)
@@ -343,14 +343,14 @@ asmodeus/                    (Cargo workspace)
 
 Asmodeus demonstrates **advanced compiler engineering** and **systems programming**:
 
-- ✅ **Complete compilation pipeline** - Lexer → Parser → Assembler → VM
-- ✅ **Rust workspace architecture** - 6 interconnected crates
-- ✅ **Custom bytecode VM** - Full Machine W emulation
-- ✅ **Interactive debugger** - Breakpoints, stepping, memory inspection
-- ✅ **Macro preprocessor** - Parametric code generation
-- ✅ **Disassembler** - Reverse engineering support
-- ✅ **LSP integration** - Modern IDE experience for Neovim
-- ✅ **Comprehensive error handling** - Line numbers, context, suggestions
+- **Complete compilation pipeline** - Lexer → Parser → Assembler → VM
+- **Rust workspace architecture** - 6 interconnected crates
+- **Custom bytecode VM** - Full Machine W emulation
+- **Interactive debugger** - Breakpoints, stepping, memory inspection
+- **Macro preprocessor** - Parametric code generation
+- **Disassembler** - Reverse engineering support
+- **LSP integration** - Modern IDE experience for Neovim
+- **Comprehensive error handling** - Line numbers, context, suggestions
 
 This is my largest project - a **complete programming language ecosystem** built from the ground up. It showcases everything from low-level bit manipulation to high-level language design.
 
