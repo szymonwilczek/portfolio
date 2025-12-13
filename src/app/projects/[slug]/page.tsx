@@ -109,8 +109,14 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
               "lucide-icon": (props: any) => (
                 <LucideIconRenderer iconname={props.iconname} className={props.className} />
               ),
-              video: (props: any) => (
-                <video {...props} controls className="rounded-lg max-w-full my-4" />
+              video: ({ src, style }: any) => (
+                <video
+                  src={src}
+                  controls
+                  className="rounded-lg max-w-full my-4"
+                  style={style}
+                  suppressHydrationWarning
+                />
               ),
               pre: ({ children, ...props }: any) => {
                 const codeChild = Array.isArray(children) ? children[0] : children;
