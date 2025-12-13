@@ -343,14 +343,14 @@ asmodeus/                    (Cargo workspace)
 
 Asmodeus demonstrates **advanced compiler engineering** and **systems programming**:
 
-- **Complete compilation pipeline** - Lexer → Parser → Assembler → VM
-- **Rust workspace architecture** - 6 interconnected crates
-- **Custom bytecode VM** - Full Machine W emulation
-- **Interactive debugger** - Breakpoints, stepping, memory inspection
-- **Macro preprocessor** - Parametric code generation
-- **Disassembler** - Reverse engineering support
-- **LSP integration** - Modern IDE experience for Neovim
-- **Comprehensive error handling** - Line numbers, context, suggestions
+- **Complete compilation pipeline** - Lexer → Parser → Assembler → VM :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Rust workspace architecture** - 6 interconnected crates :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Custom bytecode VM** - Full Machine W emulation :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Interactive debugger** - Breakpoints, stepping, memory inspection :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Macro preprocessor** - Parametric code generation :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Disassembler** - Reverse engineering support :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **LSP integration** - Modern IDE experience for Neovim :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Comprehensive error handling** - Line numbers, context, suggestions :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
 
 This is my largest project - a **complete programming language ecosystem** built from the ground up. It showcases everything from low-level bit manipulation to high-level language design.
 

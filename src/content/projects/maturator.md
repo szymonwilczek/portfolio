@@ -189,13 +189,13 @@ GET /api/v2/exam/full?difficulty=hard
 
 Maturator demonstrates **full-stack engineering** with a focus on algorithmic problem generation:
 
-- **Custom math engine** - 12 topic-specific generators
-- **Infinite randomization** - No two problems are identical
-- **Dynamic visualizations** - SVG graphs generated per-problem
-- **LaTeX integration** - Beautiful math rendering
-- **Full exam simulation** - 30+ tasks, timer, scoring
-- **Modern frontend** - Next.js, TypeScript, shadcn
-- **REST API design** - Clean, documented endpoints
+- **Custom math engine** - 12 topic-specific generators :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Infinite randomization** - No two problems are identical :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Dynamic visualizations** - SVG graphs generated per-problem :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **LaTeX integration** - Beautiful math rendering :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Full exam simulation** - 30+ tasks, timer, scoring :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Modern frontend** - Next.js, TypeScript, shadcn :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **REST API design** - Clean, documented endpoints :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
 
 The platform is **live and used by students** preparing for the Polish Matura exam. It proves that educational software doesn't have to be static - with the right algorithmic approach, you can create **unlimited learning content**.
 

@@ -222,12 +222,12 @@ components/
 
 The platform successfully demonstrates **full-stack engineering** concepts:
 
-- **Authentication** with NextAuth.js (credentials + OAuth ready)
-- **Real-time** communication via Socket.io
-- **NoSQL** data modeling with Mongoose
-- **Gamification** to drive user engagement
-- **i18n** for multi-language support
-- **Modern UI** with Tailwind, shadcn, and Framer Motion
+- **Authentication** with NextAuth.js (credentials + OAuth ready) :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Real-time** communication via Socket.io :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **NoSQL** data modeling with Mongoose :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Gamification** to drive user engagement :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **i18n** for multi-language support :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Modern UI** with Tailwind, shadcn, and Framer Motion :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
 
 This project showcases how to build a **production-grade** social platform with complex business logic, real-time features, and engaging gamification mechanics.
 
