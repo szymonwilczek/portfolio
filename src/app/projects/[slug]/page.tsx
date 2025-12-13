@@ -79,7 +79,6 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
               {new Date(project.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
-                day: "numeric",
               })}
             </div>
           </div>
