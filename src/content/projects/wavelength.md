@@ -33,23 +33,23 @@ This project was developed as a semester credit at **Silesian University of Tech
 
 ---
 
-## 🌟 Core Features
+## :icon[Sparkles]{.text-yellow-400 .inline-block .mr-1 .mb-1} Core Features
 
-### 💬 Sophisticated Text Chat
+### :icon[MessageCircle]{.text-blue-400 .inline-block .mr-1 .mb-1} Sophisticated Text Chat
 Reliable, lightning-fast text messaging (imitating retro communication) with an intuitively designed interface. Supports various formatting options and is optimized for long conversations with efficient memory usage.
 
-### 🎙️ Push-To-Talk (PTT) Voice
+### :icon[Mic]{.text-green-500 .inline-block .mr-1 .mb-1} Push-To-Talk (PTT) Voice
 Inspired by walkie-talkies, the PTT system is optimized for **exceptionally low latency**. Perfect for dynamic discussions where instant voice communication is key. Integrates seamlessly into the chat view for quick text-to-voice switching.
 
 *Walkie-Talkie in the big 2024. No, I don't want to talk about it. Over.*
 
-### 📁 Multimedia Support
+### :icon[FolderOpen]{.text-blue-500 .inline-block .mr-1 .mb-1} Multimedia Support
 Send and receive images, videos, and audio files effortlessly. Powered by **FFmpeg** for comprehensive codec support:
 - Direct in-chat previews
 - Efficient streaming and playback
 - Hardware-accelerated decoding
 
-### 🎨 OpenGL-Powered UI
+### :icon[Palette]{.text-purple-500 .inline-block .mr-1 .mb-1} OpenGL-Powered UI
 The entire interface is rendered with **OpenGL**, providing:
 - 90+ FPS fluid animations
 - GPU-accelerated visual effects
@@ -58,12 +58,12 @@ The entire interface is rendered with **OpenGL**, providing:
 
 *Ahh, game engine for rendering approach for a chat app. Lovely.*
 
-### ⚙️ Extensive Customization
+### :icon[Settings]{.text-gray-400 .inline-block .mr-1 .mb-1} Extensive Customization
 - Custom notification settings
 - Shortcut Manager for keyboard power users
 - Granular UI element control
 
-### 🤖 Joy - Your AI Companion
+### :icon[Bot]{.text-pink-500 .inline-block .mr-1 .mb-1} Joy - Your AI Companion
 To create even more immersion, I've added **Joy**, an AI companion that imitates the character Joi from *Blade Runner 2049*. She's yours now. Fully in 3D acting as a virus. That's the app easter egg.
 She was crafted with OpenGL for 3D optimization, from scratch. Only vertices. How cool is that?
 
@@ -139,11 +139,11 @@ The UI leverages direct GPU access for efficient rendering:
 
 ## Technical Challenges & Solutions
 
-### 🎯 Low-Latency Audio
+### :icon[Target]{.text-red-500 .inline-block .mr-1 .mb-1} Low-Latency Audio
 **Challenge:** PTT requires near-instant voice transmission.  
 **Solution:** Custom audio pipeline with minimal buffering, direct hardware access via Qt Multimedia, and optimized WebSocket event handling.
 
-### 🎯 Cross-Platform Audio on Linux
+### :icon[Target]{.text-red-500 .inline-block .mr-1 .mb-1} Cross-Platform Audio on Linux
 **Challenge:** Arch Linux has minimal pre-installed audio configurations.  
 **Solution:** Created dedicated `archlinux-audio-fix` branch with PipeWire integration:
 ```bash
@@ -155,11 +155,11 @@ And also added bunch of nullptr checks to prevent app from crashing on arch.
 
 *Debugging audio on Arch Linux is a rite of passage. I passed. Barely.*
 
-### 🎯 Multimedia Format Support
+### :icon[Target]{.text-red-500 .inline-block .mr-1 .mb-1} Multimedia Format Support
 **Challenge:** Supporting diverse audio/video formats.  
 **Solution:** FFmpeg integration for comprehensive codec coverage (libavcodec, libavformat, libavutil).
 
-### 🎯 Performance on Low-End Hardware
+### :icon[Target]{.text-red-500 .inline-block .mr-1 .mb-1} Performance on Low-End Hardware
 **Challenge:** Maintaining not 60 but a 90+ FPS on modest systems.  
 **Solution:** OpenGL rendering with aggressive optimization, minimal RAM footprint, and efficient event processing.
 
@@ -185,8 +185,8 @@ And also added bunch of nullptr checks to prevent app from crashing on arch.
 
 Comprehensive technical documentation is available:
 
-- 📖 **Online Docs (Doxygen):** [wavelength-docs.vercel.app](https://wavelength-docs.vercel.app/)
-- 📄 **PDF Documentation:** [Detailed architecture, class diagrams, API specs](https://github.com/szymonwilczek/wavelength/blob/main/wavelength.pdf)
+- :icon[BookOpen]{.text-gray-400 .inline-block .mr-1 .mb-1} **Online Docs (Doxygen):** [wavelength-docs.vercel.app](https://wavelength-docs.vercel.app/)
+- :icon[File]{.text-gray-400 .inline-block .mr-1 .mb-1} **PDF Documentation:** [Detailed architecture, class diagrams, API specs](https://github.com/szymonwilczek/wavelength/blob/main/wavelength.pdf)
 
 ---
 
@@ -194,13 +194,13 @@ Comprehensive technical documentation is available:
 
 Wavelength demonstrates **advanced C++ engineering** concepts:
 
-- ✅ **Modern C++20** with RAII, smart pointers, and move semantics
-- ✅ **Qt5 mastery** across Core, GUI, Widgets, Network, and OpenGL modules
-- ✅ **Real-time communication** with WebSocket protocol
-- ✅ **GPU rendering** with custom OpenGL pipeline
-- ✅ **Multimedia processing** with FFmpeg integration
-- ✅ **Cross-platform** support (Windows, Linux)
-- ✅ **Privacy-first** architecture - no data retention
+- **Modern C++20** with RAII, smart pointers, and move semantics :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Qt5 mastery** across Core, GUI, Widgets, Network, and OpenGL modules :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Real-time communication** with WebSocket protocol :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **GPU rendering** with custom OpenGL pipeline :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Multimedia processing** with FFmpeg integration :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Cross-platform** support (Windows, Linux) :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Privacy-first** architecture - no data retention :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
 
 The project showcases how to build a **production-grade native desktop application** that rivals commercial communication platforms in features while maintaining minimal resource usage and maximum privacy.
 
