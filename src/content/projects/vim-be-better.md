@@ -1,7 +1,7 @@
 ---
 title: "Vim Be Better"
 excerpt: "A comprehensive gamified training plugin for Neovim written in Lua. It goes beyond basic movements, offering advanced drills for Vim grammar, registers, macros, and code formatting patterns."
-date: "2023-11-10"
+date: "2025-06-21"
 tags:
   - "Lua"
   - "Neovim API"

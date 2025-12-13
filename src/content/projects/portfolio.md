@@ -1,7 +1,7 @@
 ---
 title: "This Portfolio"
 excerpt: "You're looking at it right now. Yes, this one. The very website you're reading this on. Meta, isn't it?"
-date: "2024-04-10"
+date: "2025-12-13"
 tags:
   - "React Three Fiber"
   - "WebGL"

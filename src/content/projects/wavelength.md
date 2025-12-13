@@ -1,7 +1,7 @@
 ---
 title: "Wavelength"
 excerpt: "High-performance desktop communication platform built with C++ and Qt 5. OpenGL rendering engine & real-time WebSockets."
-date: "2023-12-15"
+date: "2023-06-14"
 tags:
   - "C++"
   - "OpenGL"
@@ -15,6 +15,9 @@ carousel:
   - "/images/wavelength/ptt_on.png"
   - "/images/wavelength/settings_tab.png"
 github: "https://github.com/szymonwilczek/wavelength"
+links:
+  - url: "https://wavelength-docs.vercel.app/"
+    name: "Project Documentation"
 ---
 
 # The Problem

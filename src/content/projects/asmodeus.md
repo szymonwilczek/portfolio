@@ -1,7 +1,7 @@
 ---
 title: "Asmodeus - Language Ecosystem"
 excerpt: "Complete programming language ecosystem built from scratch in Rust. Custom bytecode Virtual Machine, Macro Assembler, Debugger, & LSP."
-date: "2024-01-28"
+date: "2025-07-04"
 tags:
   - "Rust"
   - "Assembly"
@@ -13,6 +13,9 @@ carousel:
   - "/images/asmod/bugseer.png"
   - "/images/asmod/lsp.png"
 github: "https://github.com/asmod-lang/asmodeus"
+links:
+  - url: "https://github.com/asmod-lang/asmodeus-lsp"
+    name: "LSP Repository"
 ---
 
 # The Problem

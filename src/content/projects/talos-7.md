@@ -1,7 +1,7 @@
 ---
 title: "Talos 7 - The Ultimate SudoPad"
 excerpt: "Hardware and software ecosystem for a custom programmable keyboard."
-date: "2024-03-20"
+date: "2025-12-01"
 tags:
   - "Embedded C"
   - "TypeScript"
@@ -17,6 +17,9 @@ carousel:
   - "/images/talos/talos_sch.png"
   - "/images/talos/talos_brd.png"
 github: "https://github.com/szymonwilczek/talos-7"
+links:
+  - url: "https://talos-7.vercel.app"
+    name: "Talos Configurator"
 ---
 
 # The Problem

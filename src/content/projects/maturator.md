@@ -1,7 +1,7 @@
 ---
 title: "Maturator - Infinite Math Platform"
 excerpt: "Advanced educational platform for the Polish Matura Exam. Custom algorithmic engine to generate infinite, unique mathematical problems."
-date: "2024-02-20"
+date: "2025-12-10"
 tags:
   - "TypeScript"
   - "LaTeX"
@@ -19,7 +19,7 @@ carousel:
 github: "https://github.com/wolfie-university/maturator"
 links:
   - url: "https://maturator.vercel.app"
-    name: "Live Demo"
+    name: "Maturator"
   - url: "https://github.com/wolfie-university/matura-engine"
     name: "Engine Repository"
   - url: "https://math-api-azure.vercel.app"

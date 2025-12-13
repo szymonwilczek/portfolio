@@ -1,7 +1,7 @@
 ---
 title: "Instant Book Exchange"
 excerpt: "Social platform for book enthusiasts enabling seamless book swaps."
-date: "2024-02-15"
+date: "2025-11-01"
 tags:
   - "Next.js"
   - "TypeScript"
@@ -16,6 +16,9 @@ carousel:
   - "/images/instant-book-exchange/profile.png"
   - "/images/instant-book-exchange/achievements.png"
   - "/images/instant-book-exchange/leaderboard.png"
+links:
+  - url: "bookstore-one-rust.vercel.app"
+    name: "Instant Book Exchange"
 ---
 
 # The Problem
