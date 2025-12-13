@@ -41,7 +41,7 @@ Would I do it again? **I already did. There's an LSP too.**
 
 ---
 
-## :icon[Sparkles]{.text-yellow-400 .inline-block .mr-2} What Makes Asmodeus Special
+## :icon[Sparkles]{.text-yellow-400 .inline-block .mr-1 .mb-1} What Makes Asmodeus Special
 
 ### Complete Toolchain in Rust
 Not just an assembler - a full compilation pipeline:
@@ -76,7 +76,7 @@ Each crate has a thematic name:
 *Naming things is the hardest problem in computer science. I chose to make it worse.*
 
 
-## :icon[Pickaxe]{.text-gray-400 .inline-block .mr-2} Machine W Architecture
+## :icon[Pickaxe]{.text-gray-400 .inline-block .mr-1 .mb-1} Machine W Architecture
 
 Asmodeus emulates a classic 16-bit architecture:
 
@@ -106,7 +106,7 @@ POB [R1]     ; Register indirect: memory[R1]
 
 ---
 
-## :icon[BookOpen]{.text-blue-500 .inline-block .mr-2} Instruction Set
+## :icon[BookOpen]{.text-blue-500 .inline-block .mr-1 .mb-1} Instruction Set
 
 ### Core Instructions
 
@@ -144,7 +144,7 @@ start:
 
 ---
 
-## :icon[Bug]{.text-green-400 .inline-block .mr-2} Bugseer - Interactive Debugger
+## :icon[Bug]{.text-green-400 .inline-block .mr-1 .mb-1} Bugseer - Interactive Debugger
 
 A powerful TUI debugger for step-by-step execution:
 
@@ -180,7 +180,7 @@ asmod debug program.asmod
 
 ---
 
-## :icon[Wrench]{.text-gray-400 .inline-block .mr-2} Language Server Protocol (LSP)
+## :icon[Wrench]{.text-gray-400 .inline-block .mr-1 .mb-1} Language Server Protocol (LSP)
 
 For the complete IDE experience, I built a separate **LSP server** for Neovim integration. Yeah, also in Rust (so I've just commited a lie at the start of this article that I've only created one project in Rust. In fact I've created 2).
 
@@ -211,7 +211,7 @@ For the complete IDE experience, I built a separate **LSP server** for Neovim in
 
 ---
 
-## :icon[Code]{.text-cyan-500 .inline-block .mr-2} Code Examples
+## :icon[Code]{.text-cyan-500 .inline-block .mr-1 .mb-1} Code Examples
 
 ### Hello World (Character I/O)
 ```asm
@@ -280,7 +280,7 @@ start:
 
 ---
 
-## :icon[Terminal]{.text-purple-500 .inline-block .mr-2} CLI Usage
+## :icon[Terminal]{.text-purple-500 .inline-block .mr-1 .mb-1} CLI Usage
 
 ```bash
 # Run assembly program
@@ -307,7 +307,7 @@ asmod run --verbose --debug program.asmod
 
 ---
 
-## :icon[FolderTree]{.text-amber-500 .inline-block .mr-2} Project Structure
+## :icon[FolderTree]{.text-amber-500 .inline-block .mr-1 .mb-1} Project Structure
 
 ```
 asmodeus/                    (Cargo workspace)
