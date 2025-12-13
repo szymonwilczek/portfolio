@@ -20,10 +20,10 @@ I needed a portfolio website.
 You know, one of those things where you show off your projects to potential employers who will spend approximately 4.7 seconds looking at it before moving on to the next candidate. Standard stuff.
 
 But here's the thing - every developer portfolio looks the same:
-- Hero section ✓
-- "About Me" that nobody reads ✓
-- Grid of project cards ✓
-- Contact form that goes to `/dev/null` ✓
+- Hero section :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1}
+- "About Me" that nobody reads :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1}
+- Grid of project cards :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1}
+- Contact form that goes to `/dev/null` :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1}
 
 **Boring.**
 
@@ -44,7 +44,7 @@ Do I regret it? **Also maybe, but in a good way.**
 
 ---
 
-## 🎮 The Voxel World
+## :icon[Gamepad2]{.text-purple-500 .inline-block .mr-1 .mb-1} The Voxel World
 
 The entire landing page is a 3D scene. Not a background. Not an image. A fully interactive, explorable environment with:
 
@@ -62,7 +62,7 @@ Why? Because nothing says "hire me" like an unnecessary Vim flexing.
 
 ---
 
-## ⚡ Performance Optimization (A Rant)
+## :icon[Zap]{.text-yellow-500 .inline-block .mr-1 .mb-1} Performance Optimization (A Rant)
 
 Let me tell you about the four stages of 3D web development:
 
@@ -85,7 +85,7 @@ Is it still heavy? Yes. But now it's *acceptable* heavy.
 
 ---
 
-## 🛠️ Tech Stack
+## :icon[Wrench]{.text-gray-400 .inline-block .mr-1 .mb-1} Tech Stack
 
 | Layer | What | Why |
 |-------|------|-----|
@@ -99,7 +99,7 @@ Is it still heavy? Yes. But now it's *acceptable* heavy.
 | **Markdown** | MDX-ish | For these very words |
 | **Deployment** | Vercel | One-click deploys |
 
-## 🎨 The Voxel Aesthetic
+## :icon[Palette]{.text-pink-500 .inline-block .mr-1 .mb-1} The Voxel Aesthetic
 
 I chose voxels because:
 1. They're charming
@@ -111,23 +111,23 @@ Every model was created in Blender using manual voxel-by-voxel placement. Yes, I
 
 ---
 
-## 📊 Features (The Serious Section)
+## :icon[Sparkles]{.text-yellow-500 .inline-block .mr-1 .mb-1} Features (The Serious Section)
 
 Okay, jokes aside, here's what this portfolio actually does:
 
-- ✅ **Fully responsive** - works on mobile (mostly)
-- ✅ **Dark/Light mode** - system preference respected
-- ✅ **Markdown-based projects** - easy to update
-- ✅ **Image gallery with lightbox** - for showing off screenshots
-- ✅ **Project links system** - GitHub, live demos, docs
-- ✅ **Autoplay carousel** - because static is boring
-- ✅ **Performance optimized** - throttled rendering, efficient shaders
-- ✅ **Accessible** - semantic HTML, keyboard navigation
-- ✅ **SEO friendly** - meta tags, proper headings
+- **Fully responsive** - works on mobile (mostly) :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Dark/Light mode** - system preference respected :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Markdown-based projects** - easy to update :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Image gallery with lightbox** - for showing off screenshots :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Project links system** - GitHub, live demos, docs :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Autoplay carousel** - because static is boring :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Performance optimized** - throttled rendering, efficient shaders :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Accessible** - semantic HTML, keyboard navigation :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **SEO friendly** - meta tags, proper headings :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
 
 ---
 
-## 🤔 Meta Commentary
+## :icon[RectangleGoggles]{.text-purple-500 .inline-block .mr-1 .mb-1} Meta Commentary
 
 You are currently reading a project description about the very website that contains this project description.
 
