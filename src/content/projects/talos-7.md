@@ -48,27 +48,27 @@ Is it more satisfying? **Immeasurably yes.**
 
 ## Core Features
 
-### 🔌 Truly Driverless
+### :icon[Plug]{.text-green-500 .inline-block .mr-1 .mb-1} Truly Driverless
 Everything runs on the device itself. Your configuration is stored in onboard flash memory - survive reboots, survive OS reinstalls, survive switching PCs. 
 
 This thing is truly resilient.
 
-### 🖥️ Hybrid HID Device
+### :icon[Monitor]{.text-blue-500 .inline-block .mr-1 .mb-1} Hybrid HID Device
 Talos 7 doesn't just pretend to be a keyboard. It simultaneously acts as:
-- ⌨️ **Keyboard** - standard key presses
-- 🖱️ **Mouse** - cursor movement, clicks, scroll
-- 🎹 **MIDI Controller** - notes and CC for DAWs/OBS
-- 📟 **Serial Device** - for configuration via Web Serial API
+- :icon[Keyboard]{.text-gray-400 .inline-block .mr-1 .mb-1} **Keyboard** - standard key presses
+- :icon[Mouse]{.text-gray-400 .inline-block .mr-1 .mb-1} **Mouse** - cursor movement, clicks, scroll
+- :icon[Music]{.text-gray-400 .inline-block .mr-1 .mb-1} **MIDI Controller** - notes and CC for DAWs/OBS
+- :icon[RadioReceiver]{.text-gray-400 .inline-block .mr-1 .mb-1} **Serial Device** - for configuration via Web Serial API
 
 *Yes, it's four devices in a trenchcoat. It works surprisingly well.*
 
-### 📺 OLED Dashboard
+### :icon[Tv]{.text-cyan-500 .inline-block .mr-1 .mb-1} OLED Dashboard
 A 128×64 pixel SSD1306 display provides real-time feedback:
 - Current layer name and icon
 - Active macro indicators
 - Connection status
 
-### 🌐 Web Configurator
+### :icon[Globe]{.text-purple-500 .inline-block .mr-1 .mb-1} Web Configurator
 No software to install! Configure directly in your browser:
 1. Open [talos-7.vercel.app](https://talos-7.vercel.app)
 2. Connect via Web Serial API (Chrome/Edge)
@@ -77,27 +77,27 @@ No software to install! Configure directly in your browser:
 
 *Web Serial API is witchcraft and I refuse to believe otherwise.*
 
-### 🔄 4-Layer System
+### :icon[Layers]{.text-orange-500 .inline-block .mr-1 .mb-1} 4-Layer System
 Switch between different macro sets on the fly. Each layer can have completely different configurations - perfect for switching between gaming, streaming, coding, and productivity.
 
 ---
 
-## 🎛️ Macro Dictionary
+## :icon[BookA]{.text-blue-500 .inline-block .mr-1 .mb-1} Macro Dictionary
 
 Talos 7 supports **8 distinct action types**:
 
 | Type | Description | Use Case |
 |------|-------------|----------|
-| ⌨️ **Key Press** | Single key simulation | Mute Discord (F13), screenshot |
-| ⛓️ **Key Sequence** | Up to 3 keys with modifiers | `Ctrl+Shift+Esc`, `Win+Shift+S` |
-| 🔡 **Text String** | Auto-type text (32 chars) | Email signature, `git push` |
-| 🔄 **Layer Toggle** | Cycle through layers | Switch contexts |
-| 🖱️ **Mouse Control** | Move, click, scroll | AFK prevention, auto-clickers |
-| 📜 **Script Engine** | Cross-platform BadUSB | Run shell scripts on host |
-| 🎹 **MIDI Note** | Note On/Off signals | OBS scenes, DAW drums |
-| 🎚️ **MIDI CC** | Control Change values | Lightroom exposure, volume |
+| **Key Press** | Single key simulation | Mute Discord (F13), screenshot |
+| **Key Sequence** | Up to 3 keys with modifiers | `Ctrl+Shift+Esc`, `Win+Shift+S` |
+| **Text String** | Auto-type text (32 chars) | Email signature, `git push` |
+| **Layer Toggle** | Cycle through layers | Switch contexts |
+| **Mouse Control** | Move, click, scroll | AFK prevention, auto-clickers |
+| **Script Engine** | Cross-platform BadUSB | Run shell scripts on host |
+| **MIDI Note** | Note On/Off signals | OBS scenes, DAW drums |
+| **MIDI CC** | Control Change values | Lightroom exposure, volume |
 
-### 📜 Script Engine - Power User Feature
+### :icon[Scroll]{.text-orange-300 .inline-block .mr-1 .mb-1} Script Engine - Power User Feature
 
 The most powerful feature. Talos acts as a **BadUSB device** to inject and execute complex scripts:
 
@@ -116,7 +116,7 @@ Use cases: `docker-compose up -d`, SSH into server, batch file operations.
 
 ---
 
-## 🛠️ Hardware Architecture
+## :icon[Wrench]{.text-gray-400 .inline-block .mr-2} Hardware Architecture
 
 Built on the accessible and powerful **Raspberry Pi Pico (RP2040)**.
 
@@ -151,7 +151,7 @@ This BOM is purely just my configuration that I use in my crafted project. Feel 
 
 ---
 
-## 🤖 DevOps: Hephaestus
+## :icon[Bot]{.text-cyan-500 .inline-block .mr-2} DevOps: Hephaestus
 
 The repository is managed by **Hephaestus** - an automated GitHub Actions workflow.
 
@@ -172,7 +172,7 @@ On every push to `main`:
 
 ---
 
-## 🚀 Setup & Installation
+## :icon[Rocket]{.text-orange-500 .inline-block .mr-2} Setup & Installation
 
 ### 1. Flash Firmware
 ```bash
@@ -208,12 +208,12 @@ On every push to `main`:
 
 Talos 7 demonstrates **embedded systems engineering** combined with **modern web development**:
 
-- ✅ **Low-level C** firmware for RP2040
-- ✅ **TinyUSB** for composite HID device (keyboard + mouse + MIDI)
-- ✅ **Web Serial API** for browser-based configuration
-- ✅ **CI/CD pipeline** with automated firmware builds
-- ✅ **Custom PCB design** (coming soon)
-- ✅ **Open-source** hardware and software
+- **Low-level C** firmware for RP2040 :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **TinyUSB** for composite HID device (keyboard + mouse + MIDI) :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Web Serial API** for browser-based configuration :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **CI/CD pipeline** with automated firmware builds :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Custom PCB design** (coming soon) :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Open-source** hardware and software :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
 
 The project showcases how to build an **embedded product** from scratch - from firmware to web configurator to automated releases.
 
