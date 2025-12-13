@@ -13,6 +13,8 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { ImageGallery } from "@/components/image-gallery";
 import { CodeBlock } from "@/components/CodeBlock";
+import { LucideIconRenderer } from "@/components/LucideIcons";
+import { remarkLucideIcons } from "@/lib/remarkLucideIcons";
 
 export async function generateStaticParams() {
   const projects = getAllProjects();
@@ -101,33 +103,27 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
 
         <div className="prose prose-lg max-w-none">
           <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
+            remarkPlugins={[remarkGfm, remarkLucideIcons]}
             rehypePlugins={[rehypeRaw, rehypeHighlight]}
             components={{
-              video: ({ node, ...props }) => (
-                <video
-                  {...props}
-                  controls
-                  className="rounded-lg max-w-full my-4"
-                  style={{ maxWidth: props.style?.maxWidth || '100%' }}
-                />
+              "lucide-icon": (props: any) => (
+                <LucideIconRenderer iconname={props.iconname} className={props.className} />
               ),
-              pre: ({ children, ...props }) => {
-                // code element with hljs class
+              video: (props: any) => (
+                <video {...props} controls className="rounded-lg max-w-full my-4" />
+              ),
+              pre: ({ children, ...props }: any) => {
                 const codeChild = Array.isArray(children) ? children[0] : children;
-                if (codeChild && typeof codeChild === 'object' && 'props' in codeChild) {
-                  const element = codeChild as { props?: { className?: string; children?: React.ReactNode } };
-                  if (element.props?.className?.includes('hljs')) {
-                    return (
-                      <CodeBlock className={element.props.className}>
-                        {element.props.children}
-                      </CodeBlock>
-                    );
-                  }
+                if (codeChild?.props?.className?.includes('hljs')) {
+                  return (
+                    <CodeBlock className={codeChild.props.className}>
+                      {codeChild.props.children}
+                    </CodeBlock>
+                  );
                 }
                 return <pre {...props}>{children}</pre>;
               },
-            }}
+            } as any}
           >
             {project.content || ""}
           </ReactMarkdown>
