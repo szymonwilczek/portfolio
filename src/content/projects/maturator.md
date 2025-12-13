@@ -49,7 +49,7 @@ Will students run out of problems? **Literally impossible.**
 
 ## Key Features
 
-### ♾️ Infinite Problem Generation
+### :icon[Infinity]{.text-purple-500 .inline-block .mr-2 .mb-1} Infinite Problem Generation
 No static databases, no memorizing answers. Every request generates fresh problems with randomized:
 - Numerical values
 - Variable names
@@ -58,14 +58,14 @@ No static databases, no memorizing answers. Every request generates fresh proble
 
 *Try memorizing your way out of infinity. I'll wait.*
 
-### 📚 Two Study Modes
+### :icon[BookOpen]{.text-blue-500 .inline-block .mr-1 .mb-1} Two Study Modes
 
 | Mode | Description |
 |------|-------------|
 | **Thematic Training** | Focus on specific topics (Algebra, Geometry, Functions, Probability...) |
 | **Exam Simulator** | Full-scale 30+ task simulation with 180-minute timer and detailed scoring |
 
-### 📊 Dynamic Visualizations
+### :icon[ChartColumn]{.text-green-500 .inline-block .mr-1 .mb-1} Dynamic Visualizations
 Problems come with live-generated SVG graphics:
 - Function graphs with precise plotted curves
 - Geometric figures with labeled vertices
@@ -74,21 +74,21 @@ Problems come with live-generated SVG graphics:
 
 *Yes, I checked my high school notes.* 
 
-### 🔢 Smart Math Input
+### :icon[Calculator]{.text-cyan-500 .inline-block .mr-1 .mb-1} Smart Math Input
 Custom input interface for easy typing of:
 - Fractions: `1/2` → $\frac{1}{2}$
 - Roots: `sqrt(x)` → $\sqrt{x}$
 - Powers: `x^2` → $x^2$
 - Greek letters and symbols
 
-### ⚡ Instant Feedback
+### :icon[Zap]{.text-yellow-500 .inline-block .mr-1 .mb-1} Instant Feedback
 - Immediate validation for closed (ABCD) questions
 - Open-ended answer checking with tolerance
 - Step-by-step solution reveal
 
 ---
 
-## 🧠 The Engine - matura-engine
+## :icon[Brain]{.text-pink-500 .inline-block .mr-1 .mb-1} The Engine - matura-engine
 
 This isn't just a frontend consuming a third-party API. I built the **entire generation engine from scratch**:
 
@@ -189,13 +189,13 @@ GET /api/v2/exam/full?difficulty=hard
 
 Maturator demonstrates **full-stack engineering** with a focus on algorithmic problem generation:
 
-- ✅ **Custom math engine** - 12 topic-specific generators
-- ✅ **Infinite randomization** - No two problems are identical
-- ✅ **Dynamic visualizations** - SVG graphs generated per-problem
-- ✅ **LaTeX integration** - Beautiful math rendering
-- ✅ **Full exam simulation** - 30+ tasks, timer, scoring
-- ✅ **Modern frontend** - Next.js, TypeScript, shadcn
-- ✅ **REST API design** - Clean, documented endpoints
+- **Custom math engine** - 12 topic-specific generators
+- **Infinite randomization** - No two problems are identical
+- **Dynamic visualizations** - SVG graphs generated per-problem
+- **LaTeX integration** - Beautiful math rendering
+- **Full exam simulation** - 30+ tasks, timer, scoring
+- **Modern frontend** - Next.js, TypeScript, shadcn
+- **REST API design** - Clean, documented endpoints
 
 The platform is **live and used by students** preparing for the Polish Matura exam. It proves that educational software doesn't have to be static - with the right algorithmic approach, you can create **unlimited learning content**.
 
