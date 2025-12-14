@@ -1,68 +1,19 @@
 export const NODE_GROUPS = {
   // constant elements
   BONSAI: ["bonsai_pot", "bonsai_soil", "bonsai_trunk", "bonsai_leaves"],
-  DEFAULT_GLASSES: [
-    "glasses_l_frame",
-    "glasses_r_frame",
-    "glasses_bridge",
-    "glasses_r_arm",
-    "glasses_l_arm",
-  ],
 
   // events
-  SANTA: ["mikolaj_hat", "Cube015"],
-
-  CHRISTMAS: [
-    "choinka",
-    "choinka_pot",
-    "choinka_star",
-    "choinka_bombki",
-    "Cube049",
-    "Cube067",
-  ],
-
-  NEW_YEAR: [
-    "sylwester_glasses",
-    "sylwester_whistle",
-    "sylwester_fireworks",
-    "sylwester_fireworks_box",
-    "Cube173",
-    "Cube396",
-    "Cube389",
-  ],
-
-  BIRTHDAY: [
-    "urodziny_hat",
-    "Cube173",
-    "sylwester_whistle",
-    "cake_plate",
-    "cake_sponge",
-    "cake_cream",
-    "cake_jam",
-    "cake_glaze",
-    "cake_candle",
-    "cake_flame",
-  ],
-
+  SANTA: ["mikolaj_hat"],
+  CHRISTMAS: ["choinka", "choinka_star"],
+  NEW_YEAR: ["sylwester_whistle", "sylwester_fireworks"],
+  BIRTHDAY: ["urodziny_hat", "cake"],
   VALENTINES: ["walentynki_heart"],
-
-  FAT_THURSDAY: ["czwartek_donuty", "czwartek_plate", "Cube1153"],
-
-  WOMENS_DAY: ["flower_", "flowers_", "Cube1560", "Cube1591", "Cube1522"],
-
-  EASTER: [
-    "wielkanoc_basket",
-    "wielkanoc_grass",
-    "wielkanoc_eggs",
-    "Cube1873",
-    "Cube1890",
-  ],
-
-  MAY_DAY: ["majowka_", "Cube1951", "Cube1961", "Cube1977", "Cube1982"],
-
-  HALLOWEEN: ["halloween_pumpkin", "halloween_jack", "Cube010"],
-
-  INDEPENDENCE: ["polish_flag", "Cube139"],
+  FAT_THURSDAY: ["donuts"],
+  WOMENS_DAY: ["flowers"],
+  EASTER: ["wielkanoc_basket"],
+  MAY_DAY: ["majowka"],
+  HALLOWEEN: ["halloween_pumpkin"],
+  INDEPENDENCE: ["polish_flag"],
 };
 
 export const isNodeInGroup = (nodeName: string, groupKeys: string[]) => {
