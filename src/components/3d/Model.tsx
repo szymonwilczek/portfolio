@@ -200,7 +200,6 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
       }
 
       if (isNodeInGroup(nodeName, NODE_GROUPS.BONSAI)) node.visible = true;
-      if (isNodeInGroup(nodeName, NODE_GROUPS.DEFAULT_GLASSES)) node.visible = true;
     });
 
     const showGroup = (groupKeys: string[]) => {
@@ -218,7 +217,7 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
     switch (activeEvent) {
       case "SANTA": showGroup(NODE_GROUPS.SANTA); break;
       case "CHRISTMAS": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.CHRISTMAS); break;
-      case "NEW_YEAR": hideGroup(NODE_GROUPS.BONSAI); hideGroup(NODE_GROUPS.DEFAULT_GLASSES); showGroup(NODE_GROUPS.NEW_YEAR); break;
+      case "NEW_YEAR": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.NEW_YEAR); break;
       case "BIRTHDAY": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.BIRTHDAY); break;
       case "VALENTINES": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.VALENTINES); break;
       case "FAT_THURSDAY": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.FAT_THURSDAY); break;
