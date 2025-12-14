@@ -7,32 +7,42 @@ import { SpringSakura } from "./SpringSakura";
 import { AutumnLeaves } from "./AutumnLeaves";
 // import { SummerSun } from "./SummerSun";
 
-export function SeasonalWrapper() {
+interface SeasonalWrapperProps {
+  isModelReady?: boolean;
+}
+
+export function SeasonalWrapper({ isModelReady = false }: SeasonalWrapperProps) {
   const [season, setSeason] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [shouldShow, setShouldShow] = useState(false);
   // const [isDayTime, setIsDayTime] = useState(false);
 
   useEffect(() => {
     const now = new Date();
-
     const currentSeason = getBonsaiSeason(now);
     setSeason(currentSeason);
-
-    // const hour = now.getHours();
-    // if (hour >= 6 && hour < 19) {
-    //   setIsDayTime(true);
-    // } else {
-    //   setIsDayTime(true); // false
-    // }
-
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, currentSeason === "SUMMER" ? 6000 : 10000);
-
-    return () => clearTimeout(timer);
   }, []);
 
-  if (!season) return null;
+  useEffect(() => {
+    if (isModelReady && !shouldShow) {
+      const startTimer = setTimeout(() => {
+        setShouldShow(true);
+      }, 500);
+      return () => clearTimeout(startTimer);
+    }
+  }, [isModelReady, shouldShow]);
+
+  useEffect(() => {
+    if (!shouldShow || !season) return;
+
+    const fadeTimer = setTimeout(() => {
+      setIsVisible(false);
+    }, season === "SUMMER" ? 6000 : 10000);
+
+    return () => clearTimeout(fadeTimer);
+  }, [shouldShow, season]);
+
+  if (!season || !shouldShow) return null;
 
   return (
     <div
