@@ -20,7 +20,6 @@ import { getActiveEvent } from "@/config/events";
 import { EVENT_TOASTS } from "@/config/eventToasts";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { SeasonalWrapper } from "@/components/seasonal/SeasonalWrapper";
 
 const timelineData: TimelineEntry[] = [
   {
@@ -109,7 +108,6 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-background transition-colors duration-300">
-      <SeasonalWrapper />
 
       <Section className="-mt-12 z-10 relative" noAnimation={true}>
         <div className="flex flex-col-reverse md:flex-row items-start md:items-center justify-between gap-6 p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 shadow-sm">
