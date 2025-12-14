@@ -10,10 +10,11 @@ import { useThree } from "@react-three/fiber";
 
 export interface VimScreenProps {
   onTextureUpdate?: (texture: THREE.CanvasTexture) => void;
+  lowEndMode?: boolean;
 }
 
-export function VimScreen({ onTextureUpdate }: VimScreenProps) {
-  const { gl } = useThree(); // Get renderer for maxAnisotropy
+export function VimScreen({ onTextureUpdate, lowEndMode = false }: VimScreenProps) {
+  const { gl } = useThree();
   const [openFiles, setOpenFiles] = useState(["page.tsx", "globals.css"]);
   const [activeFile, setActiveFile] = useState("page.tsx");
   const contentRef = useRef<string[]>([...FILES_CONTENT["page.tsx"]]);
@@ -134,7 +135,12 @@ export function VimScreen({ onTextureUpdate }: VimScreenProps) {
       const s = stateRef.current;
 
       switch (action.type) {
-        case "wait": await new Promise(r => setTimeout(r, action.ms as number)); break;
+        case "wait": {
+          // slower animations on mobile
+          const delay = lowEndMode ? (action.ms as number) * 1.3 : (action.ms as number);
+          await new Promise(r => setTimeout(r, delay));
+          break;
+        }
         case "focus_tree": setIsTreeFocused(true); break;
         case "tree_down": setExplorerIndex(prev => prev + 1); break;
         case "tree_enter": {
@@ -245,11 +251,12 @@ export function VimScreen({ onTextureUpdate }: VimScreenProps) {
         }
       }
       step++;
-      setTimeout(run, 50);
+      setTimeout(run, lowEndMode ? 80 : 50);
     };
-    const timer = setTimeout(run, 1000);
+    // longer delay on mobile for model to stabilize
+    const timer = setTimeout(run, lowEndMode ? 2000 : 1200);
     return () => clearTimeout(timer);
-  }, []);
+  }, [lowEndMode]);
 
   return (
     <Html>
