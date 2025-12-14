@@ -36,6 +36,8 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
     const pathname = usePathname();
     const router = useRouter();
 
+    const [navItemHovered, setNavItemHovered] = useState(false);
+
     const navigationLinks = [
       { href: "/", label: "Home" },
       { href: "/projects", label: "Works" },
@@ -78,14 +80,18 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
       >
         <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 md:px-8">
           <Link href="/" className="flex items-center">
-            <Logo />
+            <Logo isNavItemHovered={navItemHovered} />
           </Link>
 
           {!isMobile && (
             <NavigationMenu>
               <NavigationMenuList>
                 {navigationLinks.map((link) => (
-                  <NavigationMenuItem key={link.href}>
+                  <NavigationMenuItem
+                    key={link.href}
+                    onMouseEnter={() => setNavItemHovered(true)}
+                    onMouseLeave={() => setNavItemHovered(false)}
+                  >
                     <NavigationMenuLink
                       onClick={() => router.push(link.href)}
                       active={pathname === link.href}
