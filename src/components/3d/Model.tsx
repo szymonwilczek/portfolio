@@ -70,7 +70,7 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
   useEffect(() => {
     const bulb = nodes.lamp_bulb;
 
-    const occlusionMeshNames = ['monitor', 'wolfie']
+    const occlusionMeshNames = ['monitor', 'wolf']
     Object.entries(nodes).forEach(([nodeName, node]) => {
       if ((node as THREE.Mesh).isMesh && (node as THREE.Mesh).material) {
         const mat = (node as THREE.Mesh).material as THREE.MeshStandardMaterial
