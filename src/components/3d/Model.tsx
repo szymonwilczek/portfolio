@@ -20,15 +20,24 @@ type ModelProps = JSX.IntrinsicElements["group"] & {
   lampColor?: string;
   lampIntensity?: number;
   stopRotation?: boolean;
+  lowEndMode?: boolean;
+  isVisible?: boolean;
 }
 
-export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRotation = false, ...props }: ModelProps) {
+export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRotation = false, lowEndMode = false, isVisible = true, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as unknown as GLTFResult
   const groupRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.PointLight | null>(null);
   const starLightRef = useRef<THREE.PointLight | null>(null);
   const cakeLightRef = useRef<THREE.PointLight | null>(null);
   const time = useRef(0);
+
+  const SPIN_INITIAL_SPEED = 50;
+  const SPIN_TARGET_SPEED = 0.15;
+  const SPIN_DECAY = 2.5;
+  const SPIN_START_ANGLE = 0.5;  // desktop start angle
+  const MOBILE_START_ANGLE = 8.0; // mobile start angle (no fast spin, so start further rotated)
+  const SPIN_A = (SPIN_INITIAL_SPEED - SPIN_TARGET_SPEED) / SPIN_DECAY;
 
 
   const [isDragging, setIsDragging] = useState(false);
@@ -183,11 +192,11 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
         const shouldHaveShadow = SHADOW_CASTERS.some(name =>
           nodeName.toLowerCase().includes(name)
         )
-        node.castShadow = shouldHaveShadow
-        node.receiveShadow = shouldHaveShadow
+        node.castShadow = !lowEndMode && shouldHaveShadow
+        node.receiveShadow = !lowEndMode && shouldHaveShadow
 
         if (node.material && 'envMapIntensity' in node.material) {
-          (node.material as THREE.MeshStandardMaterial).envMapIntensity = 1.2
+          (node.material as THREE.MeshStandardMaterial).envMapIntensity = lowEndMode ? 0 : 1.2
         }
       }
     })
@@ -254,16 +263,17 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
 
   }, [nodes, materials, currentDate, onLoaded]);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (groupRef.current && !isDragging && !stopRotation) {
-      time.current += delta
-      const t = time.current
-      const initialSpeed = 50
-      const targetSpeed = 0.15
-      const decay = 2.5
-      const startAngle = 0.5
-      const A = (initialSpeed - targetSpeed) / decay
-      groupRef.current.rotation.y = startAngle + A * (1 - Math.exp(-decay * t)) + targetSpeed * t
+      time.current += delta;
+
+      if (lowEndMode) {
+        // mobile: slow continuous rotation only (somehow called the optimization)
+        groupRef.current.rotation.y = MOBILE_START_ANGLE + SPIN_TARGET_SPEED * time.current;
+      } else {
+        // desktop: fast initial spin that decays to slow rotation
+        groupRef.current.rotation.y = SPIN_START_ANGLE + SPIN_A * (1 - Math.exp(-SPIN_DECAY * time.current)) + SPIN_TARGET_SPEED * time.current;
+      }
     }
   })
 
@@ -273,12 +283,12 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
       onPointerUp={() => setIsDragging(false)}
       onPointerLeave={() => setIsDragging(false)}
     >
-      <VimScreen onTextureUpdate={setVimTexture} />
+      <VimScreen onTextureUpdate={setVimTexture} lowEndMode={lowEndMode} />
 
       <Center>
         <primitive object={nodes.Scene} />
 
-        {nodes.monitor_screen && vimTexture && (
+        {nodes.monitor && vimTexture && (
           <mesh
             position={[
               0,
