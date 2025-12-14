@@ -6,7 +6,7 @@ tags:
   - "React Three Fiber"
   - "WebGL"
   - "Blender"
-thumbnail: "/images/portfolio/portfolio_landing.png"
+thumbnail: "/images/portfolio/portfolio.png"
 github: "https://github.com/szymonwilczek/wolfie-portfolio"
 links:
   - url: "https://szymon-wilczek.me"
