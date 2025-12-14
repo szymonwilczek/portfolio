@@ -72,7 +72,7 @@ She was crafted with OpenGL for 3D optimization, from scratch. Only vertices. Ho
 
 *I spent days modeling a 3D holographic woman for a university project. I have maybe a few regrets. I also gave _her_ an artifical voice, did you hear it?*
 
-<video src="https://github.com/user-attachments/assets/1253dc7f-7c4e-4006-875a-ce8aec678975" controls style="max-width: 730px;"></video>
+<video src="https://github.com/user-attachments/assets/1253dc7f-7c4e-4006-875a-ce8aec678975" controls></video>
 
 ---
 

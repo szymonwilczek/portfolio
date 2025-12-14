@@ -108,12 +108,11 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
               "lucide-icon": (props: any) => (
                 <LucideIconRenderer iconname={props.iconname} className={props.className} />
               ),
-              video: ({ src, style }: any) => (
+              video: ({ src }: any) => (
                 <video
                   src={src}
                   controls
-                  className="rounded-lg max-w-full my-4"
-                  style={style}
+                  className="rounded-lg w-full h-auto my-4"
                   suppressHydrationWarning
                 />
               ),
