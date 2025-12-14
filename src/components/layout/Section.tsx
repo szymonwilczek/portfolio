@@ -1,3 +1,5 @@
+import { type LucideIcon } from "lucide-react";
+
 function Section({
   children,
   className = "",
@@ -21,7 +23,7 @@ function Section({
 }
 
 
-function SectionTitle({ icon: Icon, children }: { icon?: React.ElementType, children: React.ReactNode }) {
+function SectionTitle({ icon: Icon, children }: { icon?: LucideIcon, children: React.ReactNode }) {
   return (
     <h3 className="flex items-center gap-3 text-3xl font-bold font-outfit tracking-wider text-foreground mb-6">
       {Icon && <Icon className="w-6 h-6 text-primary" />}
