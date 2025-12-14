@@ -73,8 +73,8 @@ export default function Home() {
     : "/wolf_profile_dark.jpg";
 
   useEffect(() => {
-    // const hasShown = sessionStorage.getItem("has-shown-event-toast");
-    // if (hasShown) return;
+    const hasShown = sessionStorage.getItem("has-shown-event-toast");
+    if (hasShown) return;
 
     const activeEvent = getActiveEvent(new Date());
 
