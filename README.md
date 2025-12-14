@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐺 My Portfolio
 
-## Getting Started
+> **An over-engineered 3D voxel portfolio that nobody asked for, but everyone deserves.**
 
-First, run the development server:
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-szymon--wilczek.me-blue?style=for-the-badge)](https://szymon-wilczek.me)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![React Three Fiber](https://img.shields.io/badge/R3F-Three.js-orange?style=for-the-badge)](https://docs.pmnd.rs/react-three-fiber)
+
+---
+
+![Landing Page](/public/images/portfolio/portfolio.png)
+
+## 🎮 What Is This?
+
+This is not your typical developer portfolio with a hero section, grid of cards, and a contact form that goes to `/dev/null`.
+
+This is a **fully interactive 3D voxel world** built from scratch. Everything you see was modeled in Blender, optimized for the web, and rendered in real-time using WebGL.
+
+### ✨ Features
+
+- **3D Voxel Environment** - Complete desk setup with a working monitor
+- **Vim Simulation** - The screen displays an animated Vim editor (yes, really)
+- **Seasonal Effects** - Snow in winter, sakura in spring, leaves in autumn
+- **Dark/Light Mode** - System preference detection with smooth transitions
+- **Responsive Design** - Works on desktop and mobile
+- **Markdown Projects** - Easy-to-update project pages with custom Lucide icon syntax
+- **Performance Optimized** - Instanced meshes, throttled rendering and more
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Framework** | Next.js 16 (App Router) |
+| **3D Engine** | React Three Fiber + Drei |
+| **Styling** | Tailwind CSS v4 |
+| **Animation** | Framer Motion |
+| **3D Modeling** | Blender |
+| **Icons** | Lucide React (with custom remark plugin) |
+| **Deployment** | Vercel |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 20+
+- npm or pnpm
+
+### Installation
 
 ```bash
+# Clone the repo 
+git clone https://github.com/szymonwilczek/wolfie-portfolio.git
+cd wolfie-portfolio
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+# GitHub (for contributions heatmap)
+GITHUB_TOKEN=your_github_token
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Spotify (for now playing widget)
+SPOTIFY_CLIENT_ID=your_client_id
+SPOTIFY_CLIENT_SECRET=your_client_secret
+SPOTIFY_REFRESH_TOKEN=your_refresh_token
 
-## Learn More
+# WakaTime (for coding stats)
+WAKATIME_API_KEY=your_api_key
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📁 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── api/                # API routes (GitHub, Spotify, WakaTime)
+│   ├── projects/           # Project detail pages
+│   └── feed/               # Activity feed page
+├── components/
+│   ├── 3d/                 # Three.js components (Scene, Model, VimScreen)
+│   ├── layout/             # Navbar, Footer, Section components
+│   ├── feed/               # GitHub heatmap, Spotify, WakaTime widgets
+│   └── seasonal/           # Seasonal particle effects
+├── content/
+│   └── projects/           # Markdown project files
+└── lib/                    # Utilities and custom plugins
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Custom Lucide Icons in Markdown
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project includes a custom remark plugin for using Lucide icons directly in markdown:
+
+```markdown
+### :icon[ShoppingCart]{.text-orange-500 .inline-block .mr-2} Feature Title
+```
+
+Supports any Lucide icon with Tailwind classes!
+
+---
+
+## 📝 License
+
+MIT License - feel free to use this as inspiration for your own portfolio!
+
+---
+
+## 🐺 About the Wolf
+
+His name is Simon. He's made of polygons. No, you cannot pet him.
+
+---
+
+*Built with plenty of tea by [Szymon Wilczek](https://github.com/szymonwilczek)*
