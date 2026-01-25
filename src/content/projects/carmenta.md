@@ -10,6 +10,8 @@ github: "https://github.com/szymonwilczek/carmenta"
 links:
   - url: "https://copr.fedorainfracloud.org/coprs/szymon-wilczek/carmenta/"
     name: "Fedora COPR"
+  - url: "https://extensions.gnome.org/extension/9179/carmenta/"
+    name: "GNOME Extension"
 ---
 
 # Preview
