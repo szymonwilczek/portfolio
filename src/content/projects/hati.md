@@ -10,6 +10,9 @@ carousel:
   - "/images/hati/cursor.png"
   - "/images/hati/settings.png"
 github: "https://github.com/szymonwilczek/hati"
+links:
+  - url: "https://extensions.gnome.org/extension/9209/hati-cursor-highlighter/"
+    name: "GNOME Extension"
 ---
 
 # Preview
