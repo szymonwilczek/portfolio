@@ -25,33 +25,46 @@ const timelineData: TimelineEntry[] = [
   {
     id: 1,
     date: "2025",
-    title: "Web Developer @ FAMUR",
-    description: "Developing comprehensive web application for the mining industry sector. Digitizing industrial processes and managing data workflows using PHP ecosystem.",
+    title: "Linux Kernel Contributor",
+    description: "Patching memory safety bugs (UAF, Out-of-bounds) and concurrency issues across Filesystems and Bluetooth subsystems.",
     isCurrent: true,
+    urls: [
+      {
+        name: "View on kernel.org",
+        url: "https://lore.kernel.org/all/?q=swilczek.lx@gmail.com"
+      }
+    ]
   },
   {
     id: 2,
-    date: "2024",
-    title: "Freelance Full-stack Developer",
-    description: "Creating custom web applications tailored to specific client needs. Delivering modern, high-performance solutions from concept to deployment.",
-    isCurrent: true,
+    date: "2025",
+    title: "Web Developer @ FAMUR",
+    description: "Developing comprehensive web application for the mining industry sector. Digitizing industrial processes and managing data workflows using PHP ecosystem.",
+    isCurrent: false,
   },
   {
     id: 3,
+    date: "2024",
+    title: "Freelance Full-stack Developer",
+    description: "Creating custom web applications tailored to specific client needs. Delivering modern, high-performance solutions from concept to deployment.",
+    isCurrent: false,
+  },
+  {
+    id: 4,
     date: "2023",
     title: "Computer Science Student",
     description: "Currently in the 5th semester at Silesian University of Technology. Focusing on software engineering principles and their application in modern development.",
     isCurrent: true,
   },
   {
-    id: 4,
+    id: 5,
     date: "2017",
     title: "First Lines of Code",
     description: "Discovered passion for programming. Started learning C++ and web development to build foundational skills in software creation.",
     isCurrent: false,
   },
   {
-    id: 5,
+    id: 6,
     date: "2005",
     title: "Hello World",
     description: "Born in Poland. Initializing the main process.",
@@ -153,11 +166,9 @@ export default function Home() {
       <Section delay="delay-100">
         <SectionTitle icon={Terminal}>About</SectionTitle>
         <Paragraph>
-          I believe code is a tool to solve real-world problems, not just a way to talk to computers.
-          While currently finishing my Computer Science degree, I don't wait for a diploma to build meaningful things.
-          I bridge the gap between academic theory and practical implementation by shipping various products.
-          I help businesses grow by building robust web applications. With a strong foundation in full-stack development,
-          I tackle challenges head-on to deliver products that users love.
+          While I'm finishing my CS degree, my real education happens in the terminal and the Linux kernel source tree. I’m a Linux Contributor because I believe that understanding the stack from the bottom up is the only way to build software that actually scales and lasts.
+          <br /><br />
+          Whether I'm contributing to the kernel, hardening systems, or building full-stack applications, I focus on the "how" and "why" behind every bit. I bridge the gap between academic theory and production-ready implementation by getting my hands dirty with low-level engineering and practical, battle-tested security.
         </Paragraph>
       </Section>
 
@@ -166,7 +177,7 @@ export default function Home() {
           Technologies I Mostly Work With
         </h4>
         <div className="flex flex-wrap gap-2">
-          {["C", "C++", "TypeScript", "JavaScript", "React", "QT", "Next.js", "Three.js", "Tailwind"].map((tech) => (
+          {["C", "Go", "TypeScript", "JavaScript", "React", "Next.js", "Three.js", "Tailwind"].map((tech) => (
             <Badge key={tech} variant="secondary" className="px-3 py-1 text-sm">
               {tech}
             </Badge>
