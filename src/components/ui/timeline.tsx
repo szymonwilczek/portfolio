@@ -2,6 +2,12 @@
 
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { ExternalLink } from 'lucide-react';
+
+interface TimelineUrl {
+  url: string;
+  name: string;
+}
 
 export interface TimelineEntry {
   id: number | string;
@@ -9,6 +15,7 @@ export interface TimelineEntry {
   title: string;
   description: string;
   isCurrent?: boolean;
+  urls?: TimelineUrl[];
 }
 
 interface TimelineProps {
@@ -72,6 +79,31 @@ export const Timeline = ({ items, className }: TimelineProps) => {
               <p className="text-muted-foreground text-base leading-relaxed text-pretty">
                 {item.description}
               </p>
+
+              {item.urls && item.urls.length > 0 && (
+                <div className="flex flex-col gap-2 mt-3">
+                  {item.urls.map((urlItem, urlIndex) => (
+                    <a
+                      key={urlIndex}
+                      href={urlItem.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn(
+                        "inline-flex items-center gap-2 text-sm font-medium w-fit px-3 py-1.5 rounded-md transition-all duration-200",
+                        "bg-secondary/90 hover:bg-secondary",
+                        "text-foreground/80 hover:text-foreground",
+                        "border border-border/50 hover:border-border",
+                        item.isCurrent && "hover:border-emerald-500/50 hover:text-emerald-600 dark:hover:text-emerald-400"
+                      )}
+                    >
+                      <span>{urlItem.name}</span>
+                      <ExternalLink
+                        size={16}
+                      />
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         );
