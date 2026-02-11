@@ -4,17 +4,17 @@
 
 ![Landing Page](/public/images/portfolio/portfolio.png)
 
-## 🎮 What Is This?
+## What Is This?
 
-This is not your typical developer portfolio with a hero section, grid of cards, and a contact form that goes to `/dev/null`.
+This is an **interactive 3D voxel world** built from scratch. 
 
-This is a **fully interactive 3D voxel world** built from scratch. Everything you see was modeled in Blender, optimized for the web, and rendered in real-time using WebGL.
+The wolf you see was modeled in Blender, optimized for the web, and rendered in real-time using WebGL.
 
-### ✨ Features
+### Features
 
 - **3D Voxel Environment** - Complete desk setup with a working monitor
 - **Vim Simulation** - The screen displays an animated Vim editor (yes, really)
-- **Seasonal Effects** - Snow in winter, sakura in spring, leaves in autumn
+- **Seasonal Effects** - Snow in winter, sakura in spring, leaves in autumn and lack of idea for the summer
 - **Dark/Light Mode** - System preference detection with smooth transitions
 - **Responsive Design** - Works on desktop and mobile
 - **Markdown Projects** - Easy-to-update project pages with custom Lucide icon syntax
@@ -22,7 +22,7 @@ This is a **fully interactive 3D voxel world** built from scratch. Everything yo
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|------------|
@@ -36,7 +36,7 @@ This is a **fully interactive 3D voxel world** built from scratch. Everything yo
 
 ---
 
-## 🚀 Getting Started
+## You want it yourself?
 
 ### Prerequisites
 
@@ -70,26 +70,6 @@ SPOTIFY_REFRESH_TOKEN=your_refresh_token
 
 # WakaTime (for coding stats)
 WAKATIME_API_KEY=your_api_key
-```
-
----
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── api/                # API routes (GitHub, Spotify, WakaTime)
-│   ├── projects/           # Project detail pages
-│   └── feed/               # Activity feed page
-├── components/
-│   ├── 3d/                 # Three.js components (Scene, Model, VimScreen)
-│   ├── layout/             # Navbar, Footer, Section components
-│   ├── feed/               # GitHub heatmap, Spotify, WakaTime widgets
-│   └── seasonal/           # Seasonal particle effects
-├── content/
-│   └── projects/           # Markdown project files
-└── lib/                    # Utilities and custom plugins
 ```
 
 ---
