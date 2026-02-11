@@ -16,11 +16,18 @@ carousel:
   - "/images/talos/save.png"
   - "/images/talos/talos_sch.png"
   - "/images/talos/talos_brd.png"
+  - "/images/talos/talos_atari.JPEG"
+  - "/images/talos/talos_front.JPEG"
+  - "/images/talos/talos_back.JPEG"
 github: "https://github.com/szymonwilczek/talos-7"
 links:
   - url: "https://talos-7.vercel.app"
     name: "Talos Configurator"
 ---
+
+# Preview
+
+<video src="/videos/talos/preview.mp4" controls></video>
 
 # The Problem
 
@@ -135,45 +142,6 @@ This BOM is purely just my configuration that I use in my crafted project. Feel 
 | **Keycaps** | Keychron compatible |
 | **LEDs** | 7× SMD 0805 + 330 & 220Ω resistors |
 | **Connection** | Micro-USB data cable |
-
-### Wiring Diagram
-
-```
-┌─────────────────────────────────┐
-│         Raspberry Pi Pico       │
-│                                 │
-│  GPIO 0-6 ──► 7× Mechanical SW  │
-│  GPIO 16-19 ──► SSD1306 OLED    │
-│  GPIO 20-26 ──► Status LEDs     │
-│                                 │
-│  USB ──► HID + Serial + MIDI    │
-└─────────────────────────────────┘
-```
-
-*I drew this diagram in ASCII art because real EDA tools are for people who don't hate themselves.*
-
----
-
-## :icon[Bot]{.text-cyan-500 .inline-block .mr-2} DevOps: Hephaestus
-
-The repository is managed by **Hephaestus** - an automated GitHub Actions workflow.
-
-*Named after the Greek god of craftsmen and blacksmiths. Because if I'm going to overengineer something, I'm going to overengineer the CI/CD too.*
-
-### Semantic Versioning
-Commit messages automatically bump versions:
-- `fix: ...` → Patch (1.0.0 → 1.0.1)
-- `feat: ...` → Minor (1.0.1 → 1.1.0)
-- `feat!: ...` → Major (1.1.0 → 2.0.0)
-
-### Continuous Delivery
-On every push to `main`:
-1. Spins up ARM GCC Toolchain in cloud
-2. Checks out official Pico SDK
-3. Compiles firmware (`talos7.uf2`)
-4. Creates GitHub Release with changelog
-
----
 
 ## :icon[Rocket]{.text-orange-500 .inline-block .mr-2} Setup & Installation
 
