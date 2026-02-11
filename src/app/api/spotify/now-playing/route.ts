@@ -9,8 +9,6 @@ const NOW_PLAYING_ENDPOINT =
   "https://api.spotify.com/v1/me/player/currently-playing";
 const RECENTLY_PLAYED_ENDPOINT =
   "https://api.spotify.com/v1/me/player/recently-played";
-const TOP_ARTISTS_ENDPOINT =
-  "https://api.spotify.com/v1/me/top/artists?limit=5&time_range=short_term";
 
 // Masayoshi Takanaka
 const FAVORITE_ARTIST_ID = "2Ex4vjQ6mSh5woTlDWto6d";
@@ -72,7 +70,7 @@ async function fetchArtistGenres(accessToken: string, artistId: string) {
 
     if (res.status === 200) {
       const artist = await res.json();
-      return artist.genres?.slice(0, 3) || [];
+      return artist.genres || [];
     }
   } catch {
     // ignore
@@ -80,48 +78,25 @@ async function fetchArtistGenres(accessToken: string, artistId: string) {
   return [];
 }
 
-async function fetchUserStats(accessToken: string) {
-  const stats: { topGenre: string | null; recentlyPlayedCount: number } = {
-    topGenre: null,
-    recentlyPlayedCount: 0,
-  };
-
+async function fetchRecentlyPlayedCount(accessToken: string) {
   try {
-    // top artists to determine top genre
-    const topArtistsRes = await fetch(TOP_ARTISTS_ENDPOINT, {
+    const res = await fetch(`${RECENTLY_PLAYED_ENDPOINT}?limit=50`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
-    if (topArtistsRes.status === 200) {
-      const data = await topArtistsRes.json();
-      const genreCount: Record<string, number> = {};
-      for (const artist of data.items || []) {
-        for (const genre of artist.genres || []) {
-          genreCount[genre] = (genreCount[genre] || 0) + 1;
-        }
-      }
-      const sortedGenres = Object.entries(genreCount).sort(
-        (a, b) => b[1] - a[1],
-      );
-      if (sortedGenres.length > 0) {
-        stats.topGenre = sortedGenres[0][0];
-      }
-    }
-
-    // recently played count
-    const recentRes = await fetch(`${RECENTLY_PLAYED_ENDPOINT}?limit=50`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-
-    if (recentRes.status === 200) {
-      const data = await recentRes.json();
-      stats.recentlyPlayedCount = data.items?.length || 0;
+    if (res.status === 200) {
+      const data = await res.json();
+      const oneDayAgo = Date.now() - 24 * 60 * 60 * 1000;
+      const count =
+        data.items?.filter(
+          (item: any) => new Date(item.played_at).getTime() > oneDayAgo,
+        ).length || 0;
+      return count;
     }
   } catch {
     // ignore
   }
-
-  return stats;
+  return 0;
 }
 
 export async function GET() {
@@ -135,9 +110,9 @@ export async function GET() {
   try {
     const { access_token } = await getAccessToken();
 
-    const [favoriteArtist, userStats] = await Promise.all([
+    const [favoriteArtist, recentlyPlayedCount] = await Promise.all([
       fetchFavoriteArtist(access_token),
-      fetchUserStats(access_token),
+      fetchRecentlyPlayedCount(access_token),
     ]);
 
     const nowPlayingRes = await fetch(NOW_PLAYING_ENDPOINT, {
@@ -153,6 +128,8 @@ export async function GET() {
           ? await fetchArtistGenres(access_token, artistId)
           : [];
 
+        const topGenre = genres.length > 0 ? genres[0] : null;
+
         return NextResponse.json({
           isPlaying: true,
           title: data.item.name,
@@ -164,10 +141,10 @@ export async function GET() {
           songUrl: data.item.external_urls.spotify,
           progressMs: data.progress_ms || 0,
           durationMs: data.item.duration_ms || 0,
-          genres,
+          genres: genres.slice(0, 3),
           favoriteArtist,
-          topGenre: userStats.topGenre,
-          recentlyPlayedCount: userStats.recentlyPlayedCount,
+          topGenre,
+          recentlyPlayedCount,
         });
       }
     }
@@ -186,6 +163,8 @@ export async function GET() {
           ? await fetchArtistGenres(access_token, artistId)
           : [];
 
+        const topGenre = genres.length > 0 ? genres[0] : null;
+
         return NextResponse.json({
           isPlaying: false,
           title: track.name,
@@ -195,10 +174,10 @@ export async function GET() {
           songUrl: track.external_urls.spotify,
           progressMs: 0,
           durationMs: track.duration_ms || 0,
-          genres,
+          genres: genres.slice(0, 3),
           favoriteArtist,
-          topGenre: userStats.topGenre,
-          recentlyPlayedCount: userStats.recentlyPlayedCount,
+          topGenre,
+          recentlyPlayedCount,
         });
       }
     }
@@ -206,8 +185,8 @@ export async function GET() {
     return NextResponse.json({
       isPlaying: false,
       favoriteArtist,
-      topGenre: userStats.topGenre,
-      recentlyPlayedCount: userStats.recentlyPlayedCount,
+      topGenre: null,
+      recentlyPlayedCount,
     });
   } catch (error) {
     console.error("Spotify API error:", error);

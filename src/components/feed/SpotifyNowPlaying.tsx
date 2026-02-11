@@ -134,7 +134,7 @@ const UserStats = memo(function UserStats({
         <div className="flex items-center text-center gap-2 group">
           <Headphones className="h-3.5 w-3.5 text-purple-400 flex-shrink-0" />
           <span className="text-[10px] text-muted-foreground uppercase tracking-wider">
-            Recently Played:
+            Last 24h:
           </span>
           <span className="text-xs font-medium text-foreground group-hover:text-primary transition-colors truncate">
             {recentlyPlayedCount} tracks
