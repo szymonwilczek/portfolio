@@ -17,7 +17,7 @@ carousel:
   - "/images/instant-book-exchange/achievements.png"
   - "/images/instant-book-exchange/leaderboard.png"
 links:
-  - url: "bookstore-one-rust.vercel.app"
+  - url: "https://bookstore-one-rust.vercel.app"
     name: "Instant Book Exchange"
 ---
 
