@@ -10,6 +10,7 @@ import {
   Briefcase,
   Terminal,
   Mail,
+  FileText,
 } from "lucide-react";
 import { Timeline, TimelineEntry } from "@/components/ui/timeline";
 import { Section, SectionTitle } from "@/components/layout/Section";
@@ -26,41 +27,46 @@ const timelineData: TimelineEntry[] = [
     id: 1,
     date: "2025",
     title: "Linux Kernel Contributor",
-    description: "Patching memory safety bugs (UAF, Out-of-bounds) and concurrency issues across Filesystems and Bluetooth subsystems.",
+    description:
+      "Patching memory safety bugs (UAF, Out-of-bounds) and concurrency issues across Filesystems and Bluetooth subsystems.",
     isCurrent: true,
     urls: [
       {
         name: "View on kernel.org",
-        url: "https://lore.kernel.org/all/?q=swilczek.lx@gmail.com"
-      }
-    ]
+        url: "https://lore.kernel.org/all/?q=swilczek.lx@gmail.com",
+      },
+    ],
   },
   {
     id: 2,
     date: "2025",
     title: "Web Developer @ FAMUR",
-    description: "Developing comprehensive web application for the mining industry sector. Digitizing industrial processes and managing data workflows using PHP ecosystem.",
+    description:
+      "Developing comprehensive web application for the mining industry sector. Digitizing industrial processes and managing data workflows using PHP ecosystem.",
     isCurrent: false,
   },
   {
     id: 3,
     date: "2024",
     title: "Freelance Full-stack Developer",
-    description: "Creating custom web applications tailored to specific client needs. Delivering modern, high-performance solutions from concept to deployment.",
+    description:
+      "Creating custom web applications tailored to specific client needs. Delivering modern, high-performance solutions from concept to deployment.",
     isCurrent: false,
   },
   {
     id: 4,
     date: "2023",
     title: "Computer Science Student",
-    description: "Currently in the 5th semester at Silesian University of Technology. Focusing on software engineering principles and their application in modern development.",
+    description:
+      "Currently in the 5th semester at Silesian University of Technology. Focusing on software engineering principles and their application in modern development.",
     isCurrent: true,
   },
   {
     id: 5,
     date: "2017",
     title: "First Lines of Code",
-    description: "Discovered passion for programming. Started learning C++ and web development to build foundational skills in software creation.",
+    description:
+      "Discovered passion for programming. Started learning C++ and web development to build foundational skills in software creation.",
     isCurrent: false,
   },
   {
@@ -80,9 +86,10 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  const profileSrc = mounted && resolvedTheme === "light"
-    ? "/wolf_profile_light.jpg"
-    : "/wolf_profile_dark.jpg";
+  const profileSrc =
+    mounted && resolvedTheme === "light"
+      ? "/wolf_profile_light.jpg"
+      : "/wolf_profile_dark.jpg";
 
   useEffect(() => {
     const hasShown = sessionStorage.getItem("has-shown-event-toast");
@@ -107,23 +114,20 @@ export default function Home() {
             "--toast-text": palette.text,
             "--toast-border": palette.border,
             "--toast-muted": palette.muted,
-          } as React.CSSProperties
+          } as React.CSSProperties,
         });
 
         sessionStorage.setItem("has-shown-event-toast", "true");
-
       }, 2500);
 
       return () => clearTimeout(timer);
     }
   }, []);
 
-
   return (
     <main className="flex min-h-screen flex-col items-center bg-background transition-colors duration-300">
-
       <Section className="-mt-12 z-10 relative" noAnimation={true}>
-        <div className="flex flex-col-reverse md:flex-row items-start md:items-center justify-between gap-6 p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 shadow-sm">
+        <div className="relative flex flex-col-reverse md:flex-row items-start md:items-center justify-between gap-6 p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 shadow-sm">
           <div className="flex-1 space-y-2">
             <h1 className="text-4xl tracking-wider font-outfit font-bold">
               Szymon Wilczek
@@ -131,10 +135,24 @@ export default function Home() {
             <p className="text-lg text-muted-foreground max-w-md">
               Full-stack Developer building pixel-perfect experiences.
             </p>
-            <div className="flex gap-3 pt-2">
+            <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="sm" className="font-semibold">
                 <Link href="/projects">
                   View Projects <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="secondary"
+                size="sm"
+                className="absolute top-6 right-6 md:static"
+              >
+                <Link
+                  href="/Szymon-Wilczek-CV_ENG.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FileText className="mr-2 h-4 w-4" /> View CV
                 </Link>
               </Button>
               <Button asChild variant="outline" size="sm">
@@ -166,9 +184,17 @@ export default function Home() {
       <Section delay="delay-100">
         <SectionTitle icon={Terminal}>About</SectionTitle>
         <Paragraph>
-          While I'm finishing my CS degree, my real education happens in the terminal and the Linux kernel source tree. I’m a Linux Contributor because I believe that understanding the stack from the bottom up is the only way to build software that actually scales and lasts.
-          <br /><br />
-          Whether I'm contributing to the kernel, hardening systems, or building full-stack applications, I focus on the "how" and "why" behind every bit. I bridge the gap between academic theory and production-ready implementation by getting my hands dirty with low-level engineering and practical, battle-tested security.
+          While I'm finishing my CS degree, my real education happens in the
+          terminal and the Linux kernel source tree. I’m a Linux Contributor
+          because I believe that understanding the stack from the bottom up is
+          the only way to build software that actually scales and lasts.
+          <br />
+          <br />
+          Whether I'm contributing to the kernel, hardening systems, or building
+          full-stack applications, I focus on the "how" and "why" behind every
+          bit. I bridge the gap between academic theory and production-ready
+          implementation by getting my hands dirty with low-level engineering
+          and practical, battle-tested security.
         </Paragraph>
       </Section>
 
@@ -177,7 +203,16 @@ export default function Home() {
           Technologies I Mostly Work With
         </h4>
         <div className="flex flex-wrap gap-2">
-          {["C", "Go", "TypeScript", "JavaScript", "React", "Next.js", "Three.js", "Tailwind"].map((tech) => (
+          {[
+            "C",
+            "Go",
+            "TypeScript",
+            "JavaScript",
+            "React",
+            "Next.js",
+            "Three.js",
+            "Tailwind",
+          ].map((tech) => (
             <Badge key={tech} variant="secondary" className="px-3 py-1 text-sm">
               {tech}
             </Badge>
@@ -195,7 +230,6 @@ export default function Home() {
       <Section delay="delay-500">
         <SectionTitle icon={Mail}>Connect</SectionTitle>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-
           <Link
             href="mailto:szymonwilczek@outlook.com"
             className="group flex flex-col sm:flex-row items-center sm:items-center gap-4 p-4 rounded-xl border bg-card hover:bg-accent transition-colors text-center sm:text-left"
@@ -227,10 +261,8 @@ export default function Home() {
             </div>
             <p className="font-semibold">Discord</p>
           </Link>
-
         </div>
       </Section>
-
-    </main >
+    </main>
   );
 }
