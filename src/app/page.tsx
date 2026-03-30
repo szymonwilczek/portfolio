@@ -19,7 +19,7 @@ import { DiscordIcon } from "@/components/icons/DicordIcon";
 import { toast } from "sonner";
 import { getActiveEvent } from "@/config/events";
 import { EVENT_TOASTS } from "@/config/eventToasts";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTheme } from "next-themes";
 
 const timelineData: TimelineEntry[] = [
@@ -80,16 +80,6 @@ const timelineData: TimelineEntry[] = [
 
 export default function Home() {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const profileSrc =
-    mounted && resolvedTheme === "light"
-      ? "/wolf_profile_light.jpg"
-      : "/wolf_profile_dark.jpg";
 
   useEffect(() => {
     const hasShown = sessionStorage.getItem("has-shown-event-toast");
@@ -169,10 +159,10 @@ export default function Home() {
           >
             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-background shadow-xl rotate-3 transition-transform duration-300 pointer-events-none">
               <Image
-                src={profileSrc}
+                src="/avatar.png"
                 alt="Szymon Wilczek"
                 fill
-                className="object-cover transition-opacity duration-300"
+                className="object-cover object-center transition-all duration-500 sepia-[.5] dark:sepia-[.4] dark:hue-rotate-[190deg] dark:brightness-[0.85] dark:contrast-[1.1]"
                 priority
                 draggable={false}
               />
