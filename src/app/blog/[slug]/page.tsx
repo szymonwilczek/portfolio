@@ -21,13 +21,17 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
 
   try {
     const post = getPostData(slug);
     return {
-      title: `${post.title} | Szymon Wilczek`,
+      title: `${post.title}`,
       description: post.excerpt,
     };
   } catch {
@@ -37,7 +41,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
 
   let post;
@@ -87,30 +95,37 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkLucideIcons]}
             rehypePlugins={[rehypeRaw, rehypeHighlight]}
-            components={{
-              "lucide-icon": (props: any) => (
-                <LucideIconRenderer iconname={props.iconname} className={props.className} />
-              ),
-              video: ({ src }: any) => (
-                <video
-                  src={src}
-                  controls
-                  className="rounded-lg w-full h-auto my-4"
-                  suppressHydrationWarning
-                />
-              ),
-              pre: ({ children, ...props }: any) => {
-                const codeChild = Array.isArray(children) ? children[0] : children;
-                if (codeChild?.props?.className?.includes('hljs')) {
-                  return (
-                    <CodeBlock className={codeChild.props.className}>
-                      {codeChild.props.children}
-                    </CodeBlock>
-                  );
-                }
-                return <pre {...props}>{children}</pre>;
-              },
-            } as any}
+            components={
+              {
+                "lucide-icon": (props: any) => (
+                  <LucideIconRenderer
+                    iconname={props.iconname}
+                    className={props.className}
+                  />
+                ),
+                video: ({ src }: any) => (
+                  <video
+                    src={src}
+                    controls
+                    className="rounded-lg w-full h-auto my-4"
+                    suppressHydrationWarning
+                  />
+                ),
+                pre: ({ children, ...props }: any) => {
+                  const codeChild = Array.isArray(children)
+                    ? children[0]
+                    : children;
+                  if (codeChild?.props?.className?.includes("hljs")) {
+                    return (
+                      <CodeBlock className={codeChild.props.className}>
+                        {codeChild.props.children}
+                      </CodeBlock>
+                    );
+                  }
+                  return <pre {...props}>{children}</pre>;
+                },
+              } as any
+            }
           >
             {post.content || ""}
           </ReactMarkdown>
@@ -119,13 +134,19 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         {post.links && post.links.length > 0 && (
           <Card className="mt-12">
             <CardHeader>
-              <CardTitle className="text-lg font-semibold">Related Links</CardTitle>
+              <CardTitle className="text-lg font-semibold">
+                Related Links
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
                 {post.links.map((link, index) => (
                   <Button key={index} asChild variant="outline">
-                    <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <ExternalLink className="mr-2 h-4 w-4" />
                       {link.name}
                     </a>
