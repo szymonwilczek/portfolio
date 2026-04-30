@@ -5,13 +5,6 @@ date: "2025-07-04"
 tags:
   - "Rust"
   - "Assembly"
-thumbnail: "/images/asmod/installer.png"
-carousel:
-  - "/images/asmod/help.png"
-  - "/images/asmod/examples.png"
-  - "/images/asmod/hello.png"
-  - "/images/asmod/bugseer.png"
-  - "/images/asmod/lsp.png"
 github: "https://github.com/asmod-lang/asmodeus"
 links:
   - url: "https://github.com/asmod-lang/asmodeus-lsp"

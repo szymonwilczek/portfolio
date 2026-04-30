@@ -6,16 +6,7 @@ tags:
   - "Next.js"
   - "TypeScript"
   - "MongoDB"
-thumbnail: "/images/instant-book-exchange/landing.png"
 github: "https://github.com/szymonwilczek/instant-book-exchange"
-carousel:
-  - "/images/instant-book-exchange/landing.png"
-  - "/images/instant-book-exchange/cart.png"
-  - "/images/instant-book-exchange/transaction.png"
-  - "/images/instant-book-exchange/transactions_pending.png"
-  - "/images/instant-book-exchange/profile.png"
-  - "/images/instant-book-exchange/achievements.png"
-  - "/images/instant-book-exchange/leaderboard.png"
 links:
   - url: "https://szymon-wilczek.me/projects/instant-book-exchange"
     name: "Project Overview"

@@ -7,13 +7,6 @@ tags:
   - "OpenGL"
   - "GLSL"
   - "Qt 5"
-thumbnail: "/images/wavelength/landing.png"
-carousel:
-  - "/images/wavelength/landing.png"
-  - "/images/wavelength/chat_view.png"
-  - "/images/wavelength/audio_file.png"
-  - "/images/wavelength/ptt_on.png"
-  - "/images/wavelength/settings_tab.png"
 github: "https://github.com/szymonwilczek/wavelength"
 links:
   - url: "https://szymon-wilczek.me/projects/wavelength"

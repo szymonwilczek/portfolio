@@ -5,7 +5,6 @@ date: "2026-01-17"
 tags:
   - "Rust"
   - "GTK4"
-thumbnail: "/images/carmenta/main.png"
 github: "https://github.com/szymonwilczek/carmenta"
 links:
   - url: "https://szymon-wilczek.me/projects/carmenta"

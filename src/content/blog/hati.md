@@ -5,10 +5,6 @@ date: "2026-01-28"
 tags:
   - "JavaScript"
   - "GLSL"
-thumbnail: "/images/hati/main.png"
-carousel:
-  - "/images/hati/cursor.png"
-  - "/images/hati/settings.png"
 github: "https://github.com/szymonwilczek/hati"
 links:
   - url: "https://szymon-wilczek.me/projects/hati"

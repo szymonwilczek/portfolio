@@ -6,7 +6,6 @@ tags:
   - "TypeScript"
   - "GNOME"
   - "GJS"
-thumbnail: "/images/slab/main.png"
 github: "https://github.com/szymonwilczek/slab"
 links:
   - url: "https://szymon-wilczek.me/projects/slab"

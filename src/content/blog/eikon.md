@@ -6,10 +6,6 @@ tags:
   - "Java"
   - "React"
   - "PostgreSQL"
-thumbnail: "/images/eikon/main.png"
-carousel:
-  - "/images/eikon/grid_view.png"
-  - "/images/eikon/graph_view.png"
 github: "https://github.com/szymonwilczek/2026_tab_5_wilczek"
 links:
   - url: "https://szymon-wilczek.me/projects/eikon"

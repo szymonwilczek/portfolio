@@ -7,15 +7,6 @@ tags:
   - "LaTeX"
   - "Math"
   - "Next.js"
-thumbnail: "/images/maturator/landing.png"
-carousel:
-  - "/images/maturator/landing.png"
-  - "/images/maturator/trening.png"
-  - "/images/maturator/sample_task.png"
-  - "/images/maturator/exam_canvas.png"
-  - "/images/maturator/exam_task.png"
-  - "/images/maturator/good_answer.png"
-  - "/images/maturator/bad_answer.png"
 github: "https://github.com/wolfie-university/maturator"
 links:
   - url: "https://szymon-wilczek.me/projects/maturator"
