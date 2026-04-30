@@ -122,8 +122,8 @@ export default function Home() {
             <h1 className="text-4xl tracking-wider font-outfit font-bold">
               Szymon Wilczek
             </h1>
-            <p className="text-lg text-muted-foreground max-w-md">
-              Full-stack Developer building pixel-perfect experiences.
+            <p className="text-lg text-muted-foreground max-w-lg">
+              Software developer building pixel-perfect experiences.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="sm" className="font-semibold">
@@ -175,16 +175,11 @@ export default function Home() {
         <SectionTitle icon={Terminal}>About</SectionTitle>
         <Paragraph>
           While I'm finishing my CS degree, my real education happens in the
-          terminal and the Linux kernel source tree. I’m a Linux Contributor
-          because I believe that understanding the stack from the bottom up is
-          the only way to build software that actually scales and lasts.
+          terminal and the Linux kernel source tree. <br />
           <br />
-          <br />
-          Whether I'm contributing to the kernel, hardening systems, or building
-          full-stack applications, I focus on the "how" and "why" behind every
-          bit. I bridge the gap between academic theory and production-ready
-          implementation by getting my hands dirty with low-level engineering
-          and practical, battle-tested security.
+          Whether I'm hardening systems, or building full-stack applications, I
+          focus on the <i>how</i> and <i>why</i> behind every bit. I love to get
+          my hands dirty with low-level engineering.
         </Paragraph>
       </Section>
 
@@ -196,11 +191,10 @@ export default function Home() {
           {[
             "C",
             "Go",
+            "Lua",
             "TypeScript",
             "JavaScript",
             "React",
-            "Next.js",
-            "Three.js",
             "Tailwind",
           ].map((tech) => (
             <Badge key={tech} variant="secondary" className="px-3 py-1 text-sm">

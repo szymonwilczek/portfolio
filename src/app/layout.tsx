@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Outfit,
-  Jersey_20,
-} from "next/font/google";
+import { Geist, Geist_Mono, Outfit, Jersey_20 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Navbar } from "@/components/layout/navbar/Navbar";
@@ -40,9 +35,19 @@ export const metadata: Metadata = {
     default: "Szymon Wilczek | Portfolio",
     template: "%s | Szymon Wilczek",
   },
-  description: "Fullstack developer building pixel-perfect experiences. Be welcome to explore my projects!",
-  keywords: ["developer", "portfolio", "fullstack", "react", "next.js", "typescript", "web development"],
-  authors: [{ name: "Szymon Wilczek", url: "https://github.com/szymonwilczek" }],
+  description: "Software developer building pixel-perfect experiences.",
+  keywords: [
+    "developer",
+    "portfolio",
+    "fullstack",
+    "react",
+    "next.js",
+    "typescript",
+    "web development",
+  ],
+  authors: [
+    { name: "Szymon Wilczek", url: "https://github.com/szymonwilczek" },
+  ],
   creator: "Szymon Wilczek",
   metadataBase: new URL("https://szymon-wilczek.me"),
   openGraph: {
@@ -50,7 +55,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     siteName: "Szymon Wilczek",
     title: "Szymon Wilczek | Portfolio",
-    description: "Fullstack developer building pixel-perfect experiences. Be welcome to explore my projects!",
+    description: "Software developer building pixel-perfect experiences.",
     images: [
       {
         url: "/opengraph-image.png",
@@ -63,17 +68,13 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Szymon Wilczek | Portfolio",
-    description: "Fullstack developer building pixel-perfect experiences.",
+    description: "Software developer building pixel-perfect experiences.",
     images: ["/twitter-image.png"],
     creator: "@wvilczek",
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "32x32" },
-    ],
-    apple: [
-      { url: "/favicon.ico", sizes: "180x180" },
-    ],
+    icon: [{ url: "/favicon.ico", sizes: "32x32" }],
+    apple: [{ url: "/favicon.ico", sizes: "180x180" }],
     shortcut: "/favicon.ico",
   },
   robots: {
@@ -109,13 +110,9 @@ export default function RootLayout({
         ${geistMono.variable} 
         ${outfit.variable}
         ${jersey20.variable}
-        antialiased`}
+        antialiased min-h-screen flex flex-col`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-        >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
           <SceneWrapper />
           {children}
@@ -124,11 +121,13 @@ export default function RootLayout({
             position="top-center"
             toastOptions={{
               classNames: {
-                toast: "gap-3 !bg-[var(--toast-bg,var(--background))]/40 backdrop-blur-sm !text-[var(--toast-text,var(--foreground))]/80 !border-[var(--toast-border,var(--border))]/40 !shadow-lg",
-                description: "!text-[var(--toast-muted,var(--muted-foreground))]/80",
+                toast:
+                  "gap-3 !bg-[var(--toast-bg,var(--background))]/40 backdrop-blur-sm !text-[var(--toast-text,var(--foreground))]/80 !border-[var(--toast-border,var(--border))]/40 !shadow-lg",
+                description:
+                  "!text-[var(--toast-muted,var(--muted-foreground))]/80",
                 actionButton: "!bg-primary !text-primary-foreground",
                 cancelButton: "!bg-muted !text-muted-foreground",
-              }
+              },
             }}
           />
         </ThemeProvider>
