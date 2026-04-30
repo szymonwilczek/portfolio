@@ -17,8 +17,69 @@ links:
   - url: "https://github.com/asmod-lang/asmodeus-lsp"
     name: "LSP Repository"
   - url: "https://szymon-wilczek.me/projects/asmodeus"
-    name: "Blog Article"
+    name: "Project Overview"
 ---
+
+# The Problem
+
+Learning low-level programming and computer architecture is hard. Existing assembly languages like x86 or ARM are complex, have thousands of instructions, and require specialized hardware knowledge. Academic architectures like Machine W exist in Polish university curricula but lack modern tooling.
+
+Oh, and I wanted to learn Rust.
+
+So naturally, as my **first and only Rust project ever**, I decided to build... *an entire programming language ecosystem from scratch*. You know, the classic "Hello World" equivalent for learning a new language. 🙃
+
+*"Just write a simple CLI tool to learn the syntax," they said. "Don't start with a compiler," they warned. Anyway...*
+
+I wanted to create:
+- A **complete language ecosystem** from scratch
+- A **clean, educational architecture** that's approachable
+- **Modern developer experience** with debugging, LSP, and good error messages
+- A **production-quality Rust codebase** showcasing compiler engineering (while simultaneously learning Rust syntax)
+
+# The Solution
+
+**Asmodeus** is a complete assembly language toolchain inspired by the legendary **Machine W architecture** - a 16-bit educational computer used in Polish universities. But unlike academic simulators, Asmodeus provides a **production-grade developer experience**.
+
+Did I overcomplicate a learning project? **Hell nah.**  
+Was the borrow checker my friend? **It was my frenemy.**  
+Would I do it again? **I already did. There's an LSP too.**
+
+---
+
+## :icon[Sparkles]{.text-yellow-400 .inline-block .mr-1 .mb-1} What Makes Asmodeus Special
+
+### Complete Toolchain in Rust
+Not just an assembler - a full compilation pipeline:
+```
+Source (.asmod) → Lexariel → Parseid → Hephasm → Asmachina → Execution
+                  (Lexer)    (Parser)  (Assembler)  (VM)
+```
+
+*I gave each component a dramatic fantasy name. I regret nothing.*
+
+### Polish-Inspired Mnemonics
+A unique twist: instruction mnemonics come from Polish words:
+- `POB` (Pobierz) → Load
+- `ŁAD/LAD` (Ładuj) → Store  
+- `DOD` (Dodaj) → Add
+- `SOB` (Skok Bezwarunkowy) → Unconditional Jump
+- `STP` (Stop) → Halt
+
+*Finally, a programming language where my Polish keyboard layout is an advantage.*
+
+### Named Components
+Each crate has a thematic name:
+| Crate | Function | 
+|-------|----------|
+| **Lexariel** | Lexical Analyzer | 
+| **Parseid** | Parser | 
+| **Hephasm** | Assembler | 
+| **Asmachina** | Virtual Machine | 
+| **Dismael** | Disassembler | 
+| **Bugseer** | Debugger | 
+
+*Naming things is the hardest problem in computer science. I chose to make it worse.*
+
 
 ## :icon[Pickaxe]{.text-gray-400 .inline-block .mr-1 .mb-1} Machine W Architecture
 
@@ -155,6 +216,75 @@ For the complete IDE experience, I built a separate **LSP server** for Neovim in
 
 ---
 
+## :icon[Code]{.text-cyan-500 .inline-block .mr-1 .mb-1} Code Examples
+
+### Hello World (Character I/O)
+```asm
+; Echo program - reads and outputs character
+start:
+    WEJSCIE         ; Read character to AK
+    WYJSCIE         ; Output AK
+    STP             ; Halt
+
+; Run with: asmod interactive echo.asmod
+```
+
+### Factorial Calculation
+```asm
+; Calculate 5! = 120
+start:
+    POB one         ; result = 1
+    LAD result
+    POB n           ; counter = 5
+    LAD counter
+
+loop:
+    POB counter     ; if counter == 0, done
+    SOZ done
+    
+    POB result      ; result *= counter
+    MNO counter     ; (requires --extended)
+    LAD result
+    
+    POB counter     ; counter--
+    ODE one
+    LAD counter
+    
+    SOB loop
+
+done:
+    POB result      ; output result (120)
+    WYJSCIE
+    STP
+
+n:       RST 5
+one:     RST 1
+result:  RPA
+counter: RPA
+```
+
+*This is 25 lines to calculate 5 factorial. Do not compare this to Python. I really hate that language.*
+
+### Stack Operations
+```asm
+; LIFO demonstration
+start:
+    POB #10         ; Push 10
+    SDP
+    POB #20         ; Push 20
+    SDP
+    
+    PZS             ; Pop 20
+    WYJSCIE         ; Output: 20
+    
+    PZS             ; Pop 10  
+    WYJSCIE         ; Output: 10
+    
+    STP
+```
+
+---
+
 ## :icon[Terminal]{.text-purple-500 .inline-block .mr-1 .mb-1} CLI Usage
 
 ```bash
@@ -192,3 +322,25 @@ asmod run --verbose --debug program.asmod
 | **VM** | Stack-based 16-bit emulator |
 | **LSP** | tower-lsp, async runtime |
 | **Testing** | Rust test framework, integration tests |
+
+# Result
+
+Asmodeus demonstrates **advanced compiler engineering** and **systems programming**:
+
+- **Complete compilation pipeline** - Lexer → Parser → Assembler → VM :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Rust workspace architecture** - 6 interconnected crates :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Custom bytecode VM** - Full Machine W emulation :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Interactive debugger** - Breakpoints, stepping, memory inspection :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Macro preprocessor** - Parametric code generation :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Disassembler** - Reverse engineering support :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **LSP integration** - Modern IDE experience for Neovim :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+- **Comprehensive error handling** - Line numbers, context, suggestions :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1} 
+
+This is my largest project - a **complete programming language ecosystem** built from the ground up. It showcases everything from low-level bit manipulation to high-level language design.
+
+I was so fascinated by the Machine W architecture that I had to create that project. I really do not see any practical use case for this language, so let's just call it an educational purpose project.
+
+---
+
+*P.S. - If you ever need to calculate factorial in 25 lines of handwritten assembly with Polish mnemonics, I'm your guy. This is a very niche skill. I am aware.*
+
