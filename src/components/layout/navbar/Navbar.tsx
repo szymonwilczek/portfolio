@@ -26,7 +26,7 @@ import { HamburgerIcon } from "./HamburgerIcon";
 import { Logo } from "./Logo";
 import { ThemeToggler } from "./ThemeToggler";
 
-export interface NavbarProps extends React.HTMLAttributes<HTMLElement> { }
+export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {}
 
 export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
   ({ className, ...props }, ref) => {
@@ -41,6 +41,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
     const navigationLinks = [
       { href: "/", label: "Home" },
       { href: "/projects", label: "Works" },
+      { href: "/blog", label: "Blog" },
       { href: "/feed", label: "Feed" },
     ];
 
@@ -66,7 +67,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
           (ref as React.RefObject<HTMLElement | null>).current = node;
         }
       },
-      [ref]
+      [ref],
     );
 
     return (
@@ -74,7 +75,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
         ref={combinedRef}
         className={cn(
           "sticky top-4 z-50 mx-auto w-[calc(100%-2rem)] max-w-3xl border rounded-2xl bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 shadow-md",
-          className
+          className,
         )}
         {...props}
       >
@@ -109,7 +110,10 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
             <ThemeToggler />
 
             {isMobile && (
-              <DropdownMenu open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <DropdownMenu
+                open={mobileMenuOpen}
+                onOpenChange={setMobileMenuOpen}
+              >
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
@@ -132,7 +136,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                             "w-full cursor-pointer justify-start text-base font-medium transition-colors",
                             pathname === link.href
                               ? "bg-accent text-accent-foreground"
-                              : "text-muted-foreground"
+                              : "text-muted-foreground",
                           )}
                           onClick={() => setMobileMenuOpen(false)}
                         >
@@ -148,7 +152,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
         </div>
       </header>
     );
-  }
+  },
 );
 
 Navbar.displayName = "Navbar";
