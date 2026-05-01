@@ -5,7 +5,6 @@ date: "2025-06-21"
 tags:
   - "Lua"
   - "Neovim API"
- - "/images/vim/end_screen.png"
 github: "https://github.com/szymonwilczek/vim-be-better"
 links:
   - url: "https://szymon-wilczek.me/projects/vim-be-better"
