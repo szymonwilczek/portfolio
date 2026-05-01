@@ -13,6 +13,7 @@ import { Metadata } from "next";
 import { CodeBlock } from "@/components/CodeBlock";
 import { LucideIconRenderer } from "@/components/LucideIcons";
 import { remarkLucideIcons } from "@/lib/remarkLucideIcons";
+import { ReadingThemeNudge } from "@/components/blog/ReadingThemeNudge";
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -57,7 +58,8 @@ export default async function BlogPost({
 
   return (
     <article className="min-h-screen bg-background py-24 px-6 md:px-12 transition-colors duration-300">
-      <div className="max-w-3xl mx-auto space-y-8">
+      <ReadingThemeNudge />
+      <div className="max-w-4xl mx-auto space-y-8">
         <Button variant="ghost" asChild className="-ml-4 text-muted-foreground">
           <Link href="/blog">
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Blog
