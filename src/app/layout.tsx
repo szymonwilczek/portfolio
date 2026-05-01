@@ -123,7 +123,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <Toaster
-            position="top-center"
+            position="top-right"
             toastOptions={{
               classNames: {
                 toast:
