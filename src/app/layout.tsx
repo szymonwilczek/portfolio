@@ -110,9 +110,14 @@ export default function RootLayout({
         ${geistMono.variable} 
         ${outfit.variable}
         ${jersey20.variable}
-        antialiased min-h-screen flex flex-col`}
+        antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Navbar />
           <SceneWrapper />
           {children}
