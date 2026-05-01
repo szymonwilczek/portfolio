@@ -1220,7 +1220,7 @@ $\frac{3}{3x-7} = \frac{5x}{x-8}$: $x \neq \frac{7}{3}$ i $x \neq 8$.
 
 ### Znak przy dzieleniu nierówności
 
-Gdy dzielisz nierówność przez **ujemną** liczbę, **odwróć znak**. $-2x > 4$ \rightarrow $x < -2$.
+Gdy dzielisz nierówność przez **ujemną** liczbę, **odwróć znak**. $-2x > 4$ $\rightarrow$ $x < -2$.
 
 ### Pomylenie argumentu z wartością
 
@@ -1245,7 +1245,7 @@ Trzy różne miary:
 
 ## Słowo na koniec
 
-Dobrnęliśmy do końca. Zrobiliśmy cały zakres, który spokojnie pozwala zdać maturę, nawet nie na najniższe procenty, jeśli zostanie on opanowany w $100%$. Fajnie, co?
+Dobrnęliśmy do końca. Zrobiliśmy cały zakres, który spokojnie pozwala zdać maturę, nawet nie na najniższe procenty, jeśli zostanie on opanowany w $100\%$. Fajnie, co?
 
 Życzę Ci powodzenia, wszyscy tam byliśmy, więc wiem, że na pewno się stresujesz. Popatrz na to z innej strony: Matematyka jest schematyczna, kocha algorytmikę. Dobrze, że można się do niej tak fajnie przygotować!
 
