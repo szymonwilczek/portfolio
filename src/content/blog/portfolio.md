@@ -45,7 +45,7 @@ Do I regret it? **Also maybe, but in a good way.**
 
 ---
 
-## :icon[Gamepad2]{.text-purple-500 .inline-block .mr-1 .mb-1} The Voxel World
+## :icon[Gamepad]{.text-purple-500 .inline-block .mr-1 .mb-1} The Voxel World
 
 The entire landing page is a 3D scene. Not a background. Not an image. A fully interactive, explorable environment with:
 
