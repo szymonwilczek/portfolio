@@ -147,7 +147,7 @@ export function BlogList({
             <li key={post.slug}>
               <Link
                 href={`/blog/${post.slug}`}
-                className="group flex flex-col gap-3 py-6 transition-colors hover:bg-accent/30 -mx-4 px-4 rounded-lg"
+                className="group flex flex-col gap-3 py-6 transition-colors -mx-4 px-4 rounded-lg"
               >
                 <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                   <Calendar className="h-3.5 w-3.5" />
@@ -177,7 +177,7 @@ export function BlogList({
                 </div>
 
                 <div className="flex items-start justify-between gap-4">
-                  <h2 className="text-xl md:text-2xl font-bold font-outfit tracking-tight group-hover:text-primary transition-colors">
+                  <h2 className="text-xl md:text-2xl font-bold font-outfit tracking-tight group-hover:text-muted-foreground transition-colors duration-300">
                     {post.title}
                   </h2>
                   <ArrowRight className="hidden sm:block h-5 w-5 mt-1 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
