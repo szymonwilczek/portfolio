@@ -132,6 +132,32 @@
   line-height: 1.75;
 }
 
+.blog-font-eb-garamond {
+  font-family:
+    var(--font-eb-garamond), Garamond, "Times New Roman", serif;
+}
+
+.blog-font-pt-serif {
+  font-family: var(--font-pt-serif), Georgia, "Times New Roman", serif;
+}
+
+.blog-font-merriweather {
+  font-family:
+    var(--font-merriweather), Georgia, "Times New Roman", serif;
+}
+
+code,
+pre,
+pre code,
+.hljs,
+.prose code,
+.prose pre,
+.prose pre code {
+  font-family:
+    var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, Consolas,
+    monospace !important;
+}
+
 .prose p {
   margin-top: 1em;
   margin-bottom: 1em;

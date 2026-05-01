@@ -76,6 +76,8 @@ export function getProjectData(slug: string): ProjectData {
   } as ProjectData;
 }
 
+export type BlogFont = "eb-garamond" | "pt-serif" | "merriweather";
+
 export interface BlogPostData {
   slug: string;
   title: string;
@@ -84,6 +86,7 @@ export interface BlogPostData {
   tags: string[];
   content?: string;
   links?: ProjectLink[];
+  font?: BlogFont;
 }
 
 export function getAllPosts(): BlogPostData[] {
@@ -107,6 +110,7 @@ export function getAllPosts(): BlogPostData[] {
         excerpt: data.excerpt || "",
         tags: data.tags || [],
         content,
+        font: data.font,
       } as BlogPostData;
     });
 
@@ -127,5 +131,6 @@ export function getPostData(slug: string): BlogPostData {
     excerpt: data.excerpt,
     tags: data.tags || [],
     links: data.links || [],
+    font: data.font,
   } as BlogPostData;
 }

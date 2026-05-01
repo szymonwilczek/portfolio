@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Outfit, Jersey_20 } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Outfit,
+  Jersey_20,
+  EB_Garamond,
+  PT_Serif,
+  Merriweather,
+  JetBrains_Mono,
+} from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Navbar } from "@/components/layout/navbar/Navbar";
@@ -27,6 +36,32 @@ const jersey20 = Jersey_20({
   subsets: ["latin"],
   variable: "--font-jersey",
   weight: ["400"],
+  display: "swap",
+});
+
+const ebGaramond = EB_Garamond({
+  subsets: ["latin"],
+  variable: "--font-eb-garamond",
+  display: "swap",
+});
+
+const ptSerif = PT_Serif({
+  subsets: ["latin"],
+  variable: "--font-pt-serif",
+  weight: ["400", "700"],
+  display: "swap",
+});
+
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  variable: "--font-merriweather",
+  weight: ["300", "400", "700", "900"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
@@ -97,19 +132,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <link
-        rel="prefetch"
-        href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.8/files/jetbrains-mono-latin-400-normal.woff"
-        as="font"
-        type="font/woff"
-        crossOrigin="anonymous"
-      />
       <body
         className={`
         ${geistSans.variable}
-        ${geistMono.variable} 
+        ${geistMono.variable}
         ${outfit.variable}
         ${jersey20.variable}
+        ${ebGaramond.variable}
+        ${ptSerif.variable}
+        ${merriweather.variable}
+        ${jetbrainsMono.variable}
         antialiased`}
       >
         <ThemeProvider

@@ -98,7 +98,11 @@ export default async function BlogPost({
           </div>
         </div>
 
-        <div className="prose prose-lg max-w-none">
+        <div
+          className={`prose prose-lg max-w-none${
+            post.font ? ` blog-font-${post.font}` : ""
+          }`}
+        >
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkMath, remarkLucideIcons]}
             rehypePlugins={[
