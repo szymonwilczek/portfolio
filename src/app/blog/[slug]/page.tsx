@@ -9,6 +9,11 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import "katex/dist/katex.min.css";
 import { Metadata } from "next";
 import { CodeBlock } from "@/components/CodeBlock";
 import { LucideIconRenderer } from "@/components/LucideIcons";
@@ -95,8 +100,23 @@ export default async function BlogPost({
 
         <div className="prose prose-lg max-w-none">
           <ReactMarkdown
-            remarkPlugins={[remarkGfm, remarkLucideIcons]}
-            rehypePlugins={[rehypeRaw, rehypeHighlight]}
+            remarkPlugins={[remarkGfm, remarkMath, remarkLucideIcons]}
+            rehypePlugins={[
+              rehypeRaw,
+              rehypeSlug,
+              [
+                rehypeAutolinkHeadings,
+                {
+                  behavior: "wrap",
+                  properties: {
+                    className: ["heading-anchor"],
+                    ariaLabel: "Link to section",
+                  },
+                },
+              ],
+              rehypeKatex,
+              rehypeHighlight,
+            ]}
             components={
               {
                 "lucide-icon": (props: any) => (
