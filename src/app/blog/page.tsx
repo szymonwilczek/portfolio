@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
-import { BlogList, POSTS_PER_PAGE } from "@/components/blog-list";
+import { BlogList, POSTS_PER_PAGE } from "@/components/blog/blog-list";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -14,7 +14,7 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <main className="flex-1 mx-auto w-full mb-8 -mt-10 bg-background px-6 md:px-12 transition-colors duration-300 z-0">
+    <main className="mx-auto mb-8 -mt-10 bg-background px-6 md:px-12 transition-colors duration-300 z-0 min-h-[60vh]">
       <div className="max-w-3xl mx-auto space-y-12">
         <div
           className="space-y-4 animate-in slide-in-from-bottom-8 fade-in duration-700"
