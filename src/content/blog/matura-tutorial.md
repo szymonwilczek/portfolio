@@ -114,12 +114,22 @@ $$3^2 \cdot 5^3 = \text{?} \quad \text{(różne typy, nie łącz!)}$$
 
 ### Cztery reguły, które załatwiają wszystko
 
-| Operacja | Wzór | Przykład |
-|----------|------|---------|
-| Mnożenie tych samych podstaw | $a^m \cdot a^n = a^{m+n}$ | $2^3 \cdot 2^4 = 2^7$ |
-| Dzielenie tych samych podstaw | $a^m / a^n = a^{m-n}$ | $5^7 / 5^3 = 5^4$ |
-| Potęga potęgi | $(a^m)^n = a^{m \cdot n}$ | $(3^2)^5 = 3^{10}$ |
-| Ujemny wykładnik | $a^{-n} = 1/a^n$ | $2^{-3} = 1/8$ |
+$$
+\def\arraystretch{1.5}
+\begin{array}{|l|c|c|}
+\hline
+\textbf{Operacja} & \textbf{Wzór} & \textbf{Przykład} \\
+\hline
+\text{Mnożenie tych samych podstaw} & a^m \cdot a^n = a^{m+n} & 2^3 \cdot 2^4 = 2^7 \\
+\hline
+\text{Dzielenie tych samych podstaw} & \frac{a^m}{a^n} = a^{m-n} & \frac{5^7}{5^3} = 5^4 \\
+\hline
+\text{Potęga potęgi} & (a^m)^n = a^{m \cdot n} & (3^2)^5 = 3^{10} \\
+\hline
+\text{Ujemny wykładnik} & a^{-n} = \frac{1}{a^n} & 2^{-3} = \frac{1}{8} \\
+\hline
+\end{array}
+$$
 
 Plus dwie z pierwiastków:
 - $\sqrt[n]{a} = a^{1/n}$
@@ -701,7 +711,7 @@ $b = \frac{a+c}{2}$, gdzie:
 
 $$a_n = a_1 \cdot q^{n-1}$$
 
-**Suma $n$ pierwszych wyrazów:** $S_n = a_1 \cdot \frac{1 - q^n}{1-q}$$
+**Suma $n$ pierwszych wyrazów:** $S_n = a_1 \cdot \frac{1 - q^n}{1-q}$
 
 > Istnieją dwa wzory, w praktyce na podstawie korzysta się zazwyczaj jedynie z tego wyżej.
 
@@ -819,7 +829,7 @@ Jest też mnemonik (sposób na pamięć):
 ```
 W pierwszej ćwiartce wszystkie funkcje są dodatnie,
 W drugiej tylko sinus,
-W trzeciej tangens i cotanges,
+W trzeciej tangens i cotangens,
 W czwartej cosinus
 ```
 
