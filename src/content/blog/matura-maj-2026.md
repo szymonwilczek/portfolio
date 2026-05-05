@@ -15,7 +15,7 @@ This article purposely uses different font, to be more pleasant during reading.
 ---
 
 > Status: **Rozwiązana** \
-> Ostatnia aktualizacja: `05.05.2026 14:`
+> Ostatnia aktualizacja: `05.05.2026 14:34`
 
 Tak szybko jak pojawi się dostępny arkusz i położę na nim swoje ręce, tak szybko rozwiązania pojawią się poniżej. Naprawdę liczę, że wszyscy pamiętali żeby wyjść z zapisanymi odpowiedziami w formacie `Zad.1: y=6`, a nie `Zad.1: A`, z racji faktu tego, że są różne wersje arkuszy z przetasowanymi odpowiedziami!
 
