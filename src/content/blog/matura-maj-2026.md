@@ -266,7 +266,7 @@ $$
 a = \tan \alpha = \frac{y_2 - y_1}{x_2 - x_1} = \frac{-3 - 0}{0 - (-2)} = -\frac{3}{2}
 $$
 
-**Odpowiedź 13.1:** $a$ jest dodatnią? **F** (Fałsz) | $b$ jest dodatnią? **F** (Fałsz)
+**Odpowiedź 13.1:** $a$ jest dodatnią? **F** (Fałsz) | $b$ jest dodatnią? **F** (Fałsz) \
 **Odpowiedź 13.2:** $-\frac{3}{2}$
 
 ---
