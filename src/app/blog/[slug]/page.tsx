@@ -99,7 +99,7 @@ export default async function BlogPost({
         </div>
 
         <div
-          className={`prose prose-lg max-w-none${
+          className={`prose prose-lg max-w-none ${
             post.font ? ` blog-font-${post.font}` : ""
           }`}
         >
