@@ -608,10 +608,13 @@ Prawdopodobieństwo: $P(A) = \frac{9}{25}$
 > **Treść:** Analiza diagramów słupkowych dla klas IV A i IV B. Należy ocenić, czy ich średnia i mediana są sobie równe.
 
 **Logika / Algorytm:**
-1. Zauważmy "symetrię" – oba wykresy są w pełni symetryczne względem osi środkowej znajdującej się równo pomiędzy ocenami 3 i 4. Kiedy dystrybucja jest idealnie zbalansowana, jej rozkład średniej wyśrodkowuje się samoistnie. W obu przypadkach średnia wynosi $3.5$. Wniosek 1: To prawda.
+1. Zauważmy "symetrię" - oba wykresy są w pełni symetryczne względem osi środkowej znajdującej się równo pomiędzy ocenami 3 i 4. Kiedy dystrybucja jest idealnie zbalansowana, jej rozkład średniej wyśrodkowuje się samoistnie. W obu przypadkach średnia wynosi $3.5$. Wniosek 1: To prawda.
 2. Zliczmy elementy bazy, żeby dotrzeć do mediany. Ocen w klasach jest równe 20 ($N=20$). Mediana u parzystego rozkładu to wyciągnięcie średniej z pozycji indeks 10 i indeks 11 z posortowanej puli.
+
 Dla A: Mamy 1 jedynkę, 6 dwójek (razem 7). Trójek jest 3. Zatem elementy nr 8, 9, 10 to ocena 3. Elementy 11, 12, 13 to oceny 4. Mediana = $(3+4)/2 = 3.5$.
+
 Dla B: 1 jedynka, 3 dwójki (razem 4). Szóstka trójek. Elementy 5, 6, 7, 8, 9, 10 to ocena 3. Elementy nr 11 to już 4. Mediana = $(3+4)/2 = 3.5$.
+
 Wniosek 2: Mediany są identyczne. To prawda.
 
 **Odpowiedź:** **P**, **P**
