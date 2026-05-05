@@ -5,7 +5,7 @@ date: "2026-04-30"
 tags:
   - "Math"
   - "Education"
-  - "Guide"
+  - "Matura"
 font: "merriweather"
 github: "https://github.com/wolfie-university/maturator"
 links:
