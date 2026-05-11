@@ -20,12 +20,6 @@ I needed a portfolio website.
 
 You know, one of those things where you show off your projects to potential employers who will spend approximately 4.7 seconds looking at it before moving on to the next candidate. Standard stuff.
 
-But here's the thing - every developer portfolio looks the same:
-- Hero section :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1}
-- "About Me" that nobody reads :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1}
-- Grid of project cards :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1}
-- Contact form that goes to `/dev/null` :icon[Check]{.text-green-500 .inline-block .ml-1 .mb-1}
-
 **Boring.**
 
 I wanted something that would make people go "wait, what?" and actually *stay* for more than those 4.7 seconds.
@@ -39,7 +33,7 @@ You're looking at it.
 This is a **3D interactive voxel world** built entirely from scratch. Every pixel you see (well, voxel) was placed with questionable precision in Blender, exported, optimized, and then rendered in your browser using WebGL.
 
 Is it practical? **No.**  
-Is it performant on a 2015 MacBook Air? **Maybe, I don't have one so hard to tell.**  
+Is it performant on a 2015 MacBook Air? **Maybe, I don't have one so hard to tell.**
 Did I spend way too much time on this? **Also maybe.**  
 Do I regret it? **Also maybe, but in a good way.**
 
@@ -153,4 +147,3 @@ Would I do it again? **Ask me after the next refactor.**
 *P.S. - No, you cannot pet the wolf. He's made of polygons.*
 
 *P.P.S. - If you're a recruiter and you've read this far, I'm impressed. And available for hire.*
-
