@@ -13,8 +13,7 @@ links:
     name: "Practice on Maturator"
 ---
 
-> **Article below is in Polish language, since the Matura Exam is being held in Poland.** \
-This article purposely uses different font, to be more pleasant during reading.
+> **Article below is in Polish language, since the Matura Exam is being held in Poland.**
 
 ---
 
