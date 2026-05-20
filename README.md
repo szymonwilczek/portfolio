@@ -47,8 +47,8 @@ The wolf you see was modeled in Blender, optimized for the web, and rendered in 
 
 ```bash
 # Clone the repo 
-git clone https://github.com/szymonwilczek/wolfie-portfolio.git
-cd wolfie-portfolio
+git clone https://github.com/szymonwilczek/portfolio.git
+cd portfolio
 
 # Install dependencies
 npm install
