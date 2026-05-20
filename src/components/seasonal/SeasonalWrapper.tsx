@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getBonsaiSeason } from "@/config/events";
 import { WinterSnow } from "./WinterSnow";
-import { SpringSakura } from "./SpringSakura";
+// import { SpringSakura } from "./SpringSakura";
 import { AutumnLeaves } from "./AutumnLeaves";
 // import { SummerSun } from "./SummerSun";
 
@@ -11,7 +11,9 @@ interface SeasonalWrapperProps {
   isModelReady?: boolean;
 }
 
-export function SeasonalWrapper({ isModelReady = false }: SeasonalWrapperProps) {
+export function SeasonalWrapper({
+  isModelReady = false,
+}: SeasonalWrapperProps) {
   const [season, setSeason] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [shouldShow, setShouldShow] = useState(false);
@@ -35,9 +37,12 @@ export function SeasonalWrapper({ isModelReady = false }: SeasonalWrapperProps) 
   useEffect(() => {
     if (!shouldShow || !season) return;
 
-    const fadeTimer = setTimeout(() => {
-      setIsVisible(false);
-    }, season === "SUMMER" ? 6000 : 10000);
+    const fadeTimer = setTimeout(
+      () => {
+        setIsVisible(false);
+      },
+      season === "SUMMER" ? 6000 : 10000,
+    );
 
     return () => clearTimeout(fadeTimer);
   }, [shouldShow, season]);
@@ -50,7 +55,7 @@ export function SeasonalWrapper({ isModelReady = false }: SeasonalWrapperProps) 
       style={{ opacity: isVisible ? 1 : 0 }}
     >
       {season === "WINTER" && <WinterSnow />}
-      {season === "SPRING" && <SpringSakura />}
+      {/* {season === "SPRING" && <SpringSakura />} */}
       {season === "AUTUMN" && <AutumnLeaves />}
       {/* {season === "SUMMER" && isDayTime && <SummerSun />} */}
     </div>
