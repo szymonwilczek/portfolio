@@ -58,7 +58,7 @@ const timelineData: TimelineEntry[] = [
     date: "2023",
     title: "Computer Science Student",
     description:
-      "Currently in the 5th semester at Silesian University of Technology. Focusing on software engineering principles and their application in modern development.",
+      "Currently in the 6th semester at Silesian University of Technology. Focusing on software engineering principles and their application in modern development.",
     isCurrent: true,
   },
   {
