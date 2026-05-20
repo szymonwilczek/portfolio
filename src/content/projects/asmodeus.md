@@ -16,7 +16,7 @@ github: "https://github.com/asmod-lang/asmodeus"
 links:
   - url: "https://github.com/asmod-lang/asmodeus-lsp"
     name: "LSP Repository"
-  - url: "https://szymon-wilczek.me/projects/asmodeus"
+  - url: "https://szymon-wilczek.me/blog/asmodeus"
     name: "Blog Article"
 ---
 
