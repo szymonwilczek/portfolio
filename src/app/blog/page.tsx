@@ -14,7 +14,7 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <main className="mx-auto mb-8 -mt-10 bg-background px-6 md:px-12 transition-colors duration-300 z-0 min-h-[60vh]">
+    <main className="mx-auto mb-8 mt-10 bg-background px-6 md:px-12 transition-colors duration-300 z-0 min-h-[60vh]">
       <div className="max-w-3xl mx-auto space-y-12">
         <div
           className="space-y-4 animate-in slide-in-from-bottom-8 fade-in duration-700"

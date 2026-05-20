@@ -12,7 +12,6 @@ export function SceneWrapper() {
   const isVisible = useMemo(() => {
     if (pathname === "/") return true;
     if (pathname === "/projects") return true;
-    if (pathname === "/blog") return true;
     if (pathname === "/feed") return true;
 
     return false;
