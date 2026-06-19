@@ -20,17 +20,21 @@ export default function ProjectsPage() {
           className="space-y-4 animate-in slide-in-from-bottom-8 fade-in duration-700"
           style={{ animationFillMode: "both" }}
         >
-          <Button variant="ghost" asChild className="-ml-4 text-muted-foreground">
+          <Button
+            variant="ghost"
+            asChild
+            className="-ml-4 text-muted-foreground"
+          >
             <Link href="/">
               <ArrowLeft className="mr-2 h-4 w-4" /> Back to Home
             </Link>
           </Button>
-          <h1 className="text-4xl md:text-5xl font-bold font-outfit tracking-tight">
-            Projects <span className="text-muted-foreground">/ Works</span>
+          <h1 className="text-4xl md:text-5xl font-bold font-jetbrains tracking-tight">
+            Projects<span className="text-muted-foreground">/Works</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            A collection of my recent work, experiments, and open source contributions.
-            Everything here is built with passion and code.
+            A collection of my recent work, experiments, and open source
+            contributions. Everything here is built with passion and code.
           </p>
         </div>
 

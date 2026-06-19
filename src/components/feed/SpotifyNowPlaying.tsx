@@ -202,7 +202,7 @@ export function SpotifyNowPlaying() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Music className="h-4 w-4 text-green-500" />
-          <h3 className="font-bold font-outfit text-xs uppercase tracking-widest text-muted-foreground">
+          <h3 className="font-bold font-jetbrains text-xs uppercase tracking-widest text-muted-foreground">
             {track?.isPlaying ? "Now Playing" : "Last Played"}
           </h3>
         </div>

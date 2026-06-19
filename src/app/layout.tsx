@@ -9,6 +9,11 @@ import {
   Merriweather,
   JetBrains_Mono,
 } from "next/font/google";
+
+// single control for ALL body/prose text on the site
+//   IBM_Plex_Sans
+//   Space_Grotesk
+import { IBM_Plex_Sans as ProseFont } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Navbar } from "@/components/layout/navbar/Navbar";
@@ -62,6 +67,12 @@ const merriweather = Merriweather({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
+const proseFont = ProseFont({
+  subsets: ["latin"],
+  variable: "--font-prose",
   display: "swap",
 });
 
@@ -142,6 +153,7 @@ export default function RootLayout({
         ${ptSerif.variable}
         ${merriweather.variable}
         ${jetbrainsMono.variable}
+        ${proseFont.variable}
         antialiased`}
       >
         <ThemeProvider

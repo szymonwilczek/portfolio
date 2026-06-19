@@ -29,8 +29,8 @@ export default function BlogPage() {
               <ArrowLeft className="mr-2 h-4 w-4" /> Back to Home
             </Link>
           </Button>
-          <h1 className="text-4xl md:text-5xl font-bold font-outfit tracking-tight">
-            Blog <span className="text-muted-foreground">/ Notes</span>
+          <h1 className="text-4xl md:text-5xl font-bold font-jetbrains tracking-tight">
+            Blog<span className="text-muted-foreground">/Notes</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
             Personal write-ups, ideas, and notes on different kind of things.

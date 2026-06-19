@@ -63,7 +63,7 @@ export const Timeline = ({ items, className }: TimelineProps) => {
             <div className="flex flex-col gap-1 pb-2">
               <span
                 className={cn(
-                  "text-sm font-mono font-bold tracking-wide w-fit px-2 py-0.5 rounded",
+                  "text-sm font-jetbrains font-bold tracking-wide w-fit px-2 py-0.5 rounded",
                   item.isCurrent
                     ? "text-emerald-600 bg-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-400"
                     : "text-muted-foreground bg-secondary/50"
@@ -72,7 +72,7 @@ export const Timeline = ({ items, className }: TimelineProps) => {
                 {item.date}
               </span>
 
-              <h3 className="text-lg font-semibold text-foreground mt-1 leading-tight">
+              <h3 className="text-lg font-jetbrains font-semibold text-foreground mt-1 leading-tight">
                 {item.title}
               </h3>
 

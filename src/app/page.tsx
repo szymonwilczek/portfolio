@@ -119,7 +119,7 @@ export default function Home() {
       <Section className="-mt-12 z-10 relative" noAnimation={true}>
         <div className="relative flex flex-col-reverse md:flex-row items-start md:items-center justify-between gap-6 p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 shadow-sm">
           <div className="flex-1 space-y-2">
-            <h1 className="text-4xl tracking-wider font-outfit font-bold">
+            <h1 className="text-4xl tracking-wider font-jetbrains font-bold">
               Szymon Wilczek
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
@@ -184,7 +184,7 @@ export default function Home() {
       </Section>
 
       <Section delay="delay-200">
-        <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+        <h4 className="text-sm font-jetbrains font-semibold text-muted-foreground uppercase tracking-wider mb-4">
           Technologies I Mostly Work With
         </h4>
         <div className="flex flex-wrap gap-2">
@@ -197,7 +197,7 @@ export default function Home() {
             "React",
             "Tailwind",
           ].map((tech) => (
-            <Badge key={tech} variant="secondary" className="px-3 py-1 text-sm">
+            <Badge key={tech} variant="secondary" className="px-3 py-1 text-sm font-jetbrains">
               {tech}
             </Badge>
           ))}
@@ -221,7 +221,7 @@ export default function Home() {
             <div className="p-2 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 group-hover:bg-teal-500 group-hover:text-white transition-colors">
               <Mail className="h-5 w-5" />
             </div>
-            <p className="font-semibold">Email</p>
+            <p className="font-jetbrains font-semibold">Email</p>
           </Link>
 
           <Link
@@ -232,7 +232,7 @@ export default function Home() {
             <div className="p-2 rounded-full bg-neutral-500/10 text-neutral-700 dark:text-neutral-200 group-hover:bg-neutral-700 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors">
               <Github className="h-5 w-5" />
             </div>
-            <p className="font-semibold">GitHub</p>
+            <p className="font-jetbrains font-semibold">GitHub</p>
           </Link>
 
           <Link
@@ -243,7 +243,7 @@ export default function Home() {
             <div className="p-2 rounded-full bg-indigo-500/10 text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
               <DiscordIcon className="h-5 w-5" />
             </div>
-            <p className="font-semibold">Discord</p>
+            <p className="font-jetbrains font-semibold">Discord</p>
           </Link>
         </div>
       </Section>

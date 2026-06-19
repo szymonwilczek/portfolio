@@ -69,7 +69,7 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
             ))}
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold font-outfit tracking-tight text-foreground">
+          <h1 className="text-4xl md:text-5xl font-bold font-jetbrains tracking-tight text-foreground">
             {project.title}
           </h1>
 

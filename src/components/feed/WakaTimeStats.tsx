@@ -128,7 +128,7 @@ export const WakaTimeStats = memo(function WakaTimeStats() {
     <div className="relative overflow-hidden rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/50 hover:shadow-lg">
       <div className="flex items-center gap-2 mb-4">
         <Code2 className="h-4 w-4 text-blue-500" />
-        <h3 className="font-bold font-outfit text-xs uppercase tracking-widest text-muted-foreground">
+        <h3 className="font-bold font-jetbrains text-xs uppercase tracking-widest text-muted-foreground">
           Weekly Coding
         </h3>
       </div>

@@ -73,7 +73,7 @@ export function ProjectsGrid({ projects, itemsPerPage = 4 }: ProjectsGridProps) 
             </div>
 
             <div className="flex flex-col flex-1 p-4 gap-2">
-              <h2 className="text-xl font-bold font-outfit group-hover:text-primary transition-colors">
+              <h2 className="text-xl font-bold font-jetbrains group-hover:text-primary transition-colors">
                 {project.title}
               </h2>
               <p className="text-muted-foreground text-sm line-clamp-3">

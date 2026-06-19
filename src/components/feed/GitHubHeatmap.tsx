@@ -88,7 +88,7 @@ export const GitHubHeatmap = memo(function GitHubHeatmap() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <GitBranch className="h-4 w-4 text-purple-500" />
-          <h3 className="font-bold font-outfit text-xs uppercase tracking-widest text-muted-foreground">
+          <h3 className="font-bold font-jetbrains text-xs uppercase tracking-widest text-muted-foreground">
             GitHub Activity
           </h3>
         </div>

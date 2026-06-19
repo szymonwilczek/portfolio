@@ -26,6 +26,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-jetbrains: var(--font-jetbrains-mono);
+  --font-prose: var(--font-prose);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -137,8 +139,13 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    font-size: 105%;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-prose), ui-sans-serif, system-ui, sans-serif;
   }
 }
 
