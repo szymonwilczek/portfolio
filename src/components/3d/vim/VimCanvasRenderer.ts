@@ -73,10 +73,10 @@ function drawEditor(ctx: CanvasRenderingContext2D, state: RenderState) {
       i <= Math.max(state.visualStartLine!, state.cursor.line);
 
         if (isSelected) {
-            ctx.fillStyle = "#403d52";
+            ctx.fillStyle = C.selection;
             ctx.fillRect(EDITOR_LEFT, y - 24, EDITOR_WIDTH, LINE_HEIGHT);
         } else if (isCursorLine && state.mode !== "V-LINE") {
-            ctx.fillStyle = "#1f1d2e";
+            ctx.fillStyle = C.highlight;
             ctx.fillRect(EDITOR_LEFT, y - 24, EDITOR_WIDTH, LINE_HEIGHT);
         }
 
@@ -102,7 +102,7 @@ function drawEditor(ctx: CanvasRenderingContext2D, state: RenderState) {
         if (isCursorLine && state.mode !== "V-LINE") {
             const cursorX =
                 EDITOR_LEFT + LINE_NUM_WIDTH + state.cursor.col * CHAR_WIDTH;
-            ctx.fillStyle = C.text;
+            ctx.fillStyle = C.cursor;
             ctx.globalAlpha = 0.5;
 
             const cursorWidth = state.mode === "INSERT" ? 4 : CHAR_WIDTH;

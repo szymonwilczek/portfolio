@@ -7,26 +7,31 @@ import {
   FileJson,
   Hash,
   Code2,
-  File
+  File,
 } from "lucide-react";
 
-// rose pine dark
+// ef-autumn (from arete.nvim, recommend to check it out!)
+// https://github.com/szymonwilczek/arete.nvim
 export const C = {
-  bg: "#191724",       // base
-  surface: "#1f1d2e",  // surface
-  overlay: "#26233a",  // overlay
-  muted: "#6e6a86",    // comments
-  text: "#e0def4",     // text
-  love: "#eb6f92",     // css / html tags
-  gold: "#f6c177",     // strings / JSON
-  rose: "#ebbcba",     // functions
-  pine: "#31748f",     // keywords
-  foam: "#9ccfd8",     // react
-  iris: "#c4a7e7",     // ts
-  highlight: "#403d52",
+  bg: "#0f0e06", // Normal bg
+  surface: "#15140d", // Pmenu bg (raised)
+  overlay: "#26211d", // NormalFloat bg
+  muted: "#887c8a", // LineNr / punctuation
+  comment: "#cf9f7f", // Comment
+  text: "#cfbcba", // Normal fg
+  love: "#f06a3f", // Error / String
+  gold: "#f06a3f", // String
+  rose: "#3dbbb0", // Function / Character
+  pine: "#c48702", // Keyword
+  foam: "#d570af", // PreProc (#include / #define)
+  iris: "#2fa526", // Type (int / struct / const)
+  constant: "#64aa0f", // Constant / Number
+  cursor: "#ffaa33", // Cursor
+  highlight: "#302a3a", // CursorLine bg
+  selection: "#3f1324", // Visual bg
 };
 
-// file structure 
+// file structure
 export interface FileNode {
   id: string;
   name: string;
@@ -36,7 +41,13 @@ export interface FileNode {
 }
 
 export const INITIAL_FILE_TREE: FileNode[] = [
-  { id: "root", name: "wolfie-portfolio", type: "folder", depth: 0, isOpen: true },
+  {
+    id: "root",
+    name: "wolfie-portfolio",
+    type: "folder",
+    depth: 0,
+    isOpen: true,
+  },
 
   { id: "src", name: "src", type: "folder", depth: 1, isOpen: true },
   { id: "app", name: "app", type: "folder", depth: 2, isOpen: true },
@@ -44,10 +55,21 @@ export const INITIAL_FILE_TREE: FileNode[] = [
   { id: "layout.tsx", name: "layout.tsx", type: "file", depth: 3 },
   { id: "globals.css", name: "globals.css", type: "file", depth: 3 },
 
-  { id: "components", name: "components", type: "folder", depth: 2, isOpen: false },
+  {
+    id: "components",
+    name: "components",
+    type: "folder",
+    depth: 2,
+    isOpen: false,
+  },
   { id: "utils", name: "lib", type: "folder", depth: 2, isOpen: false },
 
-  { id: "tailwind.config.ts", name: "tailwind.config.ts", type: "file", depth: 1 },
+  {
+    id: "tailwind.config.ts",
+    name: "tailwind.config.ts",
+    type: "file",
+    depth: 1,
+  },
   { id: "package.json", name: "package.json", type: "file", depth: 1 },
   { id: "README.md", name: "README.md", type: "file", depth: 1 },
   { id: ".gitignore", name: ".gitignore", type: "file", depth: 1 },
@@ -90,8 +112,10 @@ export const getFileIcon = (filename: string, isOpen: boolean = false) => {
     }
   }
 
-  // dirs 
-  return isOpen
-    ? <FolderOpen size={16} color={C.rose} fill={C.overlay} fillOpacity={0.3} />
-    : <Folder size={16} color={C.rose} fill={C.overlay} fillOpacity={0.3} />;
+  // dirs
+  return isOpen ? (
+    <FolderOpen size={16} color={C.rose} fill={C.overlay} fillOpacity={0.3} />
+  ) : (
+    <Folder size={16} color={C.rose} fill={C.overlay} fillOpacity={0.3} />
+  );
 };

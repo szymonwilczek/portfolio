@@ -58,7 +58,7 @@ export const highlightLine = (line: string): Token[] => {
     trimmed.startsWith("/*") ||
     trimmed.startsWith("*")
   ) {
-    return [{ text: line, color: C.muted }];
+    return [{ text: line, color: C.comment }];
   }
 
   // preprocessor directives (#include, #define, #ifndef, ...)
@@ -87,7 +87,7 @@ export const highlightLine = (line: string): Token[] => {
 
     if (KEYWORDS.has(part)) return { text: part, color: C.pine };
     if (TYPES.has(part)) return { text: part, color: C.iris };
-    if (CONSTANTS.has(part)) return { text: part, color: C.love };
+    if (CONSTANTS.has(part)) return { text: part, color: C.constant };
 
     // function call: identifier immediately followed by "("
     if (/^[A-Za-z_]\w*$/.test(part) && parts[i + 1] === "(") {
@@ -96,7 +96,7 @@ export const highlightLine = (line: string): Token[] => {
 
     // numeric literals
     if (/^\d+$/.test(part)) {
-      return { text: part, color: C.love };
+      return { text: part, color: C.constant };
     }
 
     // punctuation / operators
