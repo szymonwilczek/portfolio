@@ -81,16 +81,8 @@ export const metadata: Metadata = {
     default: "Szymon Wilczek | Portfolio",
     template: "%s | Szymon Wilczek",
   },
-  description: "Software developer building pixel-perfect experiences.",
-  keywords: [
-    "developer",
-    "portfolio",
-    "fullstack",
-    "react",
-    "next.js",
-    "typescript",
-    "web development",
-  ],
+  description: "Systems programmer. Mostly C, mostly Linux.",
+  keywords: ["portfolio", "c-language", "typescript", "systems development"],
   authors: [
     { name: "Szymon Wilczek", url: "https://github.com/szymonwilczek" },
   ],
@@ -101,7 +93,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     siteName: "Szymon Wilczek",
     title: "Szymon Wilczek | Portfolio",
-    description: "Software developer building pixel-perfect experiences.",
+    description: "Systems programmer. Mostly C, mostly Linux.",
     images: [
       {
         url: "/opengraph-image.png",
@@ -114,7 +106,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Szymon Wilczek | Portfolio",
-    description: "Software developer building pixel-perfect experiences.",
+    description: "Systems programmer. Mostly C, mostly Linux.",
     images: ["/twitter-image.png"],
     creator: "@wvilczek",
   },
