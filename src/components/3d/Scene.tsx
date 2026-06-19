@@ -1,28 +1,28 @@
-"use client"
+"use client";
 
-import { Canvas, useThree } from "@react-three/fiber"
-import { Environment, OrbitControls } from "@react-three/drei"
-import { Model } from "./Model"
-import { Suspense, useState, useEffect, useCallback } from "react"
-import * as THREE from "three"
-import { Loader } from "@/components/ui/loader"
-import { getEnvironmentConfig } from "@/config/environment"
-import { useDevicePerformance } from "@/hooks/useDevicePerformance"
+import { Canvas, useThree } from "@react-three/fiber";
+import { Environment, OrbitControls } from "@react-three/drei";
+import { Model } from "./Model";
+import { Suspense, useState, useEffect, useCallback } from "react";
+import * as THREE from "three";
+import { Loader } from "@/components/ui/loader";
+import { getEnvironmentConfig } from "@/config/environment";
+import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 
 function ShaderCompiler({ onComplete }: { onComplete: () => void }) {
-  const { gl, scene, camera } = useThree()
+  const { gl, scene, camera } = useThree();
 
   useEffect(() => {
-    gl.compile(scene, camera)
+    gl.compile(scene, camera);
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        onComplete()
-      })
-    })
-  }, [gl, scene, camera, onComplete])
+        onComplete();
+      });
+    });
+  }, [gl, scene, camera, onComplete]);
 
-  return null
+  return null;
 }
 
 interface SceneProps {
@@ -30,15 +30,16 @@ interface SceneProps {
 }
 
 export function Scene({ onReady }: SceneProps) {
-  const [modelLoaded, setModelLoaded] = useState(false)
-  const [shadersReady, setShadersReady] = useState(false)
-  const [warmupComplete, setWarmupComplete] = useState(false)
-  const [envConfig, setEnvConfig] = useState(getEnvironmentConfig(new Date()))
-  const performance = useDevicePerformance()
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const [shadersReady, setShadersReady] = useState(false);
+  const [warmupComplete, setWarmupComplete] = useState(false);
+  const [envConfig, setEnvConfig] = useState(getEnvironmentConfig(new Date()));
+  const [frameloop, setFrameloop] = useState<"always" | "never">("always");
+  const performance = useDevicePerformance();
 
-  const isReady = modelLoaded && shadersReady && warmupComplete
+  const isReady = modelLoaded && shadersReady && warmupComplete;
 
-  // warmup delay: 
+  // warmup delay:
   // - Mobile: 800ms for first-frame overhead (no spin animation)
   // - Desktop: 500ms quick warmup then smooth spin
   useEffect(() => {
@@ -56,41 +57,58 @@ export function Scene({ onReady }: SceneProps) {
   }, [isReady, onReady]);
 
   useEffect(() => {
-    setEnvConfig(getEnvironmentConfig(new Date()))
-  }, [])
+    setEnvConfig(getEnvironmentConfig(new Date()));
+  }, []);
+
+  // pause the render loop while the tab is hidden -> GPU idle, saves battery
+  // "never" fully stops the rAF loop
+  // resumes to "always" on return
+  useEffect(() => {
+    const handleVisibility = () => {
+      setFrameloop(document.hidden ? "never" : "always");
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
 
   const handleModelLoaded = useCallback(() => {
-    setModelLoaded(true)
-  }, [])
+    setModelLoaded(true);
+  }, []);
 
   const handleShadersCompiled = useCallback(() => {
-    setShadersReady(true)
-  }, [])
+    setShadersReady(true);
+  }, []);
 
   return (
     <div className="w-full h-full relative transition-colors duration-1000">
       <div
-        className={`absolute inset-0 z-20 transition-opacity duration-700 pointer-events-none ${isReady ? "opacity-0" : "opacity-100"
-          }`}
+        className={`absolute inset-0 z-20 transition-opacity duration-700 pointer-events-none ${
+          isReady ? "opacity-0" : "opacity-100"
+        }`}
       >
         <Loader />
       </div>
 
       <Canvas
-        className={`transition-opacity duration-1000 ${isReady ? "opacity-100" : "opacity-0"
-          }`}
+        className={`transition-opacity duration-1000 ${
+          isReady ? "opacity-100" : "opacity-0"
+        }`}
         shadows={performance.shadows ? "soft" : false}
+        frameloop={frameloop}
         camera={{ position: [7, 4, -7], fov: 46 }}
         dpr={[1, 1.5]}
         gl={{
-          preserveDrawingBuffer: true,
           antialias: true,
           powerPreference: "high-performance",
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.0
+          toneMappingExposure: 1.0,
         }}
       >
-        <Environment preset={envConfig.preset} environmentIntensity={envConfig.envIntensity} />
+        <Environment
+          preset={envConfig.preset}
+          environmentIntensity={envConfig.envIntensity}
+        />
 
         {performance.shadows && (
           <directionalLight
@@ -99,9 +117,17 @@ export function Scene({ onReady }: SceneProps) {
             intensity={envConfig.sunIntensity}
             shadow-bias={-0.0001}
             shadow-normalBias={0.02}
-            shadow-mapSize={[performance.shadowMapSize, performance.shadowMapSize]}
+            shadow-mapSize={[
+              performance.shadowMapSize,
+              performance.shadowMapSize,
+            ]}
           >
-            <orthographicCamera attach="shadow-camera" args={[-8, 8, 8, -8]} near={0.1} far={50} />
+            <orthographicCamera
+              attach="shadow-camera"
+              args={[-8, 8, 8, -8]}
+              near={0.1}
+              far={50}
+            />
           </directionalLight>
         )}
 
@@ -113,7 +139,11 @@ export function Scene({ onReady }: SceneProps) {
         )}
 
         <Suspense fallback={null}>
-          <Model onLoaded={handleModelLoaded} lowEndMode={performance.isLowEnd} isVisible={isReady} />
+          <Model
+            onLoaded={handleModelLoaded}
+            lowEndMode={performance.isLowEnd}
+            isVisible={isReady}
+          />
 
           {modelLoaded && !shadersReady && (
             <ShaderCompiler onComplete={handleShadersCompiled} />
@@ -129,6 +159,6 @@ export function Scene({ onReady }: SceneProps) {
           target={[0, 0, 0]}
         />
       </Canvas>
-    </div >
-  )
+    </div>
+  );
 }

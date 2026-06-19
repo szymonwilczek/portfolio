@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import * as THREE from "three"
-import { useRef, useEffect, useState, JSX, useMemo } from "react"
-import { Center, useGLTF } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
-import { GLTF } from "three-stdlib"
-import { getActiveEvent, getBonsaiSeason } from "@/config/events"
-import { NODE_GROUPS, isNodeInGroup } from "@/config/nodeGroups"
-import { VimScreen } from "./vim/VimScreen"
+import * as THREE from "three";
+import { useRef, useEffect, useState, JSX, useMemo } from "react";
+import { Center, useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { GLTF } from "three-stdlib";
+import { getActiveEvent, getBonsaiSeason } from "@/config/events";
+import { NODE_GROUPS, isNodeInGroup } from "@/config/nodeGroups";
+import { VimScreen } from "./vim/VimScreen";
 
 type GLTFResult = GLTF & {
-  nodes: { [key: string]: THREE.Mesh }
-  materials: { [key: string]: THREE.MeshStandardMaterial }
-}
+  nodes: { [key: string]: THREE.Mesh };
+  materials: { [key: string]: THREE.MeshStandardMaterial };
+};
 
 type ModelProps = JSX.IntrinsicElements["group"] & {
   onLoaded?: () => void;
@@ -22,10 +22,21 @@ type ModelProps = JSX.IntrinsicElements["group"] & {
   stopRotation?: boolean;
   lowEndMode?: boolean;
   isVisible?: boolean;
-}
+};
 
-export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRotation = false, lowEndMode = false, isVisible = true, ...props }: ModelProps) {
-  const { nodes, materials } = useGLTF("/wolfie_portfolio.glb") as unknown as GLTFResult
+export function Model({
+  onLoaded,
+  dateOverride,
+  lampColor,
+  lampIntensity,
+  stopRotation = false,
+  lowEndMode = false,
+  isVisible = true,
+  ...props
+}: ModelProps) {
+  const { nodes, materials } = useGLTF(
+    "/wolfie_portfolio.glb",
+  ) as unknown as GLTFResult;
   const groupRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.PointLight | null>(null);
   const starLightRef = useRef<THREE.PointLight | null>(null);
@@ -35,10 +46,9 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
   const SPIN_INITIAL_SPEED = 50;
   const SPIN_TARGET_SPEED = 0.15;
   const SPIN_DECAY = 2.5;
-  const SPIN_START_ANGLE = 0.5;  // desktop start angle
+  const SPIN_START_ANGLE = 0.5; // desktop start angle
   const MOBILE_START_ANGLE = 8.0; // mobile start angle (no fast spin, so start further rotated)
   const SPIN_A = (SPIN_INITIAL_SPEED - SPIN_TARGET_SPEED) / SPIN_DECAY;
-
 
   const [isDragging, setIsDragging] = useState(false);
 
@@ -54,38 +64,48 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
   }, [currentDate]);
 
   const eventConfig = useMemo(() => {
-    const activeEvent = getActiveEvent(currentDate)
-    const season = getBonsaiSeason(currentDate)
+    const activeEvent = getActiveEvent(currentDate);
+    const season = getBonsaiSeason(currentDate);
 
     const allEventKeys = [
-      ...NODE_GROUPS.SANTA, ...NODE_GROUPS.CHRISTMAS, ...NODE_GROUPS.NEW_YEAR,
-      ...NODE_GROUPS.BIRTHDAY, ...NODE_GROUPS.VALENTINES, ...NODE_GROUPS.FAT_THURSDAY,
-      ...NODE_GROUPS.WOMENS_DAY, ...NODE_GROUPS.EASTER, ...NODE_GROUPS.MAY_DAY,
-      ...NODE_GROUPS.HALLOWEEN, ...NODE_GROUPS.INDEPENDENCE
-    ]
+      ...NODE_GROUPS.SANTA,
+      ...NODE_GROUPS.CHRISTMAS,
+      ...NODE_GROUPS.NEW_YEAR,
+      ...NODE_GROUPS.BIRTHDAY,
+      ...NODE_GROUPS.VALENTINES,
+      ...NODE_GROUPS.FAT_THURSDAY,
+      ...NODE_GROUPS.WOMENS_DAY,
+      ...NODE_GROUPS.EASTER,
+      ...NODE_GROUPS.MAY_DAY,
+      ...NODE_GROUPS.HALLOWEEN,
+      ...NODE_GROUPS.INDEPENDENCE,
+    ];
 
-    return { activeEvent, season, allEventKeys }
-  }, [currentDate])
+    return { activeEvent, season, allEventKeys };
+  }, [currentDate]);
 
   useEffect(() => {
     const bulb = nodes.lamp_bulb;
 
-    const occlusionMeshNames = ['monitor', 'wolf']
+    const occlusionMeshNames = ["monitor", "wolf"];
     Object.entries(nodes).forEach(([nodeName, node]) => {
       if ((node as THREE.Mesh).isMesh && (node as THREE.Mesh).material) {
-        const mat = (node as THREE.Mesh).material as THREE.MeshStandardMaterial
-        const needsDoubleSide = occlusionMeshNames.some(name =>
-          nodeName.toLowerCase().includes(name)
-        )
-        mat.side = needsDoubleSide ? THREE.DoubleSide : THREE.FrontSide
+        const mat = (node as THREE.Mesh).material as THREE.MeshStandardMaterial;
+        const needsDoubleSide = occlusionMeshNames.some((name) =>
+          nodeName.toLowerCase().includes(name),
+        );
+        mat.side = needsDoubleSide ? THREE.DoubleSide : THREE.FrontSide;
       }
-    })
+    });
 
     if (bulb) {
       if (bulb.material) {
         const mat = bulb.material as THREE.MeshStandardMaterial;
-        const finalColor = lampColor ? new THREE.Color(lampColor) : new THREE.Color("#ffaa33");
-        const finalIntensity = lampIntensity !== undefined ? lampIntensity : lampIntensityTimeBased;
+        const finalColor = lampColor
+          ? new THREE.Color(lampColor)
+          : new THREE.Color("#ffaa33");
+        const finalIntensity =
+          lampIntensity !== undefined ? lampIntensity : lampIntensityTimeBased;
 
         mat.emissive = finalColor;
         mat.emissiveIntensity = finalIntensity;
@@ -176,30 +196,48 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
         nodes.cake_flame.remove(cakeLightRef.current);
         cakeLightRef.current = null;
       }
-    }
-  }, [nodes, materials, currentDate, onLoaded, lampColor, lampIntensity, lampIntensityTimeBased]);
+    };
+  }, [
+    nodes,
+    materials,
+    currentDate,
+    onLoaded,
+    lampColor,
+    lampIntensity,
+    lampIntensityTimeBased,
+  ]);
 
-  const [vimTexture, setVimTexture] = useState<THREE.CanvasTexture | null>(null);
+  const [vimTexture, setVimTexture] = useState<THREE.CanvasTexture | null>(
+    null,
+  );
 
   useEffect(() => {
     const { activeEvent, season, allEventKeys } = eventConfig;
 
-    const SHADOW_CASTERS = ['wolf', 'desk', 'monitor', 'keyboard', 'lamp', 'tea']
+    const SHADOW_CASTERS = [
+      "wolf",
+      "desk",
+      "monitor",
+      "keyboard",
+      "lamp",
+      "tea",
+    ];
 
     Object.keys(nodes).forEach((nodeName) => {
-      const node = nodes[nodeName]
+      const node = nodes[nodeName];
       if (node.isMesh) {
-        const shouldHaveShadow = SHADOW_CASTERS.some(name =>
-          nodeName.toLowerCase().includes(name)
-        )
-        node.castShadow = !lowEndMode && shouldHaveShadow
-        node.receiveShadow = !lowEndMode && shouldHaveShadow
+        const shouldHaveShadow = SHADOW_CASTERS.some((name) =>
+          nodeName.toLowerCase().includes(name),
+        );
+        node.castShadow = !lowEndMode && shouldHaveShadow;
+        node.receiveShadow = !lowEndMode && shouldHaveShadow;
 
-        if (node.material && 'envMapIntensity' in node.material) {
-          (node.material as THREE.MeshStandardMaterial).envMapIntensity = lowEndMode ? 0 : 1.2
+        if (node.material && "envMapIntensity" in node.material) {
+          (node.material as THREE.MeshStandardMaterial).envMapIntensity =
+            lowEndMode ? 0 : 1.2;
         }
       }
-    })
+    });
 
     Object.keys(nodes).forEach((nodeName) => {
       const node = nodes[nodeName];
@@ -212,30 +250,63 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
     });
 
     const showGroup = (groupKeys: string[]) => {
-      Object.keys(nodes).forEach(name => {
+      Object.keys(nodes).forEach((name) => {
         if (isNodeInGroup(name, groupKeys)) nodes[name].visible = true;
       });
     };
 
     const hideGroup = (groupKeys: string[]) => {
-      Object.keys(nodes).forEach(name => {
+      Object.keys(nodes).forEach((name) => {
         if (isNodeInGroup(name, groupKeys)) nodes[name].visible = false;
       });
     };
 
     switch (activeEvent) {
-      case "SANTA": showGroup(NODE_GROUPS.SANTA); break;
-      case "CHRISTMAS": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.CHRISTMAS); break;
-      case "NEW_YEAR": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.NEW_YEAR); break;
-      case "BIRTHDAY": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.BIRTHDAY); break;
-      case "VALENTINES": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.VALENTINES); break;
-      case "FAT_THURSDAY": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.FAT_THURSDAY); break;
-      case "WOMENS_DAY": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.WOMENS_DAY); break;
-      case "EASTER": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.EASTER); break;
-      case "MAY_DAY": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.MAY_DAY); break;
-      case "HALLOWEEN": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.HALLOWEEN); break;
-      case "INDEPENDENCE": hideGroup(NODE_GROUPS.BONSAI); showGroup(NODE_GROUPS.INDEPENDENCE); break;
-      default: break;
+      case "SANTA":
+        showGroup(NODE_GROUPS.SANTA);
+        break;
+      case "CHRISTMAS":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.CHRISTMAS);
+        break;
+      case "NEW_YEAR":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.NEW_YEAR);
+        break;
+      case "BIRTHDAY":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.BIRTHDAY);
+        break;
+      case "VALENTINES":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.VALENTINES);
+        break;
+      case "FAT_THURSDAY":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.FAT_THURSDAY);
+        break;
+      case "WOMENS_DAY":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.WOMENS_DAY);
+        break;
+      case "EASTER":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.EASTER);
+        break;
+      case "MAY_DAY":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.MAY_DAY);
+        break;
+      case "HALLOWEEN":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.HALLOWEEN);
+        break;
+      case "INDEPENDENCE":
+        hideGroup(NODE_GROUPS.BONSAI);
+        showGroup(NODE_GROUPS.INDEPENDENCE);
+        break;
+      default:
+        break;
     }
 
     if (nodes.bonsai_trunk.visible) {
@@ -244,13 +315,13 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
 
       if (leavesMat && soilMat) {
         if (season === "WINTER") {
-          soilMat.color.setHex(0xB0BEC5);
-          leavesMat.color.setHex(0xB0BEC5);
+          soilMat.color.setHex(0xb0bec5);
+          leavesMat.color.setHex(0xb0bec5);
         } else {
-          soilMat.color.setHex(0x3E2723);
-          if (season === "SPRING") leavesMat.color.setHex(0xFFB7C5);
-          else if (season === "SUMMER") leavesMat.color.setHex(0x8BC34A);
-          else if (season === "AUTUMN") leavesMat.color.setHex(0xD35400);
+          soilMat.color.setHex(0x3e2723);
+          if (season === "SPRING") leavesMat.color.setHex(0xffb7c5);
+          else if (season === "SUMMER") leavesMat.color.setHex(0x8bc34a);
+          else if (season === "AUTUMN") leavesMat.color.setHex(0xd35400);
         }
       }
     }
@@ -260,26 +331,38 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
         onLoaded();
       }, 100);
     }
-
   }, [nodes, materials, currentDate, onLoaded]);
 
   useFrame((_, delta) => {
     if (groupRef.current && !isDragging && !stopRotation) {
-      time.current += delta;
+      // clamp delta: after a visibility pause (frameloop "never") the first
+      // resumed frame reports a huge delta, which would snap the rotation
+      time.current += Math.min(delta, 0.1);
 
       if (lowEndMode) {
         // mobile: slow continuous rotation only (somehow called the optimization)
-        groupRef.current.rotation.y = MOBILE_START_ANGLE + SPIN_TARGET_SPEED * time.current;
+        groupRef.current.rotation.y =
+          MOBILE_START_ANGLE + SPIN_TARGET_SPEED * time.current;
       } else {
         // desktop: fast initial spin that decays to slow rotation
-        groupRef.current.rotation.y = SPIN_START_ANGLE + SPIN_A * (1 - Math.exp(-SPIN_DECAY * time.current)) + SPIN_TARGET_SPEED * time.current;
+        groupRef.current.rotation.y =
+          SPIN_START_ANGLE +
+          SPIN_A * (1 - Math.exp(-SPIN_DECAY * time.current)) +
+          SPIN_TARGET_SPEED * time.current;
       }
     }
-  })
+  });
 
   return (
-    <group ref={groupRef} {...props} dispose={null} position={[0, 1, 0]}
-      onPointerDown={(e) => { e.stopPropagation(); setIsDragging(true); }}
+    <group
+      ref={groupRef}
+      {...props}
+      dispose={null}
+      position={[0, 1, 0]}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+        setIsDragging(true);
+      }}
       onPointerUp={() => setIsDragging(false)}
       onPointerLeave={() => setIsDragging(false)}
     >
@@ -290,24 +373,16 @@ export function Model({ onLoaded, dateOverride, lampColor, lampIntensity, stopRo
 
         {nodes.monitor && vimTexture && (
           <mesh
-            position={[
-              0,
-              2.788008689880371,
-              3.0958099365234375 - 0.02
-            ]}
+            position={[0, 2.788008689880371, 3.0958099365234375 - 0.02]}
             rotation={[0, Math.PI, 0]}
           >
             <planeGeometry args={[2.17, 1.21]} />
-            <meshBasicMaterial
-              map={vimTexture}
-              toneMapped={false}
-            />
+            <meshBasicMaterial map={vimTexture} toneMapped={false} />
           </mesh>
         )}
       </Center>
     </group>
-  )
+  );
 }
 
-useGLTF.preload("/wolfie_portfolio.glb")
-
+useGLTF.preload("/wolfie_portfolio.glb");
