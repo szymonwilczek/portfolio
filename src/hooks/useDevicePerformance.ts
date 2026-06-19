@@ -70,7 +70,7 @@ export function useDevicePerformance(): PerformanceSettings {
         setSettings({
           isLowEnd: false,
           shadows: true,
-          shadowMapSize: 1024,
+          shadowMapSize: 2048,
         });
       }
     };

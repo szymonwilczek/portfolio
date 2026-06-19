@@ -124,7 +124,7 @@ export function Scene({ onReady }: SceneProps) {
           >
             <orthographicCamera
               attach="shadow-camera"
-              args={[-8, 8, 8, -8]}
+              args={[-6, 6, 6, -6]}
               near={0.1}
               far={50}
             />
