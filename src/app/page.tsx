@@ -28,7 +28,7 @@ const timelineData: TimelineEntry[] = [
     date: "2025",
     title: "Linux Kernel Contributor",
     description:
-      "Patching memory safety bugs (UAF, Out-of-bounds) and concurrency issues across Filesystems and Bluetooth subsystems.",
+      "Searching for and fixing bugs in mainline - UAF, Out-of-bounds reads, races across filesystems and some drivers.",
     isCurrent: true,
     urls: [
       {
@@ -42,19 +42,11 @@ const timelineData: TimelineEntry[] = [
     date: "2025",
     title: "Web Developer @ FAMUR",
     description:
-      "Developing comprehensive web application for the mining industry sector. Digitizing industrial processes and managing data workflows using PHP ecosystem.",
+      "Backend-heavy web apps for the mining industry. PHP, legacy data, not glamorous. The kind of system nobody notices until it loses a row - so it doesn't.",
     isCurrent: false,
   },
   {
     id: 3,
-    date: "2024",
-    title: "Freelance Full-stack Developer",
-    description:
-      "Creating custom web applications tailored to specific client needs. Delivering modern, high-performance solutions from concept to deployment.",
-    isCurrent: false,
-  },
-  {
-    id: 4,
     date: "2023",
     title: "Computer Science Student",
     description:
@@ -62,18 +54,26 @@ const timelineData: TimelineEntry[] = [
     isCurrent: true,
   },
   {
+    id: 4,
+    date: "2022",
+    title: "Freelance Full-stack Developer",
+    description:
+      'Built apps for whoever was paying. Learned that "done" means it works on the client\'s machine, not mine.',
+    isCurrent: false,
+  },
+  {
     id: 5,
     date: "2017",
     title: "First Lines of Code",
     description:
-      "Discovered passion for programming. Started learning C++ and web development to build foundational skills in software creation.",
+      "Wrote my first code. Most of it didn't compile. Kept going anyway - turns out that's the whole job.",
     isCurrent: false,
   },
   {
     id: 6,
     date: "2005",
     title: "Hello World",
-    description: "Born in Poland. Initializing the main process.",
+    description: "Born in Poland - PID: 1.",
     isCurrent: false,
   },
 ];
@@ -123,7 +123,7 @@ export default function Home() {
               Szymon Wilczek
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
-              Software developer building pixel-perfect experiences.
+              Systems programmer. Mostly C, mostly Linux.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="sm" className="font-semibold">
@@ -174,12 +174,11 @@ export default function Home() {
       <Section delay="delay-100">
         <SectionTitle icon={Terminal}>About</SectionTitle>
         <Paragraph>
-          While I'm finishing my CS degree, my real education happens in the
-          terminal and the Linux kernel source tree. <br />
-          <br />
-          Whether I'm hardening systems, or building full-stack applications, I
-          focus on the <i>how</i> and <i>why</i> behind every bit. I love to get
-          my hands dirty with low-level engineering.
+          The degree is almost done. It taught me a lot, but still less than a
+          few weeks of reading the kernel source did. <br /> I care about how
+          things actually work - what the bytes do, where the memory goes, why
+          the lock is there. Most of what I do is reading other people's code,
+          figuring out why it falls over, and making it fall over <i>less</i>.
         </Paragraph>
       </Section>
 
@@ -188,16 +187,12 @@ export default function Home() {
           Technologies I Mostly Work With
         </h4>
         <div className="flex flex-wrap gap-2">
-          {[
-            "C",
-            "Go",
-            "Lua",
-            "TypeScript",
-            "JavaScript",
-            "React",
-            "Tailwind",
-          ].map((tech) => (
-            <Badge key={tech} variant="secondary" className="px-3 py-1 text-sm font-jetbrains">
+          {["C", "Go", "Lua", "TypeScript", "Rust"].map((tech) => (
+            <Badge
+              key={tech}
+              variant="secondary"
+              className="px-3 py-1 text-sm font-jetbrains"
+            >
               {tech}
             </Badge>
           ))}
