@@ -215,7 +215,7 @@ export default function Home() {
         <SectionTitle icon={Mail}>Connect</SectionTitle>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
-            href="mailto:szymonwilczek@outlook.com"
+            href="mailto:swilczek.lx@gmail.com"
             className="group flex flex-col sm:flex-row items-center sm:items-center gap-4 p-4 rounded-xl border bg-card hover:bg-accent transition-colors text-center sm:text-left"
           >
             <div className="p-2 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 group-hover:bg-teal-500 group-hover:text-white transition-colors">
