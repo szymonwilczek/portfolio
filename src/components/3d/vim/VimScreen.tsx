@@ -29,9 +29,28 @@ export function VimScreen({ onTextureUpdate, lowEndMode = false }: VimScreenProp
   const [cursor, setCursor] = useState({ line: 0, col: 0 });
   const [visualStartLine, setVisualStartLine] = useState<number | null>(null);
   const [centerTrigger, setCenterTrigger] = useState(0);
+  const [fontReady, setFontReady] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textureRef = useRef<THREE.CanvasTexture | null>(null);
+
+  // wait for the Nerd Font before drawing, otherwise the first frames render
+  // with the fallback monospace and bake into the texture
+  useEffect(() => {
+    let cancelled = false;
+    const fonts = (document as Document & { fonts?: FontFaceSet }).fonts;
+    if (!fonts) {
+      setFontReady(true);
+      return;
+    }
+    Promise.all([
+      fonts.load("24px 'JetBrainsMono Nerd Font Mono'"),
+      fonts.load("bold 24px 'JetBrainsMono Nerd Font Mono'"),
+    ])
+      .then(() => { if (!cancelled) setFontReady(true); })
+      .catch(() => { if (!cancelled) setFontReady(true); });
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -71,7 +90,7 @@ export function VimScreen({ onTextureUpdate, lowEndMode = false }: VimScreenProp
   }, [
     openFiles, activeFile, fileContent, cursor, mode,
     explorerIndex, isTreeFocused, visualStartLine,
-    statusBarMsg, errorCount, onTextureUpdate, gl
+    statusBarMsg, errorCount, onTextureUpdate, gl, fontReady
   ]);
 
   const stateRef = useRef({
