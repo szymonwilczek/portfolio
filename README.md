@@ -1,12 +1,12 @@
-# 🐺 My Portfolio
+# My Portfolio
 
-> **An over-engineered 3D voxel portfolio that nobody asked for, but everyone deserves.**
+> **Who said I can't do UI?**
 
 ![Landing Page](/public/images/portfolio/portfolio.png)
 
-## What Is This?
+## Overview
 
-This is an **interactive 3D voxel world** built from scratch. 
+This is an **interactive 3D voxel world** built from scratch.
 
 The wolf you see was modeled in Blender, optimized for the web, and rendered in real-time using WebGL.
 
@@ -19,22 +19,6 @@ The wolf you see was modeled in Blender, optimized for the web, and rendered in 
 - **Responsive Design** - Works on desktop and mobile
 - **Markdown Projects** - Easy-to-update project pages with custom Lucide icon syntax
 - **Performance Optimized** - Instanced meshes, throttled rendering and more
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| **Framework** | Next.js 16 (App Router) |
-| **3D Engine** | React Three Fiber + Drei |
-| **Styling** | Tailwind CSS v4 |
-| **Animation** | Framer Motion |
-| **3D Modeling** | Blender |
-| **Icons** | Lucide React (with custom remark plugin) |
-| **Deployment** | Vercel |
-
----
 
 ## You want it yourself?
 
@@ -72,9 +56,7 @@ SPOTIFY_REFRESH_TOKEN=your_refresh_token
 WAKATIME_API_KEY=your_api_key
 ```
 
----
-
-## 🎨 Custom Lucide Icons in Markdown
+## Custom Lucide Icons in Markdown
 
 This project includes a custom remark plugin for using Lucide icons directly in markdown:
 
@@ -84,17 +66,14 @@ This project includes a custom remark plugin for using Lucide icons directly in 
 
 Supports any Lucide icon with Tailwind classes!
 
----
-
-## 📝 License
-
-MIT License - feel free to use this as inspiration for your own portfolio!
-
----
-
 ## 🐺 About the Wolf
 
 His name is Simon. He's made of polygons. No, you cannot pet him.
+
+
+## License
+
+MIT License - feel free to use this as inspiration for your own portfolio!
 
 ---
 
