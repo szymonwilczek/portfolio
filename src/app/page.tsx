@@ -213,7 +213,7 @@ export default function Home() {
 
       <Section delay="delay-500">
         <SectionTitle icon={Mail}>Connect</SectionTitle>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
             href="mailto:szymonwilczek@outlook.com"
             className="group flex flex-col sm:flex-row items-center sm:items-center gap-4 p-4 rounded-xl border bg-card hover:bg-accent transition-colors text-center sm:text-left"
@@ -222,17 +222,6 @@ export default function Home() {
               <Mail className="h-5 w-5" />
             </div>
             <p className="font-jetbrains font-semibold">Email</p>
-          </Link>
-
-          <Link
-            href="https://github.com/szymonwilczek"
-            target="_blank"
-            className="group flex flex-col sm:flex-row items-center sm:items-center gap-4 p-4 rounded-xl border bg-card hover:bg-accent transition-colors text-center sm:text-left"
-          >
-            <div className="p-2 rounded-full bg-neutral-500/10 text-neutral-700 dark:text-neutral-200 group-hover:bg-neutral-700 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors">
-              <Github className="h-5 w-5" />
-            </div>
-            <p className="font-jetbrains font-semibold">GitHub</p>
           </Link>
 
           <Link
