@@ -5,20 +5,73 @@ export interface Token {
   color: string;
 }
 
+// control-flow / operator keywords
+const KEYWORDS = new Set([
+  "if",
+  "else",
+  "for",
+  "while",
+  "do",
+  "switch",
+  "case",
+  "default",
+  "break",
+  "continue",
+  "return",
+  "goto",
+  "sizeof",
+]);
+
+// types & storage-class specifiers
+const TYPES = new Set([
+  "void",
+  "char",
+  "short",
+  "int",
+  "long",
+  "float",
+  "double",
+  "unsigned",
+  "signed",
+  "const",
+  "static",
+  "extern",
+  "inline",
+  "volatile",
+  "register",
+  "struct",
+  "union",
+  "enum",
+  "typedef",
+  "size_t",
+]);
+
+// well-known constants / macros
+const CONSTANTS = new Set(["NULL", "EOF", "true", "false"]);
+
 export const highlightLine = (line: string): Token[] => {
   const trimmed = line.trim();
 
-  // comments
-  if (trimmed.startsWith("//") || trimmed.startsWith("{/*")) {
+  // full-line comments (block or continuation)
+  if (
+    trimmed.startsWith("//") ||
+    trimmed.startsWith("/*") ||
+    trimmed.startsWith("*")
+  ) {
     return [{ text: line, color: C.muted }];
   }
 
-  const parts = line.split(/([ \(\)\{\}\[\]\.,:;'"<>=/])/);
+  // preprocessor directives (#include, #define, #ifndef, ...)
+  if (trimmed.startsWith("#")) {
+    return [{ text: line, color: C.foam }];
+  }
+
+  const parts = line.split(/([ ()[\]{}.,:;'"<>=/*&!+-])/);
   let inString = false;
   let stringChar = "";
 
-  return parts.map((part) => {
-    // strings
+  return parts.map((part, i) => {
+    // strings & char literals
     if (inString) {
       if (part === stringChar) {
         inString = false;
@@ -26,147 +79,32 @@ export const highlightLine = (line: string): Token[] => {
       }
       return { text: part, color: C.gold };
     }
-    if ((part === '"' || part === "'" || part === "`") && !inString) {
+    if (part === '"' || part === "'") {
       inString = true;
       stringChar = part;
       return { text: part, color: C.gold };
     }
 
-    // react props / attributes
-    if (
-      [
-        "className",
-        "src",
-        "alt",
-        "href",
-        "lang",
-        "content",
-        "name",
-        "width",
-        "height",
-        "rel",
-        "target",
-      ].includes(part)
-    ) {
-      return { text: part, color: C.iris };
-    }
+    if (KEYWORDS.has(part)) return { text: part, color: C.pine };
+    if (TYPES.has(part)) return { text: part, color: C.iris };
+    if (CONSTANTS.has(part)) return { text: part, color: C.love };
 
-    // html tags
-    if (
-      [
-        "html",
-        "body",
-        "head",
-        "title",
-        "meta",
-        "div",
-        "main",
-        "section",
-        "article",
-        "nav",
-        "header",
-        "footer",
-        "span",
-        "p",
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "ul",
-        "ol",
-        "li",
-        "a",
-        "button",
-        "img",
-        "form",
-        "input",
-        "label",
-        "textarea",
-      ].includes(part)
-    ) {
-      return { text: part, color: C.love };
-    }
-
-    // keywords
-    if (
-      [
-        "import",
-        "from",
-        "export",
-        "default",
-        "function",
-        "const",
-        "let",
-        "var",
-        "return",
-        "if",
-        "else",
-        "interface",
-        "type",
-        "async",
-        "await",
-      ].includes(part)
-    ) {
-      return { text: part, color: C.pine };
-    }
-
-    // components & types
-    if (/^[A-Z]/.test(part) && part.length > 1) {
-      return { text: part, color: C.foam };
-    }
-
-    // digits
-    if (/^\d+$/.test(part)) {
-      return { text: part, color: C.iris };
-    }
-
-    // specials in react
-    if (
-      [
-        "console",
-        "log",
-        "useState",
-        "useEffect",
-        "useRef",
-        "map",
-        "filter",
-        "find",
-        "reduce",
-      ].includes(part)
-    ) {
+    // function call: identifier immediately followed by "("
+    if (/^[A-Za-z_]\w*$/.test(part) && parts[i + 1] === "(") {
       return { text: part, color: C.rose };
     }
 
-    // signs and operators
-    if (
-      [
-        "=",
-        "=>",
-        ":",
-        ";",
-        ".",
-        ",",
-        "{",
-        "}",
-        "(",
-        ")",
-        "<",
-        ">",
-        "[",
-        "]",
-        "/",
-        "+",
-        "-",
-        "*",
-        "!",
-      ].includes(part)
-    ) {
+    // numeric literals
+    if (/^\d+$/.test(part)) {
+      return { text: part, color: C.love };
+    }
+
+    // punctuation / operators
+    if (/^[()[\]{}.,:;'"<>=/*&!+-]$/.test(part)) {
       return { text: part, color: C.muted };
     }
 
-    // default
+    // default (identifiers, whitespace)
     return { text: part, color: C.text };
   });
 };
