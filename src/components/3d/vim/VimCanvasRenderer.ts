@@ -1,4 +1,4 @@
-import { C } from "./VimConfig";
+import { C, STATUS, MODE_LONG, STATUS_ICON } from "./VimConfig";
 import { highlightLine } from "./VimSyntax";
 
 export const CV_WIDTH = 955;
@@ -6,7 +6,7 @@ export const CV_HEIGHT = 535;
 
 // font config
 const FONT_FAMILY = "'JetBrainsMono Nerd Font Mono', monospace";
-const FONT_MONO = `24px ${FONT_FAMILY}`;
+const FONT_MONO = `36px ${FONT_FAMILY}`;
 const LINE_HEIGHT = 32;
 const CHAR_WIDTH = 14.4;
 
@@ -14,10 +14,13 @@ const CHAR_WIDTH = 14.4;
 const EXPLORER_WIDTH = 0;
 const EDITOR_LEFT = EXPLORER_WIDTH;
 const EDITOR_WIDTH = CV_WIDTH - EXPLORER_WIDTH;
-const STATUS_BAR_HEIGHT = 40;
+const STATUS_BAR_HEIGHT = 30;
+const CMDLINE_HEIGHT = 26;
 const EDITOR_TOP = 0;
-const EDITOR_BOTTOM = CV_HEIGHT - STATUS_BAR_HEIGHT;
+const EDITOR_BOTTOM = CV_HEIGHT - STATUS_BAR_HEIGHT - CMDLINE_HEIGHT;
 const VISIBLE_LINES = Math.floor((EDITOR_BOTTOM - EDITOR_TOP) / LINE_HEIGHT);
+
+const STATUS_FONT = `20px ${FONT_FAMILY}`;
 
 interface RenderState {
   openFiles: string[];
@@ -30,6 +33,7 @@ interface RenderState {
   visualStartLine: number | null;
   statusBarMsg: string;
   errorCount: number;
+  modified: boolean;
 }
 
 export const drawVim = (ctx: CanvasRenderingContext2D, state: RenderState) => {
@@ -38,7 +42,8 @@ export const drawVim = (ctx: CanvasRenderingContext2D, state: RenderState) => {
   ctx.fillRect(0, 0, CV_WIDTH, CV_HEIGHT);
 
   drawEditor(ctx, state);
-  drawStatusBar(ctx, state);
+  drawStatusLine(ctx, state);
+  drawCmdLine(ctx, state);
 };
 
 function drawEditor(ctx: CanvasRenderingContext2D, state: RenderState) {
@@ -72,51 +77,18 @@ function drawEditor(ctx: CanvasRenderingContext2D, state: RenderState) {
       i >= Math.min(state.visualStartLine!, state.cursor.line) &&
       i <= Math.max(state.visualStartLine!, state.cursor.line);
 
-        if (isSelected) {
-            ctx.fillStyle = C.selection;
-            ctx.fillRect(EDITOR_LEFT, y - 24, EDITOR_WIDTH, LINE_HEIGHT);
-        } else if (isCursorLine && state.mode !== "V-LINE") {
-            ctx.fillStyle = C.highlight;
-            ctx.fillRect(EDITOR_LEFT, y - 24, EDITOR_WIDTH, LINE_HEIGHT);
-        }
-
-        // line number
-        ctx.fillStyle = isCursorLine || isSelected ? C.text : C.muted;
-        ctx.textAlign = "right";
-        ctx.font = `18px ${FONT_FAMILY}`;
-        ctx.fillText((i + 1).toString(), EDITOR_LEFT + 40, y);
-        ctx.textAlign = "left";
-
-        // syntax highlighted text
-        let x = EDITOR_LEFT + LINE_NUM_WIDTH;
-        const tokens = highlightLine(lineContent);
-
-        ctx.font = FONT_MONO; // 24px
-        tokens.forEach((token) => {
-            ctx.fillStyle = token.color;
-            ctx.fillText(token.text, x, y);
-            x += ctx.measureText(token.text).width;
-        });
-
-        // cursor (block)
-        if (isCursorLine && state.mode !== "V-LINE") {
-            const cursorX =
-                EDITOR_LEFT + LINE_NUM_WIDTH + state.cursor.col * CHAR_WIDTH;
-            ctx.fillStyle = C.cursor;
-            ctx.globalAlpha = 0.5;
-
-            const cursorWidth = state.mode === "INSERT" ? 4 : CHAR_WIDTH;
-            ctx.fillRect(cursorX, y - 22, cursorWidth, 26);
-            ctx.globalAlpha = 1.0;
-        }
-
-        y += LINE_HEIGHT;
+    if (isSelected) {
+      ctx.fillStyle = C.selection;
+      ctx.fillRect(EDITOR_LEFT, y - 24, EDITOR_WIDTH, LINE_HEIGHT);
+    } else if (isCursorLine && state.mode !== "V-LINE") {
+      ctx.fillStyle = C.highlight;
+      ctx.fillRect(EDITOR_LEFT, y - 24, EDITOR_WIDTH, LINE_HEIGHT);
     }
 
     // line number
     ctx.fillStyle = isCursorLine || isSelected ? C.text : C.muted;
     ctx.textAlign = "right";
-    ctx.font = "18px 'JetBrains Mono', monospace";
+    ctx.font = `18px ${FONT_FAMILY}`;
     ctx.fillText((i + 1).toString(), EDITOR_LEFT + 40, y);
     ctx.textAlign = "left";
 
@@ -135,7 +107,7 @@ function drawEditor(ctx: CanvasRenderingContext2D, state: RenderState) {
     if (isCursorLine && state.mode !== "V-LINE") {
       const cursorX =
         EDITOR_LEFT + LINE_NUM_WIDTH + state.cursor.col * CHAR_WIDTH;
-      ctx.fillStyle = C.text;
+      ctx.fillStyle = C.cursor;
       ctx.globalAlpha = 0.5;
 
       const cursorWidth = state.mode === "INSERT" ? 4 : CHAR_WIDTH;
@@ -148,77 +120,89 @@ function drawEditor(ctx: CanvasRenderingContext2D, state: RenderState) {
   ctx.restore();
 }
 
-function drawStatusBar(ctx: CanvasRenderingContext2D, state: RenderState) {
-  const barY = CV_HEIGHT - STATUS_BAR_HEIGHT;
+function bufferSize(lines: string[]): string {
+  const bytes = lines.reduce((sum, l) => sum + l.length + 1, 0);
+  if (bytes < 1024) return `${bytes}B`;
+  if (bytes < 1048576) return `${(bytes / 1024).toFixed(2)}KiB`;
+  return `${(bytes / 1048576).toFixed(2)}MiB`;
+}
 
-  // background
-  let bg = C.overlay;
-  if (state.mode === "INSERT") bg = C.rose;
-  if (state.mode === "V-LINE") bg = C.gold;
-  if (state.mode === "COMMAND") bg = C.pine;
+// mini.statusline: [mode] [devinfo] [filename] %= [fileinfo] [location]
+function drawStatusLine(ctx: CanvasRenderingContext2D, state: RenderState) {
+  const barY = CV_HEIGHT - CMDLINE_HEIGHT - STATUS_BAR_HEIGHT;
+  const textY = barY + 21;
+  const modeColor = STATUS.mode[state.mode] || "#4fb0cf";
 
-  ctx.fillStyle = bg;
+  ctx.font = STATUS_FONT;
+  ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = STATUS.fill;
   ctx.fillRect(EDITOR_LEFT, barY, EDITOR_WIDTH, STATUS_BAR_HEIGHT);
 
-  // mode text
-  ctx.fillStyle = "#191724";
-  ctx.font = "bold 18px sans-serif";
-  ctx.fillText(state.mode, EDITOR_LEFT + 15, barY + 26);
+  // diagnostics: only error count is faked by the animation
+  const diag =
+    state.errorCount > 0 ? ` ${STATUS_ICON.diag} E${state.errorCount}` : "";
 
-  // file info
+  const modeText = ` ${MODE_LONG[state.mode] || state.mode} `;
+  const devText = ` ${STATUS_ICON.git} main ${STATUS_ICON.diff} -${diag} `;
+  const fileText = ` ${state.activeFile}${state.modified ? " [+]" : ""} `;
+
+  const ftIcon = STATUS_ICON.fileC;
+  const infoText = ` ${ftIcon} c utf-8[unix] ${bufferSize(state.fileContent)} `;
+  const loc =
+    `${(state.cursor.line + 1).toString().padStart(2)}:` +
+    `${(state.cursor.col + 1).toString().padEnd(2)}`;
+  const locText = ` ${loc} `;
+
+  // --- left side ---
+  let x = EDITOR_LEFT;
+
+  // mode block
+  const modeW = ctx.measureText(modeText).width;
+  ctx.fillStyle = modeColor;
+  ctx.fillRect(x, barY, modeW, STATUS_BAR_HEIGHT);
+  ctx.fillStyle = STATUS.black;
+  ctx.fillText(modeText, x, textY);
+  x += modeW;
+
+  // devinfo
+  ctx.fillStyle = STATUS.fg;
+  ctx.fillText(devText, x, textY);
+  x += ctx.measureText(devText).width;
+
+  // filename block
+  const fileW = ctx.measureText(fileText).width;
+  ctx.fillStyle = STATUS.filenameBg;
+  ctx.fillRect(x, barY, fileW, STATUS_BAR_HEIGHT);
+  ctx.fillStyle = STATUS.fg;
+  ctx.fillText(fileText, x, textY);
+
+  // --- right side ---
+  const locW = ctx.measureText(locText).width;
+  const infoW = ctx.measureText(infoText).width;
+
+  // location block flush right
+  const locX = CV_WIDTH - locW;
+  ctx.fillStyle = modeColor;
+  ctx.fillRect(locX, barY, locW, STATUS_BAR_HEIGHT);
+  ctx.fillStyle = STATUS.black;
+  ctx.fillText(locText, locX, textY);
+
+  // fileinfo to the left of location
+  ctx.fillStyle = STATUS.fg;
+  ctx.fillText(infoText, locX - infoW, textY);
+}
+
+// bottom-most row: command line and ex messages
+function drawCmdLine(ctx: CanvasRenderingContext2D, state: RenderState) {
+  const y = CV_HEIGHT - CMDLINE_HEIGHT;
+
+  ctx.fillStyle = C.bg;
+  ctx.fillRect(EDITOR_LEFT, y, EDITOR_WIDTH, CMDLINE_HEIGHT);
+
+  if (!state.statusBarMsg) return;
+
+  ctx.font = STATUS_FONT;
   ctx.fillStyle = C.text;
-  ctx.fillStyle = "#191724";
-
-  const modeWidth = 120;
-
-  ctx.fillStyle = "#191724";
-  ctx.fillRect(
-    EDITOR_LEFT + modeWidth,
-    barY,
-    EDITOR_WIDTH - modeWidth,
-    STATUS_BAR_HEIGHT,
-  );
-
-  // file name
-  ctx.fillStyle = C.text;
-  ctx.font = "18px monospace";
-  ctx.fillText(state.activeFile, EDITOR_LEFT + modeWidth + 20, barY + 26);
-
-  // status msg
-  if (state.statusBarMsg) {
-    ctx.fillStyle = C.text;
-    ctx.fillText(state.statusBarMsg, EDITOR_LEFT + modeWidth + 200, barY + 26);
-  } else if (state.errorCount > 0) {
-    ctx.fillStyle = C.love;
-    ctx.fillText(
-      `${state.errorCount} errors`,
-      EDITOR_LEFT + modeWidth + 200,
-      barY + 26,
-    );
-  }
-
-    // file name
-    ctx.fillStyle = C.text;
-    ctx.font = `18px ${FONT_FAMILY}`;
-    ctx.fillText(state.activeFile, EDITOR_LEFT + modeWidth + 20, barY + 26);
-
-    // status msg
-    if (state.statusBarMsg) {
-        ctx.fillStyle = C.text;
-        ctx.fillText(state.statusBarMsg, EDITOR_LEFT + modeWidth + 200, barY + 26);
-    } else if (state.errorCount > 0) {
-        ctx.fillStyle = C.love;
-        ctx.fillText(
-            `${state.errorCount} errors`,
-            EDITOR_LEFT + modeWidth + 200,
-            barY + 26,
-        );
-    }
-
-    // cursor pos
-    const posText = `${state.cursor.line + 1}:${state.cursor.col + 1}`;
-    ctx.fillStyle = C.text;
-    ctx.textAlign = "right";
-    ctx.fillText(posText, CV_WIDTH - 20, barY + 26);
-    ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillText(state.statusBarMsg, EDITOR_LEFT + 8, y + 19);
 }

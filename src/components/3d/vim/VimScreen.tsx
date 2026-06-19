@@ -30,6 +30,7 @@ export function VimScreen({
   const [cursor, setCursor] = useState({ line: 0, col: 0 });
   const [visualStartLine, setVisualStartLine] = useState<number | null>(null);
   const [centerTrigger, setCenterTrigger] = useState(0);
+  const [modified, setModified] = useState(false);
   const [fontReady, setFontReady] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -77,6 +78,7 @@ export function VimScreen({
       visualStartLine,
       statusBarMsg,
       errorCount,
+      modified,
     });
 
     // notify texture to update
@@ -103,6 +105,7 @@ export function VimScreen({
     visualStartLine,
     statusBarMsg,
     errorCount,
+    modified,
     onTextureUpdate,
     gl,
     fontReady,
@@ -184,17 +187,17 @@ export function VimScreen({
       { type: "wait", ms: 200 },
       { type: "set_mode", val: "INSERT" },
       { type: "fix_indent", indent: 8 },
-      { type: "type_text_slowly", text: "/* Welcome to my world! */" },
+      { type: "type_text_slowly", text: "/* Welcome stranger! */" },
       { type: "press_enter" },
       { type: "wait", ms: 300 },
       { type: "fix_indent", indent: 8 },
-      { type: "type_text_slowly", text: "/* I hope you like my work. */" },
+      { type: "type_text_slowly", text: "/* What brings you here? */" },
       { type: "press_enter" },
       { type: "wait", ms: 300 },
       { type: "fix_indent", indent: 8 },
       {
         type: "type_text_slowly",
-        text: "/* Let's build something, shall we? */",
+        text: "/* Let's build something! */",
       },
       { type: "wait", ms: 800 },
       { type: "set_mode", val: "NORMAL" },
@@ -233,6 +236,7 @@ export function VimScreen({
           contentRef.current = [...FILES_CONTENT[targetFile]];
           setFileContent(FILES_CONTENT[targetFile]);
           setCursor({ line: 0, col: 0 });
+          setModified(false);
           break;
         }
         case "move_cursor":
@@ -263,6 +267,7 @@ export function VimScreen({
             setMode("NORMAL");
             setVisualStartLine(null);
             setCursor({ line: start, col: 0 });
+            setModified(true);
           }
           break;
         case "set_errors":
@@ -284,6 +289,7 @@ export function VimScreen({
           contentRef.current = newArr;
           setFileContent(newArr);
           setCursor({ line: lIdx + 1, col: 0 });
+          setModified(true);
           break;
         }
         case "fix_indent": {
@@ -292,6 +298,7 @@ export function VimScreen({
           indentedArr[s.cursor.line] = " ".repeat(action.indent as number);
           contentRef.current = indentedArr;
           setFileContent(indentedArr);
+          setModified(true);
           break;
         }
         case "type_text_slowly": {
@@ -308,6 +315,7 @@ export function VimScreen({
             setCursor((prev) => ({ ...prev, col: prev.col + 1 }));
             await new Promise((r) => setTimeout(r, 60 + Math.random() * 50));
           }
+          setModified(true);
           break;
         }
         case "show_command":
@@ -317,6 +325,7 @@ export function VimScreen({
         case "show_msg":
           setMode("NORMAL");
           setStatusBarMsg(action.val as string);
+          setModified(false);
           break;
         case "hide_command":
           setStatusBarMsg("");
@@ -333,6 +342,7 @@ export function VimScreen({
           setCursor({ line: 0, col: 0 });
           setStatusBarMsg("");
           setMode("NORMAL");
+          setModified(false);
           break;
         }
         case "prepare_loop": {
@@ -340,6 +350,7 @@ export function VimScreen({
           setExplorerIndex(0);
           setErrorCount(0);
           setCenterTrigger(0);
+          setModified(false);
           FILES_CONTENT["portfolio.c"] = [
             '#include "portfolio.h"',
             "#include <stdlib.h>",

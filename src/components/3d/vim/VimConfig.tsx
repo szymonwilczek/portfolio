@@ -31,6 +31,35 @@ export const C = {
   selection: "#3f1324", // Visual bg
 };
 
+// mini.statusline (ef-autumn)
+// mode block | devinfo (git/diff/diagnostics) | filename %= fileinfo | location
+export const STATUS = {
+  fill: "#692a12", // StatusLine bg (devinfo / fileinfo / fill)
+  fg: "#feeeca", // StatusLine fg
+  filenameBg: "#26211d", // MiniStatuslineFilename bg
+  black: "#000000", // mode / location fg
+  mode: {
+    NORMAL: "#d0730f",
+    INSERT: "#4fdf5f",
+    "V-LINE": "#c48702",
+    COMMAND: "#ef656a",
+  } as Record<string, string>,
+};
+
+export const MODE_LONG: Record<string, string> = {
+  NORMAL: "Normal",
+  INSERT: "Insert",
+  "V-LINE": "V-Line",
+  COMMAND: "Command",
+};
+
+export const STATUS_ICON = {
+  git: "", // section_git
+  diff: "", // section_diff
+  diag: "", // section_diagnostics
+  fileC: "", // C filetype (nvim-web-devicons)
+};
+
 // file structure
 export interface FileNode {
   id: string;
