@@ -135,6 +135,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://www.nerdfonts.com/assets/css/webfont.css"
+        />
+      </head>
       <body
         className={`
         ${geistSans.variable}
