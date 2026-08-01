@@ -20,6 +20,7 @@ export interface ProjectData {
   carousel?: string[];
   content?: string;
   github?: string;
+  language?: string;
   links?: ProjectLink[];
 }
 
@@ -44,10 +45,34 @@ export function getAllProjects(): ProjectData[] {
         excerpt: data.excerpt || "",
         tags: data.tags || [],
         thumbnail: data.thumbnail,
+        github: data.github,
+        language: data.language,
+        links: data.links || [],
       } as ProjectData;
     });
 
+  const orderFilePath = path.join(contentDirectory, "order.txt");
+  let orderedSlugs: string[] = [];
+  if (fs.existsSync(orderFilePath)) {
+    const fileContent = fs.readFileSync(orderFilePath, "utf8");
+    orderedSlugs = fileContent
+      .split("\n")
+      .map((line) => line.trim().replace(/\.md$/, ""))
+      .filter((line) => line.length > 0 && !line.startsWith("#"));
+  }
+
   return allProjectsData.sort((a, b) => {
+    if (orderedSlugs.length > 0) {
+      const indexA = orderedSlugs.indexOf(a.slug);
+      const indexB = orderedSlugs.indexOf(b.slug);
+
+      if (indexA !== -1 && indexB !== -1) {
+        return indexA - indexB;
+      }
+      if (indexA !== -1) return -1;
+      if (indexB !== -1) return 1;
+    }
+
     if (a.date < b.date) {
       return 1;
     } else {
@@ -59,7 +84,6 @@ export function getAllProjects(): ProjectData[] {
 export function getProjectData(slug: string): ProjectData {
   const fullPath = path.join(contentDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
-
   const { data, content } = matter(fileContents);
 
   return {
@@ -72,6 +96,7 @@ export function getProjectData(slug: string): ProjectData {
     thumbnail: data.thumbnail,
     carousel: data.carousel || [],
     github: data.github,
+    language: data.language,
     links: data.links || [],
   } as ProjectData;
 }
