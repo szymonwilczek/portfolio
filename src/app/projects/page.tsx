@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   description: "Showcase of my recent work and experiments.",
 };
 
-export default function ProjectsPage() {
-  const projects = getAllProjects();
+export default async function ProjectsPage() {
+  const projects = await getAllProjects();
 
   return (
     <main className="mx-auto mb-8 -mt-10 bg-background px-6 md:px-12 transition-colors duration-300 z-0">
@@ -38,7 +38,7 @@ export default function ProjectsPage() {
           </p>
         </div>
 
-        <ProjectsGrid projects={projects} itemsPerPage={6} />
+        <ProjectsGrid projects={projects} itemsPerPage={4} />
       </div>
     </main>
   );
