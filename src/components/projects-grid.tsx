@@ -37,10 +37,6 @@ export function ProjectsGrid({ projects, itemsPerPage = 4 }: ProjectsGridProps) 
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
-      setTimeout(() => {
-        const scrollPosition = window.innerHeight / 2;
-        window.scrollTo({ top: scrollPosition, behavior: "smooth" });
-      }, 100);
     }
   };
 
