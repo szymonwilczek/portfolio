@@ -19,9 +19,10 @@ export interface ProjectData {
   thumbnail?: string;
   carousel?: string[];
   content?: string;
-  github?: string;
+  url?: string;
   language?: string;
-  links?: ProjectLink[];
+  archived?: boolean;
+  badge?: string | string[];
 }
 
 export function getAllProjects(): ProjectData[] {
@@ -45,9 +46,10 @@ export function getAllProjects(): ProjectData[] {
         excerpt: data.excerpt || "",
         tags: data.tags || [],
         thumbnail: data.thumbnail,
-        github: data.github,
+        url: data.url || data.github,
         language: data.language,
-        links: data.links || [],
+        archived: Boolean(data.archived),
+        badge: data.badge,
       } as ProjectData;
     });
 
@@ -95,9 +97,10 @@ export function getProjectData(slug: string): ProjectData {
     tags: data.tags,
     thumbnail: data.thumbnail,
     carousel: data.carousel || [],
-    github: data.github,
+    url: data.url || data.github,
     language: data.language,
-    links: data.links || [],
+    archived: Boolean(data.archived),
+    badge: data.badge,
   } as ProjectData;
 }
 
