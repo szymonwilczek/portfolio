@@ -33,7 +33,8 @@ export default function BlogPage() {
             Blog<span className="text-muted-foreground">/Notes</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Personal write-ups, ideas, and notes on different kind of things.
+            Personal write-ups, ideas, and notes on different kind of things. I
+            don&apos;t write much, but this is where I do it.
           </p>
         </div>
 
