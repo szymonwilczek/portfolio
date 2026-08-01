@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
+import { Github, ExternalLink, Star, GitFork } from "lucide-react";
 import {
   Pagination,
   PaginationContent,
@@ -12,13 +10,21 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { LanguageIcon } from "@/components/projects/LanguageIcon";
+import { ProjectBadge } from "@/components/projects/ProjectBadge";
 
 interface Project {
   slug: string;
   title: string;
   excerpt: string;
-  thumbnail?: string;
   tags: string[];
+  thumbnail?: string;
+  url?: string;
+  language?: string;
+  archived?: boolean;
+  badge?: string | string[];
+  stars?: number;
+  forks?: number;
 }
 
 interface ProjectsGridProps {
@@ -26,7 +32,18 @@ interface ProjectsGridProps {
   itemsPerPage?: number;
 }
 
-export function ProjectsGrid({ projects, itemsPerPage = 4 }: ProjectsGridProps) {
+function PublicRepoIcon({
+  className = "text-base shrink-0 text-muted-foreground",
+}: {
+  className?: string;
+}) {
+  return <i className={`nf nf-oct-repo ${className}`} aria-hidden="true" />;
+}
+
+export function ProjectsGrid({
+  projects,
+  itemsPerPage = 4,
+}: ProjectsGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(projects.length / itemsPerPage);
@@ -47,49 +64,82 @@ export function ProjectsGrid({ projects, itemsPerPage = 4 }: ProjectsGridProps) 
         style={{ animationFillMode: "both" }}
       >
         {currentProjects.map((project) => (
-          <Link
+          <div
             key={project.slug}
-            href={`/projects/${project.slug}`}
-            className="group relative flex flex-col h-full bg-card rounded-xl border border-border/50 overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all duration-300"
+            className="group relative flex flex-col h-full bg-card hover:bg-card/80 border border-border/70 hover:border-primary/40 rounded-xl p-5 transition-all duration-200 shadow-sm hover:shadow-md"
           >
-            <div className="w-full aspect-video bg-muted/30 relative overflow-hidden">
-              {project.thumbnail ? (
-                <Image
-                  width={640}
-                  height={360}
-                  src={project.thumbnail}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground/20 text-6xl font-bold select-none">
-                  NO IMG
-                </div>
-              )}
+            <div className="flex items-start justify-between gap-3 mb-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <PublicRepoIcon className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
+                {project.url ? (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-jetbrains font-bold text-base md:text-lg text-foreground hover:text-primary hover:underline truncate"
+                  >
+                    {project.title}
+                  </a>
+                ) : (
+                  <h2 className="font-jetbrains font-bold text-base md:text-lg text-foreground truncate">
+                    {project.title}
+                  </h2>
+                )}
+              </div>
+              <ProjectBadge badge={project.badge} archived={project.archived} />
             </div>
 
-            <div className="flex flex-col flex-1 p-4 gap-2">
-              <h2 className="text-xl font-bold font-jetbrains group-hover:text-primary transition-colors">
-                {project.title}
-              </h2>
-              <p className="text-muted-foreground text-sm line-clamp-3">
-                {project.excerpt}
-              </p>
+            <p className="text-xs md:text-sm text-muted-foreground my-2 line-clamp-3 leading-relaxed flex-1">
+              {project.excerpt}
+            </p>
 
-              <div className="mt-auto pt-4 flex flex-wrap gap-2">
-                {project.tags.slice(0, 3).map((tag) => (
-                  <Badge key={tag} variant="outline" className="text-xs font-normal">
-                    {tag}
-                  </Badge>
-                ))}
-                {project.tags.length > 3 && (
-                  <span className="text-xs text-muted-foreground self-center">
-                    +{project.tags.length - 3}
+            <div className="flex items-center justify-between mt-auto pt-3 text-xs">
+              <div className="flex items-center gap-3.5 text-muted-foreground">
+                <LanguageIcon language={project.language} />
+
+                {Boolean(project.stars && project.stars > 0) && (
+                  <span
+                    className="inline-flex items-center gap-1 hover:text-foreground transition-colors cursor-default"
+                    title={`${project.stars} stars`}
+                  >
+                    <Star className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                    <span className="font-jetbrains font-medium text-foreground/80">
+                      {project.stars}
+                    </span>
+                  </span>
+                )}
+
+                {Boolean(project.forks && project.forks > 0) && (
+                  <span
+                    className="inline-flex items-center gap-1 hover:text-foreground transition-colors cursor-default"
+                    title={`${project.forks} forks`}
+                  >
+                    <GitFork className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                    <span className="font-jetbrains font-medium text-foreground/80">
+                      {project.forks}
+                    </span>
                   </span>
                 )}
               </div>
+
+              {project.url && (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-jetbrains font-medium text-muted-foreground hover:text-foreground transition-colors group/link"
+                >
+                  {project.url.includes("github.com") ? (
+                    <Github className="h-4 w-4 text-muted-foreground group-hover/link:text-foreground transition-colors" />
+                  ) : null}
+                  <span>
+                    {project.url.includes("github.com") ? "Repository" : "View"}
+                  </span>
+                  <ExternalLink className="h-3 w-3 opacity-60 group-hover/link:opacity-100 transition-opacity" />
+                </a>
+              )}
             </div>
-          </Link>
+          </div>
         ))}
       </div>
 
@@ -99,7 +149,11 @@ export function ProjectsGrid({ projects, itemsPerPage = 4 }: ProjectsGridProps) 
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => goToPage(currentPage - 1)}
-                className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                className={
+                  currentPage === 1
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer"
+                }
               />
             </PaginationItem>
 
@@ -118,7 +172,11 @@ export function ProjectsGrid({ projects, itemsPerPage = 4 }: ProjectsGridProps) 
             <PaginationItem>
               <PaginationNext
                 onClick={() => goToPage(currentPage + 1)}
-                className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                className={
+                  currentPage === totalPages
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer"
+                }
               />
             </PaginationItem>
           </PaginationContent>
