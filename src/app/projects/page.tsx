@@ -38,7 +38,7 @@ export default function ProjectsPage() {
           </p>
         </div>
 
-        <ProjectsGrid projects={projects} itemsPerPage={4} />
+        <ProjectsGrid projects={projects} itemsPerPage={6} />
       </div>
     </main>
   );

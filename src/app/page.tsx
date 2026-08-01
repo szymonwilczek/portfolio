@@ -187,15 +187,17 @@ export default function Home() {
           Technologies I Mostly Work With
         </h4>
         <div className="flex flex-wrap gap-2">
-          {["C", "Go", "Lua", "TypeScript", "Rust"].map((tech) => (
-            <Badge
-              key={tech}
-              variant="secondary"
-              className="px-3 py-1 text-sm font-jetbrains"
-            >
-              {tech}
-            </Badge>
-          ))}
+          {["C", "Go", "Lua", "TypeScript", "JavaScript", "Rust"].map(
+            (tech) => (
+              <Badge
+                key={tech}
+                variant="secondary"
+                className="px-3 py-1 text-sm font-jetbrains"
+              >
+                {tech}
+              </Badge>
+            ),
+          )}
         </div>
       </Section>
 
