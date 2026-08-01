@@ -23,21 +23,77 @@ export interface ProjectData {
   language?: string;
   archived?: boolean;
   badge?: string | string[];
+  stars?: number;
+  forks?: number;
 }
 
-export function getAllProjects(): ProjectData[] {
+function parseGitHubUrl(url?: string): { owner: string; repo: string } | null {
+  if (!url) return null;
+  const match = url.match(/github\.com\/([^/]+)\/([^/]+)/);
+  if (match) {
+    return { owner: match[1], repo: match[2].replace(/\.git$/, "") };
+  }
+  return null;
+}
+
+async function getGitHubRepoStats(
+  owner: string,
+  repo: string,
+): Promise<{ stars: number; forks: number } | null> {
+  try {
+    const headers: Record<string, string> = {
+      Accept: "application/vnd.github.v3+json",
+      "User-Agent": "portfolio-app",
+    };
+    if (process.env.GITHUB_TOKEN) {
+      headers["Authorization"] = `Bearer ${process.env.GITHUB_TOKEN}`;
+    }
+
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+      headers,
+      next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) return null;
+    const data = await res.json();
+    return {
+      stars:
+        typeof data.stargazers_count === "number" ? data.stargazers_count : 0,
+      forks: typeof data.forks_count === "number" ? data.forks_count : 0,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export async function getAllProjects(): Promise<ProjectData[]> {
   if (!fs.existsSync(contentDirectory)) {
     return [];
   }
 
   const fileNames = fs.readdirSync(contentDirectory);
-  const allProjectsData = fileNames
+  const projectsPromises = fileNames
     .filter((fileName) => fileName.endsWith(".md"))
-    .map((fileName) => {
+    .map(async (fileName) => {
       const slug = fileName.replace(/\.md$/, "");
       const fullPath = path.join(contentDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data } = matter(fileContents);
+
+      const url = data.url || data.github;
+      let stars = data.stars !== undefined ? Number(data.stars) : undefined;
+      let forks = data.forks !== undefined ? Number(data.forks) : undefined;
+
+      if ((stars === undefined || forks === undefined) && url) {
+        const gh = parseGitHubUrl(url);
+        if (gh) {
+          const stats = await getGitHubRepoStats(gh.owner, gh.repo);
+          if (stats) {
+            if (stars === undefined) stars = stats.stars;
+            if (forks === undefined) forks = stats.forks;
+          }
+        }
+      }
 
       return {
         slug,
@@ -46,12 +102,16 @@ export function getAllProjects(): ProjectData[] {
         excerpt: data.excerpt || "",
         tags: data.tags || [],
         thumbnail: data.thumbnail,
-        url: data.url || data.github,
+        url,
         language: data.language,
         archived: Boolean(data.archived),
         badge: data.badge,
+        stars,
+        forks,
       } as ProjectData;
     });
+
+  const allProjectsData = await Promise.all(projectsPromises);
 
   const orderFilePath = path.join(contentDirectory, "order.txt");
   let orderedSlugs: string[] = [];
@@ -101,6 +161,8 @@ export function getProjectData(slug: string): ProjectData {
     language: data.language,
     archived: Boolean(data.archived),
     badge: data.badge,
+    stars: data.stars !== undefined ? Number(data.stars) : undefined,
+    forks: data.forks !== undefined ? Number(data.forks) : undefined,
   } as ProjectData;
 }
 
