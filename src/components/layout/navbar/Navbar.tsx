@@ -40,7 +40,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
 
     const navigationLinks = [
       { href: "/", label: "Home" },
-      { href: "/projects", label: "Works" },
+      { href: "/projects", label: "Projects" },
       { href: "/feed", label: "Feed" },
       { href: "/blog", label: "Blog" },
     ];
