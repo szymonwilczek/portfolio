@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>10FastFingers Collector</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-container">
+    <header class="header">
+      <div class="brand">
+        <i class="nf nf-fa-keyboard brand-icon" aria-hidden="true"></i>
+        <span class="brand-title">10FastFingers Collector</span>
+      </div>
+      <button id="open-options-btn" class="icon-btn" title="Extension Settings">
+        <i class="nf nf-oct-gear" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <main class="content">
+      <section class="section input-section">
+        <label for="share-url" class="label">10FastFingers Share URL</label>
+        <div class="input-group">
+          <input 
+            type="url" 
+            id="share-url" 
+            placeholder="https://10fastfingers.com/share/typing-test/..."
+            autocomplete="off" 
+          />
+          <button id="process-btn" class="btn btn-primary">Process</button>
+        </div>
+      </section>
+
+      <div id="status-banner" class="status-banner hidden"></div>
+
+      <section id="result-card" class="result-card hidden">
+        <div class="result-header">
+          <span class="result-title">Last Processed Test</span>
+          <span id="result-lang" class="badge">Polish</span>
+        </div>
+        <div class="result-stats">
+          <div class="stat-box">
+            <span class="stat-value" id="res-wpm">0</span>
+            <span class="stat-label">WPM</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value text-warning" id="res-wrong-count">0</span>
+            <span class="stat-label">Problem Words</span>
+          </div>
+        </div>
+        <div class="result-words" id="res-words-list"></div>
+      </section>
+
+      <section class="section stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number" id="total-unique-words">0</span>
+            <span class="stat-caption">Collected Words</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="total-tests">0</span>
+            <span class="stat-caption">Tests Processed</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section actions-section">
+        <button id="export-json-btn" class="btn btn-secondary">
+          <i class="nf nf-oct-download" aria-hidden="true"></i>
+          <span>Export JSON</span>
+        </button>
+        <button id="clear-data-btn" class="btn btn-danger-outline">
+          <i class="nf nf-oct-trash" aria-hidden="true"></i>
+          <span>Clear Storage</span>
+        </button>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>v1.0.0</span>
+    </footer>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
