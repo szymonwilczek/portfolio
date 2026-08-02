@@ -13,6 +13,7 @@ export function SceneWrapper() {
     if (pathname === "/") return true;
     if (pathname === "/projects") return true;
     if (pathname === "/feed") return true;
+    if (pathname === "/misc") return true;
 
     return false;
   }, [pathname]);
