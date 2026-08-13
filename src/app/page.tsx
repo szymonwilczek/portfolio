@@ -26,7 +26,7 @@ const timelineData: TimelineEntry[] = [
   {
     id: 1,
     date: "2025",
-    title: "Linux Kernel Contributor",
+    title: "Linux Kernel",
     description:
       "Searching for and fixing bugs in mainline - UAF, Out-of-bounds reads, races across filesystems and some drivers.",
     isCurrent: true,
@@ -40,10 +40,10 @@ const timelineData: TimelineEntry[] = [
   {
     id: 2,
     date: "2025",
-    title: "Web Developer @ FAMUR",
+    title: "Software Architect @ FAMUR",
     description:
       "Backend-heavy web apps for the mining industry. PHP, legacy data, not glamorous. The kind of system nobody notices until it loses a row - so it doesn't.",
-    isCurrent: false,
+    isCurrent: true,
   },
   {
     id: 3,
