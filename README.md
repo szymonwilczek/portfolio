@@ -56,16 +56,6 @@ SPOTIFY_REFRESH_TOKEN=your_refresh_token
 WAKATIME_API_KEY=your_api_key
 ```
 
-## Custom Lucide Icons in Markdown
-
-This project includes a custom remark plugin for using Lucide icons directly in markdown:
-
-```markdown
-### :icon[ShoppingCart]{.text-orange-500 .inline-block .mr-2} Feature Title
-```
-
-Supports any Lucide icon with Tailwind classes!
-
 ## 🐺 About the Wolf
 
 His name is Simon. He's made of polygons. No, you cannot pet him.
