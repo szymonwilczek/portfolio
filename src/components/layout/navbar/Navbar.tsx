@@ -41,7 +41,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
     const navigationLinks = [
       { href: "/", label: "Home" },
       { href: "/projects", label: "Projects" },
-      { href: "/blog", label: "Blog" },
+      { href: "https://sw.szymon-wilczek.me", label: "Blog", external: true },
       { href: "/misc", label: "Misc" },
     ];
 
@@ -93,13 +93,24 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                     onMouseEnter={() => setNavItemHovered(true)}
                     onMouseLeave={() => setNavItemHovered(false)}
                   >
-                    <NavigationMenuLink
-                      onClick={() => router.push(link.href)}
-                      active={pathname === link.href}
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      {link.label}
-                    </NavigationMenuLink>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <NavigationMenuLink
+                        onClick={() => router.push(link.href)}
+                        active={pathname === link.href}
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        {link.label}
+                      </NavigationMenuLink>
+                    )}
                   </NavigationMenuItem>
                 ))}
               </NavigationMenuList>
@@ -130,18 +141,32 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                   <div className="flex flex-col gap-1 mt-1">
                     {navigationLinks.map((link) => (
                       <DropdownMenuItem key={link.href} asChild>
-                        <Link
-                          href={link.href}
-                          className={cn(
-                            "w-full cursor-pointer justify-start text-base font-medium transition-colors",
-                            pathname === link.href
-                              ? "bg-accent text-accent-foreground"
-                              : "text-muted-foreground",
-                          )}
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {link.label}
-                        </Link>
+                        {link.external ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={cn(
+                              "w-full cursor-pointer justify-start text-base font-medium transition-colors text-muted-foreground hover:text-foreground",
+                            )}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {link.label}
+                          </a>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className={cn(
+                              "w-full cursor-pointer justify-start text-base font-medium transition-colors",
+                              pathname === link.href
+                                ? "bg-accent text-accent-foreground"
+                                : "text-muted-foreground",
+                            )}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {link.label}
+                          </Link>
+                        )}
                       </DropdownMenuItem>
                     ))}
                   </div>
